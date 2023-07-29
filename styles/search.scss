@@ -1,0 +1,40 @@
+.searchBox {
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+  .container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 100px auto;
+    align-items: center;
+    width: 700px;
+    height: 50px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: #e2e2e2 0px 5px 10px;
+
+    .ant-select-selector {
+      border: none;
+    }
+
+    input {
+      height: 100%;
+      border: none;
+      outline: none;
+      padding-bottom: 3px;
+      font-size: 14px;
+      text-indent: 10px;
+    }
+    .anticon-search {
+      position: absolute;
+      height: 16px;
+      top: 0;
+      bottom: 0;
+      right: 13px;
+      margin: auto 0;
+      color: #626262;
+    }
+  }
+}
