@@ -1,5 +1,12 @@
+import AuthForm from "@components/auth/AuthForm";
+import AuthTemplate from "@components/auth/AuthTemplate";
+
 function LoginPage() {
-  return <h1 className="title">로그인</h1>;
+  return (
+    <AuthTemplate>
+      <AuthForm type="login" />
+    </AuthTemplate>
+  );
 }
 
 export default LoginPage;
