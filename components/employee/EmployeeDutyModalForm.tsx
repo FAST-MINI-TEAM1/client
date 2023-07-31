@@ -1,14 +1,23 @@
 import { useState } from "react";
-import { Input, Modal, Button, Select, Space } from "antd";
+import { Input, Modal, Button, Select, Space, DatePicker } from "antd";
 
 function EmployeeDutyModalForm() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  //modal에서 받는 inputVlaue값
+  const [inputDate, setInputDate] = useState("");
+  const [inputCategory, setInputCategory] = useState("");
+  const [inputReason, setInputReason] = useState("");
+  const [inputEtc, setInputEtc] = useState("");
 
-  const onChange = (value: string) => {
+  // DatePicker
+  const { RangePicker } = DatePicker;
+
+  // select 휴가종류
+  const selectCategory = (value: string) => {
+    setInputCategory(value);
     console.log(`selected ${value}`);
   };
-
-  const onSearch = (value: string) => {
+  const searchCategory = (value: string) => {
     console.log("search:", value);
   };
 
@@ -26,27 +35,33 @@ function EmployeeDutyModalForm() {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Open Modal
+        연차 등록하기
       </Button>
       <Modal
-        title="Basic Modal"
+        title="연차 등록하기"
         open={isModalOpen}
+        okText="신청"
         onOk={handleOk}
+        cancelText="취소"
         onCancel={handleCancel}
       >
+        <div>남은 연차 횟수 {11}일</div>
         <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
           <div>연차일</div>
+          <RangePicker bordered={false} />
         </Space>
         <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
           <div>휴가종류</div>
           <Select
+            bordered={false}
             showSearch
             placeholder="휴가종류"
             optionFilterProp="children"
-            onChange={onChange}
-            onSearch={onSearch}
+            onChange={selectCategory}
+            onSearch={searchCategory}
+            value={inputCategory || null}
             filterOption={(input, option) =>
-              (option?.label ?? "").includes(input)
+              (option?.label ?? "휴가종류").includes(input)
             }
             options={[
               {
@@ -68,18 +83,30 @@ function EmployeeDutyModalForm() {
             ]}
           />
         </Space>
-        <Input
-          type="text"
-          placeholder="입력하세요"
-          value="여름휴가"
-          addonBefore="사유"
-        ></Input>
-        <Input
-          type="text"
-          placeholder="입력하세요"
-          value="여름휴가"
-          addonBefore="특이사항"
-        ></Input>
+        <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
+          <div>사유</div>
+          <Input
+            bordered={false}
+            type="text"
+            placeholder="입력하세요"
+            value={inputReason}
+            onChange={(e) => {
+              setInputReason(e.target.value);
+            }}
+          ></Input>
+        </Space>
+        <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
+          <div>특이사항</div>
+          <Input
+            bordered={false}
+            type="text"
+            placeholder="입력하세요"
+            value={inputEtc}
+            onChange={(e) => {
+              setInputEtc(e.target.value);
+            }}
+          ></Input>
+        </Space>
       </Modal>
     </>
   );
