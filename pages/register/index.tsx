@@ -1,5 +1,12 @@
+import AuthForm from "@components/auth/AuthForm";
+import AuthTemplate from "@components/auth/AuthTemplate";
+
 function RegsiterPage() {
-  return <h1>회원가입</h1>
+  return (
+    <AuthTemplate>
+      <AuthForm type="register" />
+    </AuthTemplate>
+  );
 }
 
 export default RegsiterPage;
