@@ -2,6 +2,7 @@ import { Space, Table, Button, Modal } from "antd";
 import { useState } from "react";
 import ApprovalModal from "./ApprovalModal";
 import { title } from "process";
+import styeld from "styeld-components";
 
 function ApprovalTabel({ tableTitle }) {
   const [open, setOpen] = useState(false);
