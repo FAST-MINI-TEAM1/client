@@ -1,4 +1,3 @@
-import "@styles/globals.scss";
 import GlobalStyle from "@styles/GlobalStyle";
 import type { AppProps } from "next/app";
 import Head from "next/head";
