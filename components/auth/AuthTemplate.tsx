@@ -22,10 +22,11 @@ const AuthTemplateBlock = styled.div`
 `;
 
 const WhiteBox = styled.div`
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.025);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
   width: 480px;
+  padding: 2rem;
   background: #fff;
-  border-radius: 2px;
+  border-radius: 8px;
 `;
 
 export default AuthTemplate;
