@@ -5,8 +5,8 @@ function Home() {
   return (
     <>
       <h1>홈</h1>
-      <Button />
       <Calendar />
+      <Button acceptButton>승인버튼</Button>
     </>
   );
 }
