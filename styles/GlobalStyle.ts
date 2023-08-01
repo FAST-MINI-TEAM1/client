@@ -28,12 +28,7 @@ const GlobalStyle = createGlobalStyle`
     display: block;
   }
   body {
-    font-family: 'NanumSquare', sans-serif;
-    line-height: 1;
-    -ms-overflow-style: none;
-    ::-webkit-scrollbar {
-      display: none !important;
-    }
+    background: #eee;
   }
   ol, ul {
     list-style: none;
