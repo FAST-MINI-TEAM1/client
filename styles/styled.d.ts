@@ -5,7 +5,12 @@ declare module "styled-components" {
     bgColor: string;
     textColor: string;
     containerBoxColor: string;
-    buttonColor: string;
+    buttonColor: {
+      empButton: string;
+      managerButton: string;
+      acceptButton: string;
+      denyButton: string;
+    };
     borderColor: string;
     buttonTextColor: string;
     hoverColor: string;

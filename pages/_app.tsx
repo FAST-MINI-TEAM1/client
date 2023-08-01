@@ -1,6 +1,8 @@
 import GlobalStyle from "@styles/GlobalStyle";
+import { theme } from "@styles/theme";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import { ThemeProvider } from "styled-components";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -9,7 +11,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>TEAM1</title>
       </Head>
-      <Component {...pageProps} />
+      <ThemeProvider theme={theme}>
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   );
 }
