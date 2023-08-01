@@ -5,7 +5,7 @@ interface IButtonProps {
 }
 
 function Button({ ...props }: IButtonProps) {
-  return <StyledButton {...props}>버튼</StyledButton>;
+  return <StyledButton {...props} />;
 }
 
 const StyledButton = styled.button<{
@@ -31,13 +31,11 @@ const StyledButton = styled.button<{
     props.empButton &&
     css`
       background: ${(props) => props.theme.buttonColor.empButton};
-      border-radius: 30%;
     `}
   ${(props) =>
     props.managerButton &&
     css`
       background: ${(props) => props.theme.buttonColor.managerButton};
-      border-radius: 30%;
     `}
   ${(props) =>
     props.acceptButton &&
