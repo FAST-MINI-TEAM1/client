@@ -1,10 +1,14 @@
-import EmployeeDutyModalForm from "@components/employee/EmployeeDutyModalForm";
+import EmployeeTableTab from "@components/employee/EmployeeTableTab"
+
 
 function EmployeePage() {
   return (
     <>
       <div>employee</div>
-      <EmployeeDutyModalForm />
+      <EmployeeTableTab />
+      
+      
+
     </>
   );
 }

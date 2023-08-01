@@ -3,6 +3,7 @@ import { Input, Modal, Button, Select, Space, DatePicker } from "antd";
 
 function EmployeeDutyModalForm() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [toggle, setToggle] = useState(false);
   //modal에서 받는 inputVlaue값
   const [inputDate, setInputDate] = useState("");
   const [inputCategory, setInputCategory] = useState("");
@@ -35,22 +36,22 @@ function EmployeeDutyModalForm() {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        연차 등록하기
+        {toggle ? "연차 등록하기" : "당직 등록하기"}
       </Button>
       <Modal
-        title="연차 등록하기"
+        title={toggle ? "연차 등록하기" : "당직 등록하기"}
         open={isModalOpen}
         okText="신청"
         onOk={handleOk}
         cancelText="취소"
         onCancel={handleCancel}
       >
-        <div>남은 연차 횟수 {11}일</div>
+        {toggle ? <div>남은 연차 횟수 {11}일</div> : null}
         <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
-          <div>연차일</div>
+          <div> {toggle ? "연차일" : "당직일"}</div>
           <RangePicker bordered={false} />
         </Space>
-        <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
+        {toggle ? <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
           <div>휴가종류</div>
           <Select
             bordered={false}
@@ -82,7 +83,7 @@ function EmployeeDutyModalForm() {
               },
             ]}
           />
-        </Space>
+        </Space> : null}
         <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
           <div>사유</div>
           <Input
