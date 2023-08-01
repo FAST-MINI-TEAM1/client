@@ -1,6 +1,8 @@
-import { Card } from "antd";
+import Link from "next/link";
+import { FormEvent, useState } from "react";
 import styled from "styled-components";
 
+// Interface
 interface IAuthFormProps {
   type: string;
 }
@@ -9,19 +11,24 @@ interface ITextMap {
   [key: string]: any;
 }
 
+// Constant / Variation
 const textMap: ITextMap = {
   login: "로그인",
   register: "회원가입",
 };
 
+// Component
 function AuthForm({ type }: IAuthFormProps) {
+  // 컴포넌트 타입에 따른 이름
   const text = textMap[type];
+
+  // render
   return (
     <AuthFormBlock>
       <h3>{text}</h3>
-      <StyledForm>
+      <form>
         {type === "login" && (
-          <LoginForm>
+          <>
             <StyledInput
               autoComplete="email"
               name="email"
@@ -31,62 +38,108 @@ function AuthForm({ type }: IAuthFormProps) {
               type="password"
               autoComplete="password"
               name="password"
-              placeholder="비밀번호"
+              placeholder="패스워드"
             />
-          </LoginForm>
+          </>
         )}
-        <StyledButton>{text}</StyledButton>
-      </StyledForm>
+        {type === "register" && (
+          <>
+            <StyledInput
+              autoComplete="email"
+              name="email"
+              placeholder="이메일"
+            />
+            <StyledInput
+              autoComplete="name"
+              name="name"
+              placeholder="이름"
+            />
+            <StyledInput
+              type="password"
+              autoComplete="password"
+              name="password"
+              placeholder="패스워드"
+            />
+            <StyledInput autoComplete="name" name="name" placeholder="이름" />
+            <StyledInput
+              type="password"
+              autoComplete="new-password"
+              name="passwordConfirm"
+              placeholder="패스워드 확인"
+            />
+          </>
+        )}
+        <ButtonBlock>
+          <StyledButton>{text}</StyledButton>
+        </ButtonBlock>
+      </form>
+      <Footer>
+        {type === "login" ? (
+          <Link href="/register">회원가입</Link>
+        ) : (
+          <Link href="/login">로그인</Link>
+        )}
+      </Footer>
     </AuthFormBlock>
   );
 }
 
+// Style
 const AuthFormBlock = styled.div`
-  border-radius: 1rem;
-  padding-bottom: 40px;
-  border: 1px solid #333;
+  padding: 0 40px;
   h3 {
-    padding-top: 30px;
-    text-align: center;
-    margin: 20px 0;
+    margin: 0;
+    color: #707070;
+    font-size: 24px;
     font-weight: 700;
-    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    margin-bottom: 40px;
   }
-`;
-
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-`;
-
-const LoginForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  height: 80px;
 `;
 
 const StyledInput = styled.input`
-  outline: none;
-  width: 200px;
-  padding: 0.5rem;
-  font-size: 0.875rem;
-  background: #fff;
+  font-size: 1rem;
   border: none;
-  border-bottom: 1px solid #707070;
+  border-bottom: 1px solid #666;
+  padding-bottom: 0.5rem;
+  outline: none;
+  width: 100%;
   &:focus {
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid #000;
   }
-  &::placeholder {
-    color: #707070;
+  & + & {
+    margin-top: 2rem;
   }
 `;
 
-const StyledButton = styled.button``;
+const ButtonBlock = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledButton = styled.button`
+  margin-top: 2rem;
+  width: 180px;
+  height: 30px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+`;
+
+const Footer = styled.div`
+  margin-top: 2rem;
+  text-align: right;
+  a {
+    color: #bbb;
+    text-decoration: underline;
+    &:hover {
+      color: #707070;
+    }
+  }
+`;
 
 export default AuthForm;
