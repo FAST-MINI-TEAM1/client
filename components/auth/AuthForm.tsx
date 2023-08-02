@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { FormEvent, useState } from "react";
 import styled from "styled-components";
 
 // Interface

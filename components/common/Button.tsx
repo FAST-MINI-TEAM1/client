@@ -9,11 +9,11 @@ function Button({ ...props }: IButtonProps) {
 }
 
 const StyledButton = styled.button<{
-  empButton?: boolean;
-  managerButton?: boolean;
-  acceptButton?: boolean;
-  denyButton?: boolean;
-  pendingButton?: boolean;
+  employee?: boolean;
+  manager?: boolean;
+  accept?: boolean;
+  deny?: boolean;
+  pending?: boolean;
 }>`
   border: none;
   border-radius: 10px;
@@ -30,7 +30,7 @@ const StyledButton = styled.button<{
   }
 
   ${(props) =>
-    props.empButton &&
+    props.employee &&
     css`
       background: ${(props) => props.theme.buttonColor.empButton};
       &:hover {
@@ -40,7 +40,7 @@ const StyledButton = styled.button<{
       }
     `}
   ${(props) =>
-    props.managerButton &&
+    props.manager &&
     css`
       background: ${(props) => props.theme.buttonColor.managerButton};
       &:hover {
@@ -49,7 +49,7 @@ const StyledButton = styled.button<{
       }
     `}
   ${(props) =>
-    props.acceptButton &&
+    props.accept &&
     css`
       background: ${(props) => props.theme.buttonColor.acceptButton};
       &:hover {
@@ -58,7 +58,7 @@ const StyledButton = styled.button<{
       }
     `}
   ${(props) =>
-    props.denyButton &&
+    props.deny &&
     css`
       background: ${(props) => props.theme.buttonColor.denyButton};
       &:hover {
@@ -67,7 +67,7 @@ const StyledButton = styled.button<{
       }
     `}
     ${(props) =>
-    props.pendingButton &&
+    props.pending &&
     css`
       background: ${(props) => props.theme.buttonColor.pendingButton};
       &:hover {

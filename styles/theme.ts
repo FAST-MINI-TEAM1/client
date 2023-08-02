@@ -4,6 +4,7 @@ import { DefaultTheme } from "styled-components";
 export const theme: DefaultTheme = {
   bgColor: "#fff",
   textColor: "#191919",
+  headerColor: "#e5e5e5",
   containerBoxColor: "#fff",
   buttonColor: {
     empButton: "#dadada",
@@ -11,6 +12,9 @@ export const theme: DefaultTheme = {
     acceptButton: "#1EBF91",
     denyButton: "#F27676",
     pendingButton: "#FFBD13",
+  },
+  inputColor: {
+    authColor: "#666",
   },
   borderColor: "#a55eea",
   buttonTextColor: "#fff",
