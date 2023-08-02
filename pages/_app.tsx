@@ -1,4 +1,3 @@
-import Header from "@components/common/Header";
 import GlobalStyle from "@styles/GlobalStyle";
 import { theme } from "@styles/theme";
 import type { AppProps } from "next/app";
@@ -13,7 +12,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Header />
         <Component {...pageProps} />
       </ThemeProvider>
     </>
