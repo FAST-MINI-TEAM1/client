@@ -41,10 +41,10 @@ function ApprovalModal({ open, setOpen, details }) {
       </div>
       {details.status == "대기" && (
         <div className="btnBox">
-          <Button denyButton="true" onClick={() => console.log("반려")}>
+          <Button deny="true" onClick={() => console.log("반려")}>
             반려
           </Button>
-          <Button acceptButton="true" onClick={() => console.log("승인")}>
+          <Button accept="true" onClick={() => console.log("승인")}>
             승인
           </Button>
         </div>

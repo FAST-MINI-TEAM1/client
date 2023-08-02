@@ -56,25 +56,19 @@ function DataTabel({ tableTitle, dataSource, type }) {
       render: (_, data) => {
         if (data.status === "대기") {
           return (
-            <Button
-              pendingButton="true"
-              onClick={() => adminOnClickHandler(data)}
-            >
+            <Button pending="true" onClick={() => adminOnClickHandler(data)}>
               {data?.status}
             </Button>
           );
         } else if (data.status === "승인") {
           return (
-            <Button
-              acceptButton="true"
-              onClick={() => adminOnClickHandler(data)}
-            >
+            <Button accept="true" onClick={() => adminOnClickHandler(data)}>
               {data?.status}
             </Button>
           );
         } else {
           return (
-            <Button denyButton="true" onClick={() => adminOnClickHandler(data)}>
+            <Button deny="true" onClick={() => adminOnClickHandler(data)}>
               {data?.status}
             </Button>
           );
