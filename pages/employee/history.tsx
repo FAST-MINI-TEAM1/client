@@ -34,19 +34,11 @@ function history() {
   return (
     <Container>
       <div className="details">
-        <DataTabel
-          tableTitle={"결재 대기 내역"}
-          dataSource={pendingData}
-          type={"employee"}
-        />
+        <DataTabel tableTitle={"결재 대기 내역"} dataSource={pendingData} />
       </div>
 
       <div className="details">
-        <DataTabel
-          tableTitle={"결재 완료 내역"}
-          dataSource={completedData}
-          type={"employee"}
-        />
+        <DataTabel tableTitle={"결재 완료 내역"} dataSource={completedData} />
       </div>
     </Container>
   );

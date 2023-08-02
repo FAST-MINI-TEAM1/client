@@ -3,7 +3,7 @@ import { useState } from "react";
 import ApprovalModal from "@components/admin/ApprovalModal";
 import Button from "@components/common/Button";
 
-function DataTabel({ tableTitle, dataSource, type }) {
+function DataTabel({ tableTitle, dataSource }) {
   const [open, setOpen] = useState(false);
 
   const [details, setDetils] = useState({});
