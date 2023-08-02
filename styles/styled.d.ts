@@ -3,6 +3,7 @@ import "styled-components";
 declare module "styled-components" {
   export interface DefaultTheme {
     bgColor: string;
+    headerColor: string;
     textColor: string;
     containerBoxColor: string;
     buttonColor: {
@@ -10,6 +11,10 @@ declare module "styled-components" {
       managerButton: string;
       acceptButton: string;
       denyButton: string;
+      pendingButton: string;
+    };
+    inputColor: {
+      authColor: string;
     };
     borderColor: string;
     buttonTextColor: string;

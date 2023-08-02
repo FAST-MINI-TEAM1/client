@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
     display: block;
   }
   body {
-    background: #eee;
+    background: ${props => props.theme.bgColor};
   }
   ol, ul {
     list-style: none;

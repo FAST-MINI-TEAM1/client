@@ -1,6 +1,7 @@
-import { Space, Table, Button } from "antd";
+import { Space, Table } from "antd";
 import { useState } from "react";
 import ApprovalModal from "@components/admin/ApprovalModal";
+import Button from "@components/common/Button";
 
 function DataTabel({ tableTitle, dataSource, type }) {
   const [open, setOpen] = useState(false);
@@ -52,11 +53,33 @@ function DataTabel({ tableTitle, dataSource, type }) {
       dataIndex: "승인여부",
       key: "승인여부",
       align: "center",
-      render: (_, data) => (
-        <Button onClick={() => adminOnClickHandler(data)}>
-          {data?.status}
-        </Button>
-      ),
+      render: (_, data) => {
+        if (data.status === "대기") {
+          return (
+            <Button
+              pendingButton="true"
+              onClick={() => adminOnClickHandler(data)}
+            >
+              {data?.status}
+            </Button>
+          );
+        } else if (data.status === "승인") {
+          return (
+            <Button
+              acceptButton="true"
+              onClick={() => adminOnClickHandler(data)}
+            >
+              {data?.status}
+            </Button>
+          );
+        } else {
+          return (
+            <Button denyButton="true" onClick={() => adminOnClickHandler(data)}>
+              {data?.status}
+            </Button>
+          );
+        }
+      },
     },
   ];
 
