@@ -2,19 +2,38 @@ import { Space, Table } from "antd";
 import { useState } from "react";
 import ApprovalModal from "@components/admin/ApprovalModal";
 import Button from "@components/common/Button";
+import type { ColumnsType } from "antd/es/table";
 
-function DataTabel({ tableTitle, dataSource }) {
+interface IDataTableProps {
+  tableTitle: string;
+  dataSource: IDataSourceItem[];
+}
+
+interface IDataSourceItem {
+  id: number;
+  empName: string;
+  createdAt: string;
+  orderType: string;
+  status: string;
+  startDate: string;
+  endDate: string;
+  reason?: string;
+  category?: string;
+  etc?: string;
+}
+
+function DataTabel({ tableTitle, dataSource }: IDataTableProps) {
   const [open, setOpen] = useState(false);
 
   const [details, setDetils] = useState({});
 
-  const adminOnClickHandler = (data) => {
+  const adminOnClickHandler = (data: IDataSourceItem) => {
     setOpen(true);
     setDetils(data);
   };
 
   //테이블 형식
-  const columns = [
+  const columns: ColumnsType<IDataSourceItem> = [
     {
       title: "사원명",
       dataIndex: "사원명",
