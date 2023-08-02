@@ -3,8 +3,9 @@ import type { TabsProps } from "antd";
 import MonthlyTable from "@components/admin/MonthlyTable";
 import styled from "styled-components";
 import { useState } from "react";
-function monthly() {
-  const [tabKey, setTabKey] = useState("1");
+import { StringGradients } from "antd/es/progress/progress";
+function Monthly() {
+  const [tabKey, setTabKey] = useState<string>("");
 
   const onChange = (key: string) => {
     console.log(key);
@@ -25,9 +26,10 @@ function monthly() {
   return (
     <Container>
       <div className="details">
-        <Tabs
+        <StyledTabs
           defaultActiveKey="1"
           items={items}
+          tabBarGutter={30}
           onChange={(activeKey) => setTabKey(activeKey)}
         />
       </div>
@@ -35,7 +37,7 @@ function monthly() {
   );
 }
 
-export default monthly;
+export default Monthly;
 
 const Container = styled.section`
   display: flex;
@@ -53,5 +55,20 @@ const Container = styled.section`
     // box-sizing: border-box;
     // background-color: #fff;
     // box-shadow: #e2e2e2 0px 5px 10px;
+  }
+`;
+const StyledTabs = styled(Tabs)`
+  .ant-tabs-content-holder {
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  .ant-tabs-tab {
+    &:active {
+      color: #292929;
+    }
+  }
+
+  .ant-tabs-ink-bar.ant-tabs-ink-bar-animated {
+    // background: none;
   }
 `;
