@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
-function Header() {
+function AdminHeader() {
   const router = useRouter();
   return (
     <HeaderBlock>
@@ -12,32 +12,34 @@ function Header() {
             <Logo>LOGO</Logo>
           </Link>
           <UserWelcome>
-            <span>홍길동</span>
+            <span>관리자</span>
             <span>님, 반갑습니다!</span>
           </UserWelcome>
         </LogoContainer>
-        <Nav>
-          <ul>
-            <li>
-              <Link href="/employee">
-                <a className={router.pathname === "/employee" ? "active" : ""}>
-                  전자결재
-                </a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/employee/history">
-                <a
-                  className={
-                    router.pathname === "/employee/history" ? "active" : ""
-                  }
-                >
-                  전자결재내역
-                </a>
-              </Link>
-            </li>
-          </ul>
-        </Nav>
+          <Nav>
+            <ul>
+              <li>
+                <Link href="/admin">
+                  <a
+                    className={router.pathname === "/admin" ? "active" : ""}
+                  >
+                    요청관리
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/admin/search">
+                  <a
+                    className={
+                      router.pathname === "/admin/search" ? "active" : ""
+                    }
+                  >
+                    사원조회
+                  </a>
+                </Link>
+              </li>
+            </ul>
+          </Nav>
       </HeaderContent>
     </HeaderBlock>
   );
@@ -109,4 +111,4 @@ const Nav = styled.nav`
   }
 `;
 
-export default Header;
+export default AdminHeader;

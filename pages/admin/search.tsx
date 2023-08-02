@@ -2,6 +2,7 @@ import { Select } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import DataTabel from "@components/common/DataTabel";
 import styled from "styled-components";
+import AdminHeader from "@components/common/AdminHeader";
 
 function SearchPage() {
   const pendingData = [
@@ -45,41 +46,44 @@ function SearchPage() {
   ];
 
   return (
-    <Search>
-      <div className="searchBar">
-        <div className="container">
-          <Select defaultValue="1" options={options} />
-          <input autoFocus />
-          <SearchOutlined />
+    <>
+      <AdminHeader />
+      <Search>
+        <div className="searchBar">
+          <div className="container">
+            <Select defaultValue="1" options={options} />
+            <input autoFocus />
+            <SearchOutlined />
+          </div>
         </div>
-      </div>
-      <div className="info">
-        <h3>기본정보</h3>
-        <div className="container">
-          <ul>
-            <li>
-              <span>사원명</span>
-              <p>홍길동</p>
-            </li>
-            <li>
-              <span>사원번호</span>
-              <p>20230001</p>
-            </li>
-            <li>
-              <span>입사일</span>
-              <p>2023.07.29</p>
-            </li>
-          </ul>
+        <div className="info">
+          <h3>기본정보</h3>
+          <div className="container">
+            <ul>
+              <li>
+                <span>사원명</span>
+                <p>홍길동</p>
+              </li>
+              <li>
+                <span>사원번호</span>
+                <p>20230001</p>
+              </li>
+              <li>
+                <span>입사일</span>
+                <p>2023.07.29</p>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div className="tabel">
-        <h3>연차 / 당직</h3>
-        <div className="details">
-          <DataTabel tableTitle={"결재 대기"} dataSource={pendingData} />
-          <DataTabel tableTitle={"결재 완료"} dataSource={completedData} />
+        <div className="tabel">
+          <h3>연차 / 당직</h3>
+          <div className="details">
+            <DataTabel tableTitle={"결재 대기"} dataSource={pendingData} />
+            <DataTabel tableTitle={"결재 완료"} dataSource={completedData} />
+          </div>
         </div>
-      </div>
-    </Search>
+      </Search>
+    </>
   );
 }
 

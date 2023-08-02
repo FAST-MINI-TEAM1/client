@@ -1,4 +1,5 @@
 import DataTabel from "@components/common/DataTabel";
+import Header from "@components/common/Header";
 import styled from "styled-components";
 
 function history() {
@@ -32,15 +33,26 @@ function history() {
     },
   ];
   return (
-    <Container>
-      <div className="details">
-        <DataTabel tableTitle={"결재 대기 내역"} dataSource={pendingData} />
-      </div>
+    <>
+      <Header />
+      <Container>
+        <div className="details">
+          <DataTabel
+            tableTitle={"결재 대기 내역"}
+            dataSource={pendingData}
+            type={"employee"}
+          />
+        </div>
 
-      <div className="details">
-        <DataTabel tableTitle={"결재 완료 내역"} dataSource={completedData} />
-      </div>
-    </Container>
+        <div className="details">
+          <DataTabel
+            tableTitle={"결재 완료 내역"}
+            dataSource={completedData}
+            type={"employee"}
+          />
+        </div>
+      </Container>
+    </>
   );
 }
 

@@ -1,3 +1,4 @@
+import AdminHeader from "@components/common/AdminHeader";
 import DataTabel from "@components/common/DataTabel";
 import styled from "styled-components";
 
@@ -80,15 +81,18 @@ function approval() {
     },
   ];
   return (
-    <Container>
-      <div className="details">
-        <DataTabel tableTitle={"결재 대기 내역"} dataSource={pendingData} />
-      </div>
+    <>
+      <AdminHeader />
+      <Container>
+        <div className="details">
+          <DataTabel tableTitle={"결재 대기 내역"} dataSource={pendingData} />
+        </div>
 
-      <div className="details">
-        <DataTabel tableTitle={"결재 완료 내역"} dataSource={completedData} />
-      </div>
-    </Container>
+        <div className="details">
+          <DataTabel tableTitle={"결재 완료 내역"} dataSource={completedData} />
+        </div>
+      </Container>
+    </>
   );
 }
 
