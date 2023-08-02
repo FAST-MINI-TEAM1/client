@@ -2,7 +2,7 @@ import { Space, Table, Button } from "antd";
 import { useState } from "react";
 import ApprovalModal from "@components/admin/ApprovalModal";
 
-function ApprovalTabel({ tableTitle, dataSource, type }) {
+function DataTabel({ tableTitle, dataSource, type }) {
   const [open, setOpen] = useState(false);
 
   const [details, setDetils] = useState({});
@@ -85,4 +85,4 @@ function ApprovalTabel({ tableTitle, dataSource, type }) {
   );
 }
 
-export default ApprovalTabel;
+export default DataTabel;
