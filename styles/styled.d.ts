@@ -10,6 +10,7 @@ declare module "styled-components" {
       managerButton: string;
       acceptButton: string;
       denyButton: string;
+      pendingButton: string;
     };
     borderColor: string;
     buttonTextColor: string;
