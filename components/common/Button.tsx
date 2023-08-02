@@ -9,10 +9,10 @@ function Button({ ...props }: IButtonProps) {
 }
 
 const StyledButton = styled.button<{
-  empButton?: boolean;
-  managerButton?: boolean;
-  acceptButton?: boolean;
-  denyButton?: boolean;
+  employee?: boolean;
+  manager?: boolean;
+  accept?: boolean;
+  deny?: boolean;
 }>`
   border: none;
   border-radius: 8px;
@@ -22,28 +22,28 @@ const StyledButton = styled.button<{
   color: ${(props) => props.theme.buttonTextColor};
   outline: none;
   cursor: pointer;
-  background: ${(props) => props.theme.bgColor};
+  background: ${(props) => props.theme.borderColor};
   &:hover {
     background: ${(props) => props.theme.hoverColor};
   }
 
   ${(props) =>
-    props.empButton &&
+    props.employee &&
     css`
       background: ${(props) => props.theme.buttonColor.empButton};
     `}
   ${(props) =>
-    props.managerButton &&
+    props.manager &&
     css`
       background: ${(props) => props.theme.buttonColor.managerButton};
     `}
   ${(props) =>
-    props.acceptButton &&
+    props.accept &&
     css`
       background: ${(props) => props.theme.buttonColor.acceptButton};
     `}
   ${(props) =>
-    props.denyButton &&
+    props.deny &&
     css`
       background: ${(props) => props.theme.buttonColor.denyButton};
     `}
