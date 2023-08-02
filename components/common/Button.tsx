@@ -13,16 +13,18 @@ const StyledButton = styled.button<{
   manager?: boolean;
   accept?: boolean;
   deny?: boolean;
+  pending?: boolean;
 }>`
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 700;
-  padding: 0.25rem 1rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
   color: ${(props) => props.theme.buttonTextColor};
   outline: none;
   cursor: pointer;
-  background: ${(props) => props.theme.borderColor};
+  background: ${(props) => props.theme.bgColor};
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease 0s;
   &:hover {
     background: ${(props) => props.theme.hoverColor};
   }
@@ -31,21 +33,47 @@ const StyledButton = styled.button<{
     props.employee &&
     css`
       background: ${(props) => props.theme.buttonColor.empButton};
+      &:hover {
+        color: ${(props) => props.theme.buttonColor.empButton};
+        border-color: ${(props) => props.theme.buttonColor.empButton};
+        border: 1px solid ${(props) => props.theme.buttonColor.empButton};
+      }
     `}
   ${(props) =>
     props.manager &&
     css`
       background: ${(props) => props.theme.buttonColor.managerButton};
+      &:hover {
+        color: ${(props) => props.theme.buttonColor.managerButton};
+        border: 1px solid ${(props) => props.theme.buttonColor.managerButton};
+      }
     `}
   ${(props) =>
     props.accept &&
     css`
       background: ${(props) => props.theme.buttonColor.acceptButton};
+      &:hover {
+        color: ${(props) => props.theme.buttonColor.acceptButton};
+        border: 1px solid ${(props) => props.theme.buttonColor.acceptButton};
+      }
     `}
   ${(props) =>
     props.deny &&
     css`
       background: ${(props) => props.theme.buttonColor.denyButton};
+      &:hover {
+        color: ${(props) => props.theme.buttonColor.denyButton};
+        border: 1px solid ${(props) => props.theme.buttonColor.denyButton};
+      }
+    `}
+    ${(props) =>
+    props.pending &&
+    css`
+      background: ${(props) => props.theme.buttonColor.pendingButton};
+      &:hover {
+        color: ${(props) => props.theme.buttonColor.pendingButton};
+        border: 1px solid ${(props) => props.theme.buttonColor.pendingButton};
+      }
     `}
 `;
 

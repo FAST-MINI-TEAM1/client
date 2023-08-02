@@ -11,6 +11,7 @@ declare module "styled-components" {
       managerButton: string;
       acceptButton: string;
       denyButton: string;
+      pendingButton: string;
     };
     inputColor: {
       authColor: string;
