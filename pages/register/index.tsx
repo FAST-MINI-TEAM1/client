@@ -1,5 +1,6 @@
 import AuthForm from "@components/auth/AuthForm";
 import AuthTemplate from "@components/auth/AuthTemplate";
+import { memo } from "react";
 
 function RegsiterPage() {
   return (
@@ -9,4 +10,4 @@ function RegsiterPage() {
   );
 }
 
-export default RegsiterPage;
+export default memo(RegsiterPage);
