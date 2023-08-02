@@ -1,9 +1,38 @@
 import { Select } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import ApporvalTabel from "@components/admin/ApprovalTabel";
+import DataTabel from "@components/common/DataTabel";
 import styled from "styled-components";
 
 function SearchPage() {
+  const pendingData = [
+    {
+      id: 1,
+      empName: "홍길동",
+      createdAt: "2023-07-27",
+      orderType: "연차",
+      status: "대기",
+      startDate: "2023-08-01",
+      endDate: "2023-08-01",
+      reason: "이유입니다",
+      category: "경조사",
+      etc: "특이사항입니다",
+    },
+  ];
+
+  const completedData = [
+    {
+      id: 1,
+      empName: "홍길동",
+      createdAt: "2023-07-27",
+      orderType: "연차",
+      status: "승인",
+      startDate: "2023-08-01",
+      endDate: "2023-08-01",
+      reason: "이유입니다",
+      category: "경조사",
+      etc: "특이사항입니다",
+    },
+  ];
   const options = [
     {
       value: "1",
@@ -20,7 +49,7 @@ function SearchPage() {
       <div className="searchBar">
         <div className="container">
           <Select defaultValue="1" options={options} />
-          <input />
+          <input autoFocus />
           <SearchOutlined />
         </div>
       </div>
@@ -29,15 +58,15 @@ function SearchPage() {
         <div className="container">
           <ul>
             <li>
-              <p>사원명</p>
+              <span>사원명</span>
               <p>홍길동</p>
             </li>
             <li>
-              <p>사원번호</p>
+              <span>사원번호</span>
               <p>20230001</p>
             </li>
             <li>
-              <p>입사일</p>
+              <span>입사일</span>
               <p>2023.07.29</p>
             </li>
           </ul>
@@ -46,8 +75,8 @@ function SearchPage() {
       <div className="tabel">
         <h3>연차 / 당직</h3>
         <div className="details">
-          <ApporvalTabel tableTitle={"결재 대기"} />
-          <ApporvalTabel tableTitle={"결재 완료"} />
+          <DataTabel tableTitle={"결재 대기"} dataSource={pendingData} />
+          <DataTabel tableTitle={"결재 완료"} dataSource={completedData} />
         </div>
       </div>
     </Search>
@@ -122,7 +151,9 @@ const Search = styled.section`
         li {
           margin-top: 20px;
           display: flex;
-          justify-content: space-between;
+          span {
+            width: 100px;
+          }
         }
       }
     }
