@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Input, Modal, Button, Select, Space, DatePicker } from "antd";
 
-interface Iprops{toggle?:boolean}
+interface Iprops {
+  toggle?: boolean;
+  isModalOpen?: boolean;
+}
 
-function EmployeeDutyModalForm({toggle}:Iprops) {
+function EmployeeDutyModalForm({ toggle }: Iprops) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [toggle, setToggle] = useState(true);
   //modal에서 받는 inputVlaue값
   const [inputDate, setInputDate] = useState("");
   const [inputCategory, setInputCategory] = useState("");
@@ -53,40 +55,41 @@ function EmployeeDutyModalForm({toggle}:Iprops) {
           <div> {toggle ? "연차일" : "당직일"}</div>
           <RangePicker bordered={false} />
         </Space>
-        {toggle ? <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
-          <div>휴가종류</div>
-          <Select
-          
-            bordered={false}
-            showSearch
-            placeholder="휴가종류"
-            optionFilterProp="children"
-            onChange={selectCategory}
-            onSearch={searchCategory}
-            value={inputCategory || null}
-            filterOption={(input, option) =>
-              (option?.label ?? "휴가종류").includes(input)
-            }
-            options={[
-              {
-                value: "경조사",
-                label: "경조사",
-              },
-              {
-                value: "병가",
-                label: "병가",
-              },
-              {
-                value: "출산휴가",
-                label: "출산휴가",
-              },
-              {
-                value: "생리휴가",
-                label: "생리휴가",
-              },
-            ]}
-          />
-        </Space> : null}
+        {toggle ? (
+          <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
+            <div>휴가종류</div>
+            <Select
+              bordered={false}
+              showSearch
+              placeholder="휴가종류"
+              optionFilterProp="children"
+              onChange={selectCategory}
+              onSearch={searchCategory}
+              value={inputCategory || null}
+              filterOption={(input, option) =>
+                (option?.label ?? "휴가종류").includes(input)
+              }
+              options={[
+                {
+                  value: "경조사",
+                  label: "경조사",
+                },
+                {
+                  value: "병가",
+                  label: "병가",
+                },
+                {
+                  value: "출산휴가",
+                  label: "출산휴가",
+                },
+                {
+                  value: "생리휴가",
+                  label: "생리휴가",
+                },
+              ]}
+            />
+          </Space>
+        ) : null}
         <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
           <div>사유</div>
           <Input

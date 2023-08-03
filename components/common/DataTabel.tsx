@@ -1,10 +1,12 @@
 import { Space, Table } from "antd";
 import { useState } from "react";
 import ApprovalModal from "@components/admin/ApprovalModal";
+import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
 import Button from "@components/common/Button";
 
 function DataTabel({ tableTitle, dataSource, type }) {
   const [open, setOpen] = useState(false);
+  // const [employeeOpne, setEmployeeOpen] = useState(false);
 
   const [details, setDetils] = useState({});
 
@@ -74,7 +76,12 @@ function DataTabel({ tableTitle, dataSource, type }) {
           );
         } else {
           return (
-            <Button denyButton="true" onClick={() => adminOnClickHandler(data)}>
+            <Button
+              denyButton="true"
+              onClick={() => {
+                adminOnClickHandler(data);
+              }}
+            >
               {data?.status}
             </Button>
           );
@@ -104,6 +111,7 @@ function DataTabel({ tableTitle, dataSource, type }) {
         }}
       />
       <ApprovalModal open={open} setOpen={setOpen} details={details} />
+      <EmployeeHistoyModal />
     </Space>
   );
 }
