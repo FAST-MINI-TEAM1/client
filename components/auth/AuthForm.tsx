@@ -48,24 +48,20 @@ function AuthForm({ type }: IAuthFormProps) {
               name="email"
               placeholder="이메일"
             />
-            <StyledInput
-              autoComplete="name"
-              name="name"
-              placeholder="이름"
-            />
+            <StyledInput autoComplete="name" name="name" placeholder="이름" />
             <StyledInput
               type="password"
               autoComplete="password"
               name="password"
               placeholder="패스워드"
             />
-            <StyledInput autoComplete="name" name="name" placeholder="이름" />
             <StyledInput
               type="password"
               autoComplete="new-password"
               name="passwordConfirm"
               placeholder="패스워드 확인"
             />
+            <StyledInput autoComplete="rank" name="rank" placeholder="직급" />
           </>
         )}
         <ButtonBlock>
