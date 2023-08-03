@@ -13,7 +13,8 @@ const StyledButton = styled.button<{
   manager?: boolean;
   accept?: boolean;
   deny?: boolean;
-  pending?: boolean;
+  pending?: boolean;  
+  submitButton?: boolean;
 }>`
   border: none;
   border-radius: 10px;
@@ -75,6 +76,11 @@ const StyledButton = styled.button<{
         border: 1px solid ${(props) => props.theme.buttonColor.pendingButton};
       }
     `}
+    ${(props) =>
+      props.submitButton &&
+      css`
+        background: ${(props) => props.theme.buttonColor.denyButton};
+      `}
 `;
 
 export default Button;

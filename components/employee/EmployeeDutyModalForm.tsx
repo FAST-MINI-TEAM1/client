@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Input, Modal, Button, Select, Space, DatePicker } from "antd";
 
-function EmployeeDutyModalForm() {
+interface Iprops{toggle?:boolean}
+
+function EmployeeDutyModalForm({toggle}:Iprops) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [toggle, setToggle] = useState(false);
+  // const [toggle, setToggle] = useState(true);
   //modal에서 받는 inputVlaue값
   const [inputDate, setInputDate] = useState("");
   const [inputCategory, setInputCategory] = useState("");
@@ -54,6 +56,7 @@ function EmployeeDutyModalForm() {
         {toggle ? <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
           <div>휴가종류</div>
           <Select
+          
             bordered={false}
             showSearch
             placeholder="휴가종류"
