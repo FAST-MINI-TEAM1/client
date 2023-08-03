@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function Calendar() {
+const Daily: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   // 이전 달로 이동하는 함수
@@ -37,12 +37,6 @@ function Calendar() {
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1;
   const today = currentDate.getDate();
-
-  // 데이터 생성 - 임의의 사원 이름을 지정한 객체 배열
-  const employeeData = [
-    { date: 3, name: "홍길동" },
-    { date: 6, name: "이양소" },
-  ];
 
   const weeks = [];
   const firstDayIndex = getFirstDay(currentDate);
@@ -81,11 +75,11 @@ function Calendar() {
         <thead>
           <tr>
             <SundayHeader>일</SundayHeader>
-            <th>월</th>
-            <th>화</th>
-            <th>수</th>
-            <th>목</th>
-            <th>금</th>
+            <Th>월</Th>
+            <Th>화</Th>
+            <Th>수</Th>
+            <Th>목</Th>
+            <Th>금</Th>
             <SaturdayHeader>토</SaturdayHeader>
           </tr>
         </thead>
@@ -99,15 +93,13 @@ function Calendar() {
 
                 const isCurrentDay = date === today;
                 const isPast12PM = isCurrentDay && new Date().getHours() >= 12;
-                
-                const employee = employeeData.find((emp) => emp.date === date);
 
                 return (
                   <DateCell
                     key={idx}
-                    className={isCurrentDay ? (isPast12PM ? "current-day-black" : "current-day") : "other-day"}
+                    className={isCurrentDay ? (isPast12PM ? "current-day-black" : "current-day") : "other-day black-text"}
                   >
-                    {employee ? employee.name : date}
+                    <DateNumber>{date}</DateNumber>
                   </DateCell>
                 );
               })}
@@ -126,7 +118,7 @@ const CalendarContainer = styled.div`
 const ArrowButton = styled.button`
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 30px;
   padding: 30px;
   cursor: pointer;
 `;
@@ -134,47 +126,79 @@ const ArrowButton = styled.button`
 const SundayHeader = styled.th`
   font-size: 20px;
   color: red;
+  background-color: #f5f5f5;
+  border-radius: 5px;
 `;
 
 const SaturdayHeader = styled.th`
   font-size: 20px;
   color: blue;
+  background-color: #f5f5f5; 
+  border-radius: 5px;
+`;
+
+const Th = styled.th`
+  background-color: #f5f5f5;
+  padding: 15px;
 `;
 
 const CalendarTable = styled.table`
   border-collapse: collapse;
-  width: 750px;
+  width: 950px;
+  height: 600px;
   margin: 0 auto;
   font-size: 20px;
+
+  tbody {
+    tr:nth-child(odd) {
+      background-color: #ffffff;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f5f5f5;
+    }
+  }
 `;
 
 const CalendarMonth = styled.div`
-  padding: 45px;
+  padding: 10px;
   font-size: 30px;
   text-align: center;
   margin: 0 auto;
 `;
 
 const DateCell = styled.td`
-  cursor: pointer;
-  width: 70px;
-  height: 70px;
-  text-align: center;
-  vertical-align: middle;
+cursor: pointer;
+width: 100px;
+height: 100px;
+text-align: center;
+vertical-align: middle;
+border: 1px solid #ccc;
+position: relative; 
 
-  &.current-day {
-    background-color: #ccc;
-  }
+&.current-day {
+  background-color: #ccc;
+}
 
-  &.current-day-black {
-    color: black;
-  }
+&.current-day-black {
+  color: black;
+}
 
-  &.other-day {
-    color: #ccc;
-  }
+&.other-day {
+  color: #ccc;
+}
+
+&.black-text {
+  color: black;
+}
 `;
 
-export default Calendar;
+const DateNumber = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 16px;
+  color: black;
+`;
 
-
+export default Daily;
