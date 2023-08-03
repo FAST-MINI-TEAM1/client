@@ -17,7 +17,10 @@ declare module "styled-components" {
       authColor: string;
     };
     borderColor: string;
-    buttonTextColor: string;
+    buttonTextColor: {
+      empColor: string;
+      adminColor: string;
+    };
     hoverColor: string;
     inactiveColor: string;
     activeColor: string;

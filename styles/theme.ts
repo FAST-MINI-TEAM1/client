@@ -7,7 +7,7 @@ export const theme: DefaultTheme = {
   headerColor: "#e5e5e5",
   containerBoxColor: "#fff",
   buttonColor: {
-    empButton: "#dadada",
+    empButton: "#fff",
     managerButton: "#f27777",
     acceptButton: "#1EBF91",
     denyButton: "#F27676",
@@ -17,7 +17,10 @@ export const theme: DefaultTheme = {
     authColor: "#666",
   },
   borderColor: "#a55eea",
-  buttonTextColor: "#fff",
+  buttonTextColor: {
+    empColor: "#5d5d5d",
+    adminColor: "#fff",
+  },
   hoverColor: "transparent",
   inactiveColor: "#939393",
   activeColor: "#000",
