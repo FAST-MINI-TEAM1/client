@@ -20,7 +20,7 @@ function history() {
 
   const completedData = [
     {
-      id: 1,
+      id: 2,
       empName: "홍길동",
       createdAt: "2023-07-27",
       orderType: "연차",
@@ -40,7 +40,7 @@ function history() {
           <DataTabel
             tableTitle={"결재 대기 내역"}
             dataSource={pendingData}
-            type={"employee"}
+            // type={"employee"}
           />
         </div>
 
@@ -48,7 +48,7 @@ function history() {
           <DataTabel
             tableTitle={"결재 완료 내역"}
             dataSource={completedData}
-            type={"employee"}
+            // type={"employee"}
           />
         </div>
       </Container>

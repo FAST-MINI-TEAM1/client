@@ -21,5 +21,12 @@ declare module "styled-components" {
     hoverColor: string;
     inactiveColor: string;
     activeColor: string;
+    pointColor: {
+      blue: string;
+      green: string;
+      yellow: string;
+      red: string;
+      black: string;
+    };
   }
 }

@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import { styled, css } from "styled-components";
 
 interface IButtonProps {
   [props: string]: any;
@@ -13,8 +13,9 @@ const StyledButton = styled.button<{
   manager?: boolean;
   accept?: boolean;
   deny?: boolean;
-  pending?: boolean;  
-  submitButton?: boolean;
+  pending?: boolean;
+  delete?: boolean;
+  submit?: boolean;
 }>`
   border: none;
   border-radius: 10px;
@@ -81,10 +82,23 @@ const StyledButton = styled.button<{
       }
     `}
     ${(props) =>
-      props.submitButton &&
-      css`
-        background: ${(props) => props.theme.buttonColor.denyButton};
-      `}
+    props.delete &&
+    css`
+      background: ${(props) => props.theme.buttonColor.pendingButton};
+      &:hover {
+        color: ${(props) => props.theme.buttonColor.pendingButton};
+        border: 1px solid ${(props) => props.theme.buttonColor.pendingButton};
+      }
+    `}
+    ${(props) =>
+    props.submit &&
+    css`
+      background: ${(props) => props.theme.buttonColor.pendingButton};
+      &:hover {
+        color: ${(props) => props.theme.buttonColor.pendingButton};
+        border: 1px solid ${(props) => props.theme.buttonColor.pendingButton};
+      }
+    `}
 `;
 
 export default Button;

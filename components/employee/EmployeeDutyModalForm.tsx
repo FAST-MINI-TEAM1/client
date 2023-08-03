@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Input, Modal, Button, Select, Space, DatePicker } from "antd";
+import { Input, Modal, Select, Space, DatePicker } from "antd";
+import Button from "@components/common/Button";
+import styled from "styled-components";
 
 interface Iprops {
   toggle?: boolean;
@@ -39,10 +41,11 @@ function EmployeeDutyModalForm({ toggle }: Iprops) {
   };
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <Button submit="true" onClick={showModal}>
         {toggle ? "연차 등록하기" : "당직 등록하기"}
       </Button>
-      <Modal
+
+      <StyledDutyModal
         title={toggle ? "연차 등록하기" : "당직 등록하기"}
         open={isModalOpen}
         okText="신청"
@@ -114,9 +117,16 @@ function EmployeeDutyModalForm({ toggle }: Iprops) {
             }}
           ></Input>
         </Space>
-      </Modal>
+      </StyledDutyModal>
     </>
   );
 }
+
+const StyledDutyModal = styled(Modal)`
+  justify-align: center;
+  display: flex;
+  width: 450px;
+  font-size: 18px;
+`;
 
 export default EmployeeDutyModalForm;

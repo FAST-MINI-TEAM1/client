@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Tabs } from "antd";
 import type { TabsProps } from "antd";
 import EmployeeTable from "@components/employee/EmployeeTable";
@@ -27,9 +27,7 @@ function EmployeeTableTab() {
     {
       key: "전체",
       label: `전체`,
-      children: (
-        <EmployeeTable selectedTap={selectedTap} setToggle={setToggle} />
-      ),
+      children: <EmployeeTable selectedTap={selectedTap} />,
     },
     {
       key: "연차",
@@ -54,6 +52,12 @@ function EmployeeTableTab() {
 }
 const StyledTabs = styled(Tabs)`
 color: #D9D9D9;
+font-size:16px;
+text-shadow: 0px 3px 7px rgba(81, 81, 81, 0.25);
+h1{
+  color: black;
+  font-size:16px;
+}
 width: 290px;
 .ant-tabs-nav{
   width: 290px;
@@ -63,7 +67,7 @@ width: 290px;
   width: 40px;
 }
 .ant-tabs-nav-wrap{
-// background-color: blue;
+
 justify-content: center;
 
 }
@@ -75,8 +79,9 @@ justify-content: center;
   }
 }
 .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: $blue;
-  text-shadow: $text-shadow;
+  color:rgba(31, 191, 146, 1);
+  fontweight: bold;
+  text-shadow: 0px 3px 7px rgba(81, 81, 81, 0.25);
 }
 `;
 export default EmployeeTableTab;
