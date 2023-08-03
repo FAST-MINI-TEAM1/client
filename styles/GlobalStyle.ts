@@ -29,6 +29,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     background: ${props => props.theme.bgColor};
+    box-sizing: inherit;
   }
   ol, ul {
     list-style: none;
