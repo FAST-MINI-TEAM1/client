@@ -16,30 +16,31 @@ function AdminHeader() {
             <span>님, 반갑습니다!</span>
           </UserWelcome>
         </LogoContainer>
-          <Nav>
-            <ul>
-              <li>
-                <Link href="/admin">
-                  <a
-                    className={router.pathname === "/admin" ? "active" : ""}
-                  >
-                    요청관리
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/admin/search">
-                  <a
-                    className={
-                      router.pathname === "/admin/search" ? "active" : ""
-                    }
-                  >
-                    사원조회
-                  </a>
-                </Link>
-              </li>
-            </ul>
-          </Nav>
+        <Nav>
+          <ul>
+            <li>
+              <Link href="/admin">
+                <a className={router.pathname === "/admin" ? "active" : ""}>
+                  요청관리
+                </a>
+              </Link>
+            </li>
+            <li>
+              <span>사용대장</span>
+            </li>
+            <li>
+              <Link href="/admin/search">
+                <a
+                  className={
+                    router.pathname === "/admin/search" ? "active" : ""
+                  }
+                >
+                  사원조회
+                </a>
+              </Link>
+            </li>
+          </ul>
+        </Nav>
       </HeaderContent>
     </HeaderBlock>
   );
@@ -100,6 +101,14 @@ const Nav = styled.nav`
     align-items: center;
     gap: 20px;
     li {
+      span {
+        cursor: pointer;
+        color: ${(props) => props.theme.inactiveColor};
+        &.active {
+          font-weight: 700;
+          color: ${(props) => props.theme.activeColor};
+        }
+      }
       a {
         color: ${(props) => props.theme.inactiveColor};
         &.active {
