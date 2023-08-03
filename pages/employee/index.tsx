@@ -1,21 +1,23 @@
-import EmployeeTableTab from "@components/employee/EmployeeTableTab"
+import Header from "@components/common/Header";
+import EmployeeTableTab from "@components/employee/EmployeeTableTab";
 import Calendar from "@components/common/Calender";
 import { useState } from "react";
 import styled from "styled-components";
 
-  function EmployeePage() {
+function EmployeePage() {
   return (
     <Container>
+      <Header />
       <Calendar />
       <EmployeeTableTab />
     </Container>
-  )
+  );
 }
 
 const Container = styled.div`
-background-color: rgba(248,248,248);
-display: flex;
-flex-direction: row;
-`
+  background-color: rgba(248, 248, 248);
+  display: flex;
+  flex-direction: row;
+`;
 
 export default EmployeePage;

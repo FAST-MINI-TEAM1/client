@@ -1,38 +1,40 @@
 import { Table } from "antd";
-import type { ColumnType } from "antd/es/table";
+import type { ColumnsType } from "antd/es/table";
 import styled from "styled-components";
-type TDataType = {
+interface IColumnsData {
   id: number;
   empName: string;
-  empNo: string;
-  month: {
-    jan: number;
-    feb: number;
-    mar: number;
-    apr: number;
-    may: number;
-    jun: number;
-    jul: number;
-    aug: number;
-    sep: number;
-    oct: number;
-    nov: number;
-    dec: number;
-  };
+  empNo: number;
+  month: IMonth;
   total: number;
-};
-function MonthlyTable({ tabKey }) {
-  const columns: ColumnType<TDataType> = [
+}
+interface IMonth {
+  jan: number;
+  feb: number;
+  mar: number;
+  apr: number;
+  may: number;
+  jun: number;
+  jul: number;
+  aug: number;
+  sep: number;
+  oct: number;
+  nov: number;
+  dec: number;
+}
+
+interface IMonthlyTableProps {
+  tabKey: string;
+}
+function MonthlyTable({ tabKey }: IMonthlyTableProps) {
+  const columnsData: ColumnsType<IColumnsData> = [
     {
       title: "사원",
-      dataIndex: "사원",
-      key: "사원",
-      fixed: "left",
       children: [
         {
           title: "사원번호",
-          dataIndex: "사원번호",
-          key: "사원번호",
+          dataIndex: "empNo",
+          key: "empNo",
           width: 90,
           align: "center",
           sorter: (a, b) => a.empNo - b.empNo,
@@ -40,8 +42,8 @@ function MonthlyTable({ tabKey }) {
         },
         {
           title: "사원명",
-          dataIndex: "사원명",
-          key: "사원명",
+          dataIndex: "empName",
+          key: "empName",
           width: 80,
           align: "center",
           render: (_, data) => <p>{data.empName}</p>,
@@ -155,11 +157,11 @@ function MonthlyTable({ tabKey }) {
     },
   ];
 
-  const data: TDataType[] = [
+  const annualData: IColumnsData[] = [
     {
       id: 1,
       empName: "홍길동",
-      empNo: "20230001",
+      empNo: 20230001,
       month: {
         jan: 1,
         feb: 1,
@@ -179,7 +181,7 @@ function MonthlyTable({ tabKey }) {
     {
       id: 2,
       empName: "김연아",
-      empNo: "20230002",
+      empNo: 20230002,
       month: {
         jan: 3,
         feb: 2,
@@ -199,7 +201,7 @@ function MonthlyTable({ tabKey }) {
     {
       id: 3,
       empName: "박보검",
-      empNo: "20230003",
+      empNo: 20230003,
       month: {
         jan: 2,
         feb: 2,
@@ -218,11 +220,11 @@ function MonthlyTable({ tabKey }) {
     },
   ];
 
-  const dutyData: TDataType[] = [
+  const dutyData: IColumnsData[] = [
     {
       id: 1,
       empName: "정우성",
-      empNo: "20230004",
+      empNo: 20230004,
       month: {
         jan: 1,
         feb: 1,
@@ -242,7 +244,7 @@ function MonthlyTable({ tabKey }) {
     {
       id: 2,
       empName: "김혜수",
-      empNo: "20230005",
+      empNo: 20230005,
       month: {
         jan: 3,
         feb: 2,
@@ -262,7 +264,7 @@ function MonthlyTable({ tabKey }) {
     {
       id: 3,
       empName: "조인성",
-      empNo: "20230006",
+      empNo: 20230006,
       month: {
         jan: 2,
         feb: 2,
@@ -282,9 +284,9 @@ function MonthlyTable({ tabKey }) {
   ];
   return (
     <>
-      <StyledTable
-        columns={columns}
-        dataSource={tabKey === "1" ? data : dutyData}
+      <Table
+        columns={columnsData}
+        dataSource={tabKey === "1" ? annualData : dutyData}
         size="small"
         bordered
       />
@@ -293,9 +295,3 @@ function MonthlyTable({ tabKey }) {
 }
 
 export default MonthlyTable;
-
-const StyledTable = styled(Table)`
-  .ant-table-tbody {
-    border: 1px solid #191919;
-  }
-`;

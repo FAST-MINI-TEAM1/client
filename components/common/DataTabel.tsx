@@ -3,20 +3,39 @@ import { useState } from "react";
 import ApprovalModal from "@components/admin/ApprovalModal";
 import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
 import Button from "@components/common/Button";
+import type { ColumnsType } from "antd/es/table";
 
-function DataTabel({ tableTitle, dataSource, type }) {
+interface IDataTableProps {
+  tableTitle: string;
+  dataSource: IDataSourceItem[];
+}
+
+interface IDataSourceItem {
+  id: number;
+  empName: string;
+  createdAt: string;
+  orderType: string;
+  status: string;
+  startDate: string;
+  endDate: string;
+  reason?: string;
+  category?: string;
+  etc?: string;
+}
+
+function DataTabel({ tableTitle, dataSource }: IDataTableProps) {
   const [open, setOpen] = useState(false);
   // const [employeeOpne, setEmployeeOpen] = useState(false);
 
   const [details, setDetils] = useState({});
 
-  const adminOnClickHandler = (data) => {
+  const adminOnClickHandler = (data: IDataSourceItem) => {
     setOpen(true);
     setDetils(data);
   };
 
   //테이블 형식
-  const columns = [
+  const columns: ColumnsType<IDataSourceItem> = [
     {
       title: "사원명",
       dataIndex: "사원명",
@@ -58,30 +77,19 @@ function DataTabel({ tableTitle, dataSource, type }) {
       render: (_, data) => {
         if (data.status === "대기") {
           return (
-            <Button
-              pendingButton="true"
-              onClick={() => adminOnClickHandler(data)}
-            >
+            <Button pending="true" onClick={() => adminOnClickHandler(data)}>
               {data?.status}
             </Button>
           );
         } else if (data.status === "승인") {
           return (
-            <Button
-              acceptButton="true"
-              onClick={() => adminOnClickHandler(data)}
-            >
+            <Button accept="true" onClick={() => adminOnClickHandler(data)}>
               {data?.status}
             </Button>
           );
         } else {
           return (
-            <Button
-              denyButton="true"
-              onClick={() => {
-                adminOnClickHandler(data);
-              }}
-            >
+            <Button deny="true" onClick={() => adminOnClickHandler(data)}>
               {data?.status}
             </Button>
           );

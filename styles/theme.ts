@@ -2,7 +2,7 @@ import { DefaultTheme } from "styled-components";
 
 // 추후 색상 변경
 export const theme: DefaultTheme = {
-  bgColor: "#fff",
+  bgColor: "#eee",
   textColor: "#191919",
   headerColor: "#e5e5e5",
   containerBoxColor: "#fff",
@@ -19,4 +19,6 @@ export const theme: DefaultTheme = {
   borderColor: "#a55eea",
   buttonTextColor: "#fff",
   hoverColor: "transparent",
+  inactiveColor: "#939393",
+  activeColor: "#000",
 };
