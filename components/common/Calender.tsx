@@ -38,12 +38,6 @@ function Calendar() {
   const currentMonth = currentDate.getMonth() + 1;
   const today = currentDate.getDate();
 
-  // 데이터 생성 - 임의의 사원 이름을 지정한 객체 배열
-  const employeeData = [
-    { date: 3, name: "홍길동" },
-    { date: 6, name: "이양소" },
-  ];
-
   const weeks = [];
   const firstDayIndex = getFirstDay(currentDate);
   const lastDateOfMonth = getLastDateOfMonth(currentDate);
@@ -99,15 +93,13 @@ function Calendar() {
 
                 const isCurrentDay = date === today;
                 const isPast12PM = isCurrentDay && new Date().getHours() >= 12;
-                
-                const employee = employeeData.find((emp) => emp.date === date);
 
                 return (
                   <DateCell
                     key={idx}
                     className={isCurrentDay ? (isPast12PM ? "current-day-black" : "current-day") : "other-day"}
                   >
-                    {employee ? employee.name : date}
+                    {date}
                   </DateCell>
                 );
               })}
