@@ -33,9 +33,9 @@ const StyledButton = styled.button<{
     props.employee &&
     css`
       background: ${(props) => props.theme.buttonColor.empButton};
+      border: 1px solid ${(props) => props.theme.buttonColor.empButton};
       &:hover {
         color: ${(props) => props.theme.buttonColor.empButton};
-        border-color: ${(props) => props.theme.buttonColor.empButton};
         border: 1px solid ${(props) => props.theme.buttonColor.empButton};
       }
     `}
@@ -43,6 +43,7 @@ const StyledButton = styled.button<{
     props.manager &&
     css`
       background: ${(props) => props.theme.buttonColor.managerButton};
+      border: 1px solid ${(props) => props.theme.buttonColor.managerButton};
       &:hover {
         color: ${(props) => props.theme.buttonColor.managerButton};
         border: 1px solid ${(props) => props.theme.buttonColor.managerButton};
@@ -52,6 +53,7 @@ const StyledButton = styled.button<{
     props.accept &&
     css`
       background: ${(props) => props.theme.buttonColor.acceptButton};
+      border: 1px solid ${(props) => props.theme.buttonColor.acceptButton};
       &:hover {
         color: ${(props) => props.theme.buttonColor.acceptButton};
         border: 1px solid ${(props) => props.theme.buttonColor.acceptButton};
@@ -61,6 +63,7 @@ const StyledButton = styled.button<{
     props.deny &&
     css`
       background: ${(props) => props.theme.buttonColor.denyButton};
+      border: 1px solid ${(props) => props.theme.buttonColor.denyButton};
       &:hover {
         color: ${(props) => props.theme.buttonColor.denyButton};
         border: 1px solid ${(props) => props.theme.buttonColor.denyButton};
@@ -70,6 +73,7 @@ const StyledButton = styled.button<{
     props.pending &&
     css`
       background: ${(props) => props.theme.buttonColor.pendingButton};
+      border: 1px solid ${(props) => props.theme.buttonColor.pendingButton};
       &:hover {
         color: ${(props) => props.theme.buttonColor.pendingButton};
         border: 1px solid ${(props) => props.theme.buttonColor.pendingButton};
