@@ -10,14 +10,13 @@ function Button({ ...props }: IButtonProps) {
 
 const StyledButton = styled.button<{
   employee?: boolean;
-  manager?: boolean;
+  admin?: boolean;
   accept?: boolean;
   deny?: boolean;
   pending?: boolean;
 }>`
   border: none;
   border-radius: 10px;
-  font-size: 0.8rem;
   padding: 0.5rem 1rem;
   color: ${(props) => props.theme.buttonTextColor};
   outline: none;
@@ -34,16 +33,24 @@ const StyledButton = styled.button<{
     css`
       background: ${(props) => props.theme.buttonColor.empButton};
       border: 1px solid ${(props) => props.theme.buttonColor.empButton};
+      color: ${(props) => props.theme.buttonTextColor.empColor};
+      font-size: 20px;
+      border-radius: 30px;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
       &:hover {
         color: ${(props) => props.theme.buttonColor.empButton};
         border: 1px solid ${(props) => props.theme.buttonColor.empButton};
       }
     `}
   ${(props) =>
-    props.manager &&
+    props.admin &&
     css`
       background: ${(props) => props.theme.buttonColor.managerButton};
       border: 1px solid ${(props) => props.theme.buttonColor.managerButton};
+      color: ${(props) => props.theme.buttonTextColor.adminColor};
+      font-size: 20px;
+      border-radius: 30px;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
       &:hover {
         color: ${(props) => props.theme.buttonColor.managerButton};
         border: 1px solid ${(props) => props.theme.buttonColor.managerButton};
