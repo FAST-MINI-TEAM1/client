@@ -1,6 +1,7 @@
 import { Space, Table } from "antd";
 import { useState } from "react";
 import ApprovalModal from "@components/admin/ApprovalModal";
+import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
 import Button from "@components/common/Button";
 import type { ColumnsType } from "antd/es/table";
 
@@ -24,6 +25,7 @@ interface IDataSourceItem {
 
 function DataTabel({ tableTitle, dataSource }: IDataTableProps) {
   const [open, setOpen] = useState(false);
+  // const [employeeOpne, setEmployeeOpen] = useState(false);
 
   const [details, setDetils] = useState({});
 
@@ -117,6 +119,7 @@ function DataTabel({ tableTitle, dataSource }: IDataTableProps) {
         }}
       />
       <ApprovalModal open={open} setOpen={setOpen} details={details} />
+      <EmployeeHistoyModal />
     </Space>
   );
 }
