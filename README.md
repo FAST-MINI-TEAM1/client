@@ -178,3 +178,555 @@ interface ResponseValue {
   "Authorization-refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlQS3I...(생략)"
 }
 ```
+
+<hr />
+
+### 요청관리 - 결재처리
+
+- 관리자 전용 API 입니다.
+
+```curl
+curl http://54.79.60.180:8080/api/admin/order/update
+  \ -X 'POST'
+  \ -H 'Authorization: Bearer <token>'
+  \ -H 'Authorization-refresh : Bearer <token>'
+```
+
+요청 데이터 타입 및 예시:
+
+```ts
+interface RequestBody {
+  id: number;
+  status: string;
+}
+```
+
+```json
+{
+     "id" : 1
+     "status" : “승인”
+}
+```
+
+응답 데이터 타입 및 예시:
+
+- 없음
+
+### 요청관리 리스트 조회 - 결재대기
+
+- 관리자 전용 API 입니다.
+
+```curl
+curl http://54.79.60.180:8080/api/admin/order/list/status/wait?page=${page}&size=${size}
+  \ -X 'GET'
+  \ -H 'Authorization: Bearer <token>'
+  \ -H 'Authorization-refresh : Bearer <token>'
+```
+
+요청 데이터 타입 및 예시:
+
+- 없음
+
+응답 데이터 타입 및 예시:
+
+```ts
+interface ResponseValue {
+  content: ContentData[];
+  pageable: {
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    offset: number;
+    pageNumber: number;
+    pageSize: number;
+    paged: boolean;
+    unpaged: boolean;
+  };
+  totalElements: number;
+  totalPages: number;
+  last: boolean;
+  number: number;
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  };
+  size: number;
+  numberOfElements: number;
+  first: boolean;
+  empty: boolean;
+}
+
+interface ContentData {
+  id: number;
+  empName: string;
+  createdAt: string;
+  orderType: string;
+  status: string;
+  startDate: string;
+  endDate: string;
+  reason: string;
+  category: string;
+  etc: string;
+}
+```
+
+```json
+{
+  "content": [
+    {
+      "id": 1,
+      "empName": "박지훈",
+      "createdAt": "2023-07-15",
+      "orderType": "연차",
+      "status": "대기",
+      "startDate": "2023-07-15",
+      "endDate": "2023-07-20",
+      "reason": "이유",
+      "category": "경조사",
+      "etc": "기타"
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 4,
+    "paged": true,
+    "unpaged": false
+  },
+  "totalElements": 22,
+  "totalPages": 6,
+  "last": false,
+  "number": 0,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "size": 4,
+  "numberOfElements": 4,
+  "first": true,
+  "empty": false
+}
+```
+
+### 요청관리 리스트 조회 - 결재완료
+
+- 관리자 전용 API 입니다.
+
+```curl
+curl http://54.79.60.180:8080/api/admin/order/list/status/complete?page=${page}&size=${size}
+  \ -X 'GET'
+  \ -H 'Authorization: Bearer <token>'
+  \ -H 'Authorization-refresh : Bearer <token>'
+```
+
+요청 데이터 타입 및 예시:
+
+- 없음
+
+응답 데이터 타입 및 예시:
+
+```ts
+interface ResponseValue {
+  content: {
+    id: number;
+    empName: string;
+    createdAt: string;
+    orderType: string;
+    status: string;
+    startDate: string;
+    endDate: string;
+    reason: string;
+    category: string;
+    etc: string;
+  }[];
+  pageable: {
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    offset: number;
+    pageNumber: number;
+    pageSize: number;
+    paged: boolean;
+    unpaged: boolean;
+  };
+  totalElements: number;
+  totalPages: number;
+  last: boolean;
+  number: number;
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  };
+  size: number;
+  numberOfElements: number;
+  first: boolean;
+  empty: boolean;
+}
+```
+
+```json
+{
+  "content": [
+    {
+      "id": 1,
+      "empName": "박지훈",
+      "createdAt": "2023-07-15",
+      "orderType": "연차",
+      "status": "승인",
+      "startDate": "2023-07-15",
+      "endDate": "2023-07-20",
+      "reason": "이유",
+      "category": "경조사",
+      "etc": "기타"
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 4,
+    "paged": true,
+    "unpaged": false
+  },
+  "totalElements": 22,
+  "totalPages": 6,
+  "last": false,
+  "number": 0,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "size": 4,
+  "numberOfElements": 4,
+  "first": true,
+  "empty": false
+}
+```
+
+### 월별 사용대장 - 당직 조회
+
+- 관리자 전용 API 입니다.
+
+```curl
+curl http://54.79.60.180:8080/api/admin/order/list/monthly/duty?year=${year}
+  \ -X 'GET'
+  \ -H 'Authorization: Bearer <token>'
+  \ -H 'Authorization-refresh : Bearer <token>'
+```
+
+요청 데이터 타입 및 예시:
+
+- 없음
+
+응답 데이터 타입 및 예시:
+
+```ts
+type TDutyData = IDutyItem[];
+
+interface IDutyItem {
+  id: number;
+  empName: string;
+  empNo: number;
+  month: {
+    jan: number;
+    feb: number;
+    mar: number;
+    apr: number;
+    may: number;
+    jun: number;
+    jul: number;
+    aug: number;
+    sept: number;
+    oct: number;
+    nov: number;
+    dec: number;
+    totalCount: number;
+  };
+  total: number;
+}
+```
+
+```json
+[
+  {
+    "id": 1,
+    "empName": "박지훈",
+    "empNo": 20200001,
+    "month": {
+      "jan": 0,
+      "feb": 0,
+      "mar": 0,
+      "apr": 0,
+      "may": 0,
+      "jun": 0,
+      "jul": 6,
+      "aug": 0,
+      "sept": 0,
+      "oct": 0,
+      "nov": 0,
+      "dec": 0,
+      "totalCount": 6
+    },
+    "total": 6
+  }
+]
+```
+
+### 월별 사용대장 - 연차 조회
+
+- 관리자 전용 API 입니다.
+
+```curl
+curl http://54.79.60.180:8080/api/admin/order/list/monthly/annual?year=${year}
+  \ -X 'GET'
+  \ -H 'Authorization: Bearer <token>'
+  \ -H 'Authorization-refresh : Bearer <token>'
+```
+
+요청 데이터 타입 및 예시:
+
+- 없음
+
+응답 데이터 타입 및 예시:
+
+```ts
+type TAnnualData = IDutyItem[];
+
+interface IAnnualItem {
+  id: number;
+  empName: string;
+  empNo: number;
+  month: {
+    jan: number;
+    feb: number;
+    mar: number;
+    apr: number;
+    may: number;
+    jun: number;
+    jul: number;
+    aug: number;
+    sept: number;
+    oct: number;
+    nov: number;
+    dec: number;
+    totalCount: number;
+  };
+  total: number;
+}
+```
+
+```json
+[
+  {
+    "id": 1,
+    "empName": "박지훈",
+    "empNo": 20200001,
+    "month": {
+      "jan": 0,
+      "feb": 0,
+      "mar": 0,
+      "apr": 0,
+      "may": 0,
+      "jun": 0,
+      "jul": 6,
+      "aug": 0,
+      "sept": 0,
+      "oct": 0,
+      "nov": 0,
+      "dec": 0,
+      "totalCount": 6
+    },
+    "total": 6
+  }
+]
+```
+
+### 사원조회 - 사원명
+
+- 관리자 전용 API 입니다.
+
+```curl
+curl http://54.79.60.180:8080/api/admin/user/search?name=${name}
+  \ -X 'GET'
+  \ -H 'Authorization: Bearer <token>'
+  \ -H 'Authorization-refresh : Bearer <token>'
+```
+
+요청 데이터 타입 및 예시:
+
+- 없음
+
+응답 데이터 타입 및 예시:
+
+```ts
+interface ISearch {
+  id: number;
+  empNo: number;
+  empName: string;
+  createdAt: string;
+}
+```
+
+```json
+{
+  "id": 4,
+  "empNo": 20210004,
+  "empName": "홍길동",
+  "createdAt": "2023-08-03"
+}
+```
+
+### 사원조회 - 사원번호
+
+- 관리자 전용 API 입니다.
+
+```curl
+curl http://54.79.60.180:8080/api/admin/user/search?empno=${empno}
+  \ -X 'GET'
+  \ -H 'Authorization: Bearer <token>'
+  \ -H 'Authorization-refresh : Bearer <token>'
+```
+
+요청 데이터 타입 및 예시:
+
+- 없음
+
+응답 데이터 타입 및 예시:
+
+```ts
+interface ISearch {
+  id: number;
+  empNo: number;
+  empName: string;
+  createdAt: string;
+}
+```
+
+```json
+{
+  "id": 4,
+  "empNo": 20210004,
+  "empName": "홍길동",
+  "createdAt": "2023-08-03"
+}
+```
+
+### 사원조회 - 연차/당직 내역
+
+- 관리자 전용 API 입니다.
+
+```curl
+curl http://54.79.60.180:8080/api/admin/order/list?user=${user}&page=${page}&size=${size}
+  \ -X 'GET'
+  \ -H 'Authorization: Bearer <token>'
+  \ -H 'Authorization-refresh : Bearer <token>'
+```
+
+요청 데이터 타입 및 예시:
+
+- 없음
+
+응답 데이터 타입 및 예시:
+
+```ts
+interface ResponseValue {
+  content: {
+    id: number;
+    empName: string;
+    createdAt: string;
+    orderType: string;
+    status: string;
+    startDate: string;
+    endDate: string;
+    reason: string;
+    category: string;
+    etc: string;
+  }[];
+  pageable: {
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    offset: number;
+    pageNumber: number;
+    pageSize: number;
+    paged: boolean;
+    unpaged: boolean;
+  };
+  totalElements: number;
+  totalPages: number;
+  last: boolean;
+  number: number;
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  };
+  size: number;
+  numberOfElements: number;
+  first: boolean;
+  empty: boolean;
+}
+```
+
+```json
+{
+  "content": [
+    {
+      "id": 1,
+      "empName": "박지훈",
+      "createdAt": "2023-07-15",
+      "orderType": "연차",
+      "status": "승인",
+      "startDate": "2023-07-15",
+      "endDate": "2023-07-20",
+      "reason": "이유",
+      "category": "경조사",
+      "etc": "기타"
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 4,
+    "paged": true,
+    "unpaged": false
+  },
+  "totalElements": 22,
+  "totalPages": 6,
+  "last": false,
+  "number": 0,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "size": 4,
+  "numberOfElements": 4,
+  "first": true,
+  "empty": false
+}
+```
