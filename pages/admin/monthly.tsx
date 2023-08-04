@@ -4,6 +4,7 @@ import MonthlyTable from "@components/admin/MonthlyTable";
 import styled from "styled-components";
 import { useState } from "react";
 import { StringGradients } from "antd/es/progress/progress";
+
 function Monthly() {
   const [tabKey, setTabKey] = useState<string>("");
 
