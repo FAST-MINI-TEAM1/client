@@ -1,8 +1,15 @@
 import DataTabel from "@components/common/DataTabel";
 import Header from "@components/common/Header";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-function history() {
+function History() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const pendingData = [
     {
       id: 1,
@@ -33,30 +40,30 @@ function history() {
     },
   ];
   return (
-    <>
-      <Header />
-      <Container>
-        <div className="details">
-          <DataTabel
-            tableTitle={"결재 대기 내역"}
-            dataSource={pendingData}
-            // type={"employee"}
-          />
-        </div>
+    mounted && (
+      <>
+        <Header />
+        <Container>
+          <div className="details">
+            <DataTabel
+              tableTitle={"결재 대기 내역"}
+              dataSource={pendingData}
+              // type={"employee"}
+            />
+          </div>
 
-        <div className="details">
-          <DataTabel
-            tableTitle={"결재 완료 내역"}
-            dataSource={completedData}
-            // type={"employee"}
-          />
-        </div>
-      </Container>
-    </>
+          <div className="details">
+            <DataTabel
+              tableTitle={"결재 완료 내역"}
+              dataSource={completedData}
+              // type={"employee"}
+            />
+          </div>
+        </Container>
+      </>
+    )
   );
 }
-
-export default history;
 
 const Container = styled.section`
   display: flex;
@@ -79,3 +86,5 @@ const Container = styled.section`
     box-shadow: #e2e2e2 0px 5px 10px;
   }
 `;
+
+export default History;

@@ -1,8 +1,15 @@
 import AdminHeader from "@components/common/AdminHeader";
 import DataTabel from "@components/common/DataTabel";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-function approval() {
+function Approval() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const pendingData = [
     {
       id: 1,
@@ -81,22 +88,27 @@ function approval() {
     },
   ];
   return (
-    <>
-      <AdminHeader />
-      <Container>
-        <div className="details">
-          <DataTabel tableTitle={"결재 대기 내역"} dataSource={pendingData} />
-        </div>
+    mounted && (
+      <>
+        <AdminHeader />
+        <Container>
+          <div className="details">
+            <DataTabel tableTitle={"결재 대기 내역"} dataSource={pendingData} />
+          </div>
 
-        <div className="details">
-          <DataTabel tableTitle={"결재 완료 내역"} dataSource={completedData} />
-        </div>
-      </Container>
-    </>
+          <div className="details">
+            <DataTabel
+              tableTitle={"결재 완료 내역"}
+              dataSource={completedData}
+            />
+          </div>
+        </Container>
+      </>
+    )
   );
 }
 
-export default approval;
+export default Approval;
 
 const Container = styled.section`
   display: flex;
