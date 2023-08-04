@@ -3,6 +3,19 @@ import DataTabel from "@components/common/DataTabel";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
+interface IDataSourceItem {
+  id: number;
+  empName: string;
+  createdAt: string;
+  orderType: string;
+  status: string;
+  startDate: string;
+  endDate: string;
+  reason?: string;
+  category?: string;
+  etc?: string;
+}
+
 function Approval() {
   const [mounted, setMounted] = useState(false);
 
@@ -10,7 +23,7 @@ function Approval() {
     setMounted(true);
   }, []);
 
-  const pendingData = [
+  const pendingData: IDataSourceItem[] = [
     {
       id: 1,
       empName: "홍길동",
@@ -31,9 +44,9 @@ function Approval() {
       status: "대기",
       startDate: "2023-08-01",
       endDate: "2023-08-01",
-      reason: null,
-      category: null,
-      etc: null,
+      reason: "",
+      category: "",
+      etc: "",
     },
     {
       id: 1,
@@ -43,13 +56,13 @@ function Approval() {
       status: "대기",
       startDate: "2023-08-01",
       endDate: "2023-08-01",
-      reason: null,
-      category: null,
-      etc: null,
+      reason: "",
+      category: "",
+      etc: "",
     },
   ];
 
-  const completedData = [
+  const completedData: IDataSourceItem[] = [
     {
       id: 1,
       empName: "김현철",
@@ -70,9 +83,9 @@ function Approval() {
       status: "승인",
       startDate: "2023-08-01",
       endDate: "2023-08-01",
-      reason: null,
-      category: null,
-      etc: null,
+      reason: "",
+      category: "",
+      etc: "",
     },
     {
       id: 1,
@@ -82,9 +95,9 @@ function Approval() {
       status: "승인",
       startDate: "2023-08-01",
       endDate: "2023-08-01",
-      reason: null,
-      category: null,
-      etc: null,
+      reason: "",
+      category: "",
+      etc: "",
     },
   ];
   return (
