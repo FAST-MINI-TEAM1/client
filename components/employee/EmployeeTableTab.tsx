@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Tabs } from "antd";
 import type { TabsProps } from "antd";
 import EmployeeTable from "@components/employee/EmployeeTable";
-import styled from "styled-components";
+import { styled } from "styled-components";
+import Calendar from "@components/common/Calender";
 
 function EmployeeTableTab() {
   const [selectedTap, setSelectedTap] = useState("전체");
@@ -27,17 +28,38 @@ function EmployeeTableTab() {
     {
       key: "전체",
       label: `전체`,
-      children: <EmployeeTable selectedTap={selectedTap} />,
+      children: (
+        <Layout>
+          <CalendarContainer>
+            <Calendar />
+          </CalendarContainer>
+          <EmployeeTable selectedTap={selectedTap} />
+        </Layout>
+      ),
     },
     {
       key: "연차",
       label: `연차`,
-      children: <EmployeeTable selectedTap={selectedTap} toggle={toggle} />,
+      children: (
+        <Layout>
+          <CalendarContainer>
+            <Calendar />
+          </CalendarContainer>
+          <EmployeeTable selectedTap={selectedTap} toggle={toggle} />
+        </Layout>
+      ),
     },
     {
       key: "당직",
       label: `당직`,
-      children: <EmployeeTable selectedTap={selectedTap} toggle={toggle} />,
+      children: (
+        <Layout>
+          <CalendarContainer>
+            <Calendar />
+          </CalendarContainer>
+          <EmployeeTable selectedTap={selectedTap} toggle={toggle} />
+        </Layout>
+      ),
     },
   ];
   return (
@@ -51,8 +73,8 @@ function EmployeeTableTab() {
   );
 }
 const StyledTabs = styled(Tabs)`
-color: #D9D9D9;
-font-size:16px;
+color: #090909;
+font-size:19px;
 text-shadow: 0px 3px 7px rgba(81, 81, 81, 0.25);
 h1{
   color: black;
@@ -84,4 +106,20 @@ justify-content: center;
   text-shadow: 0px 3px 7px rgba(81, 81, 81, 0.25);
 }
 `;
+const Layout = styled.div`
+  width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  justify-content: space-between;
+`;
+const CalendarContainer = styled.div`
+  width: 950px;
+  height: 670px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.16);
+`;
+
 export default EmployeeTableTab;

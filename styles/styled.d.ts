@@ -30,6 +30,7 @@ declare module "styled-components" {
       yellow: string;
       red: string;
       black: string;
+      rightGray: string;
     };
   }
 }

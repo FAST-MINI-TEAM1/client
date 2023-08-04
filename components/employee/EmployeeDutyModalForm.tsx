@@ -2,13 +2,14 @@ import { useState } from "react";
 import { Input, Modal, Select, Space, DatePicker } from "antd";
 import Button from "@components/common/Button";
 import styled from "styled-components";
+import Image from "next/image";
+import bottomDot from "public/bottomDot.png";
 
-interface Iprops {
+interface IEmployeeDutyModalprops {
   toggle?: boolean;
-  isModalOpen?: boolean;
 }
 
-function EmployeeDutyModalForm({ toggle }: Iprops) {
+function EmployeeDutyModalForm({ toggle }: IEmployeeDutyModalprops) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   //modal에서 받는 inputVlaue값
   const [inputDate, setInputDate] = useState("");
@@ -41,26 +42,32 @@ function EmployeeDutyModalForm({ toggle }: Iprops) {
   };
   return (
     <>
-      <Button submit="true" onClick={showModal}>
-        {toggle ? "연차 등록하기" : "당직 등록하기"}
-      </Button>
+      {toggle ? (
+        <Button annualSubmit="true" onClick={showModal}>
+          연차 등록하기
+        </Button>
+      ) : (
+        <Button dutySubmit="true" onClick={showModal}>
+          당직 등록하기
+        </Button>
+      )}
 
       <StyledDutyModal
         title={toggle ? "연차 등록하기" : "당직 등록하기"}
         open={isModalOpen}
-        okText="신청"
         onOk={handleOk}
-        cancelText="취소"
         onCancel={handleCancel}
+        footer={null}
+        width={520}
       >
-        {toggle ? <div>남은 연차 횟수 {11}일</div> : null}
-        <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
-          <div> {toggle ? "연차일" : "당직일"}</div>
+        {toggle ? <div className="annualNum">남은 연차 횟수 {11}일</div> : null}
+        <StyledSpace direction="horizontal">
+          <StyledLabel> {toggle ? "연차일" : "당직일"}</StyledLabel>
           <RangePicker bordered={false} />
-        </Space>
+        </StyledSpace>
         {toggle ? (
-          <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
-            <div>휴가종류</div>
+          <StyledSpace direction="horizontal">
+            <StyledLabel>휴가종류</StyledLabel>
             <Select
               bordered={false}
               showSearch
@@ -91,11 +98,11 @@ function EmployeeDutyModalForm({ toggle }: Iprops) {
                 },
               ]}
             />
-          </Space>
+          </StyledSpace>
         ) : null}
-        <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
-          <div>사유</div>
-          <Input
+        <StyledSpace direction="horizontal">
+          <StyledLabel>사유</StyledLabel>
+          <StyledInput
             bordered={false}
             type="text"
             placeholder="입력하세요"
@@ -103,11 +110,11 @@ function EmployeeDutyModalForm({ toggle }: Iprops) {
             onChange={(e) => {
               setInputReason(e.target.value);
             }}
-          ></Input>
-        </Space>
-        <Space direction="horizontal" size="middle" style={{ width: "100%" }}>
-          <div>특이사항</div>
-          <Input
+          ></StyledInput>
+        </StyledSpace>
+        <StyledSpace direction="horizontal">
+          <StyledLabel>특이사항</StyledLabel>
+          <StyledInput
             bordered={false}
             type="text"
             placeholder="입력하세요"
@@ -115,18 +122,60 @@ function EmployeeDutyModalForm({ toggle }: Iprops) {
             onChange={(e) => {
               setInputEtc(e.target.value);
             }}
-          ></Input>
-        </Space>
+          ></StyledInput>
+        </StyledSpace>
+        <BtnContainer>
+          <Button cancle="ture">취소</Button>
+          <Button application="ture">신청</Button>
+        </BtnContainer>
+        <Image src={bottomDot} alt="backpng" />
       </StyledDutyModal>
     </>
   );
 }
 
 const StyledDutyModal = styled(Modal)`
-  justify-align: center;
   display: flex;
-  width: 450px;
+  text-align: center;
   font-size: 18px;
+  .annualNum {
+    font-size: 15px;
+    color: red;
+    text-align: right;
+  }
+  .ant-modal-title {
+    margin-top: 50px;
+    font-size: 18px;
+  }
+  .ant-modal-body {
+    font-size: 16px;
+    padding: 30px;
+    margin: 20px;
+    // background-color: red;
+  }
+`;
+
+const StyledInput = styled(Input)`
+  font-size: 15px;
+`;
+const StyledSpace = styled(Space)`
+  font-size: 15px;
+  width: 100%;
+  margin: 10px 0;
+  border-bottom: 0.5px solid #e0e0e0;
+  // justify-content: space-between;
+`;
+const StyledLabel = styled.div`
+  width: 60px;
+  text-align: left;
+  font-weight: bold;
+  margin: 0 20px;
+`;
+const BtnContainer = styled.div`
+  margin: 60px auto;
+  width: 260px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export default EmployeeDutyModalForm;

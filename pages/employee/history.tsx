@@ -1,7 +1,7 @@
 import DataTabel from "@components/common/DataTabel";
 import Header from "@components/common/Header";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 function History() {
   const [mounted, setMounted] = useState(false);

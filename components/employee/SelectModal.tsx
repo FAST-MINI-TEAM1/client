@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Button, Drawer } from "antd";
+import { Drawer } from "antd";
 import EmployeeDutyModalForm from "@components/employee/EmployeeDutyModalForm";
-import styled from "styled-components";
+import { styled } from "styled-components";
+import Button from "@components/common/Button";
 
 interface Iprops {
   toggle?: boolean;
@@ -21,16 +22,13 @@ function SelectModal({ toggle }: Iprops) {
   const containerStyle: React.CSSProperties = {
     position: "relative",
     height: "50px",
-    overflow: "hidden",
+    // overflow: "hidden",
     textAlign: "center",
-    // background: "red",
-    // border: "1px solid red",
-    // borderRadius: "20px",
   };
 
   return (
     <>
-      <Button type="primary" onClick={showDrawer}>
+      <Button submit="true" onClick={showDrawer}>
         등록하기
       </Button>
       <StyledDrawer

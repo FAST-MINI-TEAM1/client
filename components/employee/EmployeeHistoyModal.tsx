@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Modal, Space } from "antd";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import Button from "@components/common/Button";
 
 interface Iprops {
@@ -19,7 +19,8 @@ function EmployeeHistoyModal() {
     category: "경조사",
     etc: "특이사항입니다",
   };
-  const [employeeOpen, setemployeeOpen] = useState(true);
+
+  const [employeeOpen, setemployeeOpen] = useState(false);
 
   const handleOk = () => {
     setemployeeOpen(false);
