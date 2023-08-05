@@ -1,4 +1,4 @@
-import client from "./client";
+import { client, userClient } from "./client";
 
 // 로그인(POST) - 작업 중
 interface ILogin {
