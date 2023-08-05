@@ -1,9 +1,10 @@
-import client from "./client";
+import { client, userClient } from "./client";
 
-export const getTutorial = () => {
-  const result = client.get(
-    // `API 주소 쿼리문만 입력`
-    `api/...`,
-  );
-  return result;
+// 로그인(POST) - 작업 중
+interface ILogin {
+  email: string;
+  password: string;
+}
+export const login = async (email: string, password: string) => {
+  await client.post("api/login", { email, password });
 };
