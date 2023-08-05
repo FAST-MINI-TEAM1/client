@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 import styled from "styled-components";
 
+// Component
 function AuthTemplate({ children }: PropsWithChildren) {
   return (
     <AuthTemplateBlock>
@@ -9,6 +10,7 @@ function AuthTemplate({ children }: PropsWithChildren) {
   );
 }
 
+// Style
 const AuthTemplateBlock = styled.div`
   position: absolute;
   left: 0;
