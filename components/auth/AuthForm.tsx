@@ -1,7 +1,7 @@
 import Input from "@components/common/Input";
 import { login } from "@lib/api/manageAPI";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import styled from "styled-components";
 import { MdEmail, MdLock, MdVerifiedUser, MdPerson } from "react-icons/md";
 import { BsFillPersonBadgeFill } from "react-icons/bs";
@@ -19,29 +19,28 @@ function AuthForm({ type }: IAuthFormProps) {
   const text = textMap[type];
 
   // Hooks
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [loginMessage, setLoginMessage] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  // Function
-  // const onLoginChange = (event: FormEvent) => {
-  //   const { name, value } = event.target as HTMLInputElement;
-  //   if (name === "email") {
-  //     setEmail(value);
-  //   } else if (name === "password") {
-  //     setPassword(value);
-  //   }
-  // };
+  // Event Function
+  const onLoginChange = useCallback((event: FormEvent) => {
+    const { name, value } = event.target as HTMLInputElement;
+    if (name === "email") {
+      setEmail(value);
+    } else if (name === "password") {
+      setPassword(value);
+    }
+  }, []);
 
-  // const onLogin = (event: FormEvent) => {
-  //   event.preventDefault();
-  //   if (email === "" || password === "") {
-  //     setLoginMessage("아이디와 비밀번호를 확인해주세요!");
-  //   } else {
-  //     login(email, password);
-  //     console.log("로그인 성공");
-  //   }
-  // };
+  const onLogin = useCallback(async (event: FormEvent) => {
+    event.preventDefault();
+    if (email === "" || password === "") {
+      setMessage("아이디와 패스워드를 입력해주세요!");
+    } else {
+      await login(email, password);
+    }
+  }, []);
 
   // Render
   return (
@@ -56,8 +55,7 @@ function AuthForm({ type }: IAuthFormProps) {
                 autoComplete="email"
                 name="email"
                 placeholder="이메일"
-                // onChange={onLoginChange}
-                // value={email}
+                onChange={onLoginChange}
                 auth="true"
               />
             </InputWrapper>
@@ -68,9 +66,8 @@ function AuthForm({ type }: IAuthFormProps) {
                 autoComplete="password"
                 name="password"
                 placeholder="패스워드"
+                onChange={onLoginChange}
                 auth="true"
-                // onChange={onLoginChange}
-                // value={password}
               />
             </InputWrapper>
             {/* <span>{loginMessage}</span> */}

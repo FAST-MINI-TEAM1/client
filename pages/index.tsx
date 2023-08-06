@@ -1,21 +1,25 @@
 import Button from "@components/common/Button";
+import Loading from "@components/common/Loading";
 import Link from "next/link";
 import styled from "styled-components";
 
 function Home() {
   return (
-    <HomeBlock>
-      <HomeContent>
-        <ButtonWrapper>
-          <Link href="/login">
-            <EmployeeButton employee>사원 로그인</EmployeeButton>
-          </Link>
-          <Link href="/admin/login">
-            <AdminButton admin>관리자 로그인</AdminButton>
-          </Link>
-        </ButtonWrapper>
-      </HomeContent>
-    </HomeBlock>
+    <>
+      <HomeBlock>
+        <HomeContent>
+          <ButtonWrapper>
+            <Link href="/login">
+              <EmployeeButton employee>사원 로그인</EmployeeButton>
+            </Link>
+            <Link href="/admin/login">
+              <AdminButton admin>관리자 로그인</AdminButton>
+            </Link>
+          </ButtonWrapper>
+        </HomeContent>
+      </HomeBlock>
+      <Loading />
+    </>
   );
 }
 
