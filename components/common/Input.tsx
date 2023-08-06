@@ -19,8 +19,17 @@ const StyledInput = styled.input<{ auth?: boolean }>`
   ${(props) =>
     props.auth &&
     css`
-      border-bottom: 1px solid ${(props) => props.theme.inputColor.authColor};
+      border-bottom: 1px solid #ccc;
       width: 330px;
+      &::placeholder {
+        color: #ccc;
+      }
+      &:focus {
+        border-bottom: 1px solid #000;
+        &::placeholder {
+          color: #707070;
+        }
+      }
     `}
 `;
 
