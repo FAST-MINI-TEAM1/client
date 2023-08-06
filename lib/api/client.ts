@@ -9,14 +9,14 @@ const refreshToken =
 const axiosConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
   headers: {
-    "Content-Type": "application/json",
+    "content-type": "application/json",
   },
 };
 
 const tokenConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
   headers: {
-    "Content-Type": "application/json",
+    "content-type": "application/json",
     Authorization: `Bearer ${accessToken}`,
     "Authorization-refresh": `Bearer ${refreshToken}`,
   },
