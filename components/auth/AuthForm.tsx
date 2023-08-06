@@ -33,7 +33,7 @@ function AuthForm({ type }: IAuthFormProps) {
 
   const onLogin = async (event: FormEvent) => {
     event.preventDefault();
-    await login(email, password);
+    await login({email, password});
   };
 
   // Render
