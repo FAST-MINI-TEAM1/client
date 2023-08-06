@@ -3,16 +3,9 @@ import { login } from "@lib/api/manageAPI";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 import styled from "styled-components";
-import { MdEmail, MdLock } from "react-icons/md";
-
-// Interface
-interface IAuthFormProps {
-  type: string;
-}
-
-interface ITextMap {
-  [key: string]: any;
-}
+import { MdEmail, MdLock, MdVerifiedUser, MdPerson } from "react-icons/md";
+import { BsFillPersonBadgeFill } from "react-icons/bs";
+import { IAuthFormProps, ITextMap } from "@lib/interface/Auth";
 
 // Constant / Variation
 const textMap: ITextMap = {
@@ -85,38 +78,63 @@ function AuthForm({ type }: IAuthFormProps) {
         )}
         {type === "register" && (
           <>
-            <Input
-              autoComplete="email"
-              name="email"
-              placeholder="example"
-              auth="true"
-            />
-            <Input
-              autoComplete="name"
-              name="name"
-              placeholder="이름"
-              auth="true"
-            />
-            <Input
-              type="password"
-              autoComplete="password"
-              name="password"
-              placeholder="패스워드"
-              auth="true"
-            />
-            <Input
-              type="password"
-              autoComplete="new-password"
-              name="passwordConfirm"
-              placeholder="패스워드 확인"
-              auth="true"
-            />
-            <Input
-              autoComplete="rank"
-              name="rank"
-              placeholder="직급"
-              auth="true"
-            />
+            <InputWrapper>
+              <IconWrapper>
+                <EmailIcon />
+              </IconWrapper>
+              <Input
+                autoComplete="email"
+                name="email"
+                placeholder="이메일"
+                auth="true"
+              />
+            </InputWrapper>
+            <InputWrapper>
+              <IconWrapper>
+                <PersonIcon />
+              </IconWrapper>
+              <Input
+                autoComplete="name"
+                name="name"
+                placeholder="이름"
+                auth="true"
+              />
+            </InputWrapper>
+            <InputWrapper>
+              <IconWrapper>
+                <PasswordIcon />
+              </IconWrapper>
+              <Input
+                type="password"
+                autoComplete="password"
+                name="password"
+                placeholder="패스워드"
+                auth="true"
+              />
+            </InputWrapper>
+            <InputWrapper>
+              <IconWrapper>
+                <PasswordConfirmIcon />
+              </IconWrapper>
+              <Input
+                type="password"
+                autoComplete="new-password"
+                name="passwordConfirm"
+                placeholder="패스워드 확인"
+                auth="true"
+              />
+            </InputWrapper>
+            <InputWrapper>
+              <RankIconWrapper>
+                <RankIcon />
+              </RankIconWrapper>
+              <Input
+                autoComplete="rank"
+                name="rank"
+                placeholder="직급"
+                auth="true"
+              />
+            </InputWrapper>
           </>
         )}
         <ButtonBlock>
@@ -136,7 +154,7 @@ function AuthForm({ type }: IAuthFormProps) {
 
 // Style
 const AuthFormBlock = styled.div`
-  padding: 0 40px;
+  padding: 0 20px;
   h3 {
     margin: 0;
     color: #707070;
@@ -176,11 +194,39 @@ const InputWrapper = styled.div`
   }
 `;
 
+const IconWrapper = styled.div`
+  &::before {
+    content: "*";
+    margin: 0 8px;
+    color: #f00;
+    font-size: 18px;
+  }
+`;
+
+const RankIconWrapper = styled.div`
+  &::before {
+    content: "";
+    margin: 0 12px;
+  }
+`;
+
 const EmailIcon = styled(MdEmail)`
   font-size: 24px;
 `;
 
+const PersonIcon = styled(MdPerson)`
+  font-size: 24px;
+`;
+
 const PasswordIcon = styled(MdLock)`
+  font-size: 24px;
+`;
+
+const PasswordConfirmIcon = styled(MdVerifiedUser)`
+  font-size: 24px;
+`;
+
+const RankIcon = styled(BsFillPersonBadgeFill)`
   font-size: 24px;
 `;
 
