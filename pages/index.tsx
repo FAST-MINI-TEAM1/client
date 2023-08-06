@@ -18,7 +18,7 @@ function Home() {
           </ButtonWrapper>
         </HomeContent>
       </HomeBlock>
-      <Loading />
+      {/* <Loading /> */}
     </>
   );
 }
