@@ -1,9 +1,10 @@
 import EmployeeDutyModalForm from "@components/employee/EmployeeDutyModalForm";
 import { Space } from "antd";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import SelectModal from "@components/employee/SelectModal";
 import { employeeListApi } from "@lib/api/employeeAPI";
 import { useEffect, useState } from "react";
+import { IEmployeeListRequest } from "@lib/interface/EmployeeInterface";
 
 interface selectedTapProps {
   selectedTap: string;
@@ -11,73 +12,29 @@ interface selectedTapProps {
   setToggle?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-interface Idatas {
-  id: number;
-  empName: string;
-  createdAt: string;
-  orderType: string;
-  status: string;
-  startDate: string;
-  endDate: string;
-  reason: string;
-  category: string;
-  etc: string;
-}
 function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
-  const [sdatas, setSdatas] = useState<Idatas[]>();
+  // const [datass, setDatass] = useState<IEmployeeListRequest[]>();
+  const [datas, setDatas] = useState<IEmployeeListRequest[]>([]);
 
   const setlist = async () => {
-    const res = await employeeListApi();
-    console.log(res);
-    setSdatas(res);
-    console.log("얍", sdatas);
+    const list = await employeeListApi();
+    console.log("얍", list?.data.content);
+
+    setDatas(list?.data.content);
+    console.log("얍", datas);
   };
 
-  // useEffect(() => {
-  //   const res = employeeListApi();
-  //   console.log(res);
-  //   setSdatas(res);
-  //   console.log("얍", sdatas);
-  // }, [setlist]);
-
-  const datas = [
-    {
-      id: 1,
-      empName: "홍길동",
-      createdAt: "2023-07-27",
-      orderType: "연차",
-      status: "대기",
-      startDate: "2023-08-01",
-      endDate: "2023-08-01",
-      reason: "이유입니다",
-      category: "경조사",
-      etc: "특이사항입니다",
-    },
-    {
-      id: 2,
-      empName: "홍길동",
-      createdAt: "2023-07-28",
-      orderType: "당직",
-      status: "대기",
-      startDate: "2023-08-01",
-      endDate: "2023-08-01",
-      reason: "이유입니다",
-      category: "경조사",
-      etc: "특이사항입니다",
-    },
-    {
-      id: 3,
-      empName: "홍길동",
-      createdAt: "2023-07-28",
-      orderType: "연차",
-      status: "대기",
-      startDate: "2023-08-04",
-      endDate: "2023-08-01",
-      reason: "이유입니다",
-      category: "경조사",
-      etc: "특이사항입니다",
-    },
-  ];
+  useEffect(() => {
+    async () => {
+      const list = await employeeListApi();
+      console.log("얍", list?.data.content);
+      setDatas(list?.data.content);
+      console.log("얍", datas);
+    };
+    if (datas) {
+      setDatas(datas);
+    }
+  }, [datas]);
 
   return (
     <>

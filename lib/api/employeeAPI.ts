@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { client, userClient } from "./client";
 import {
   IEmployeeOrder,
@@ -43,8 +44,10 @@ export const employeeDeleteApi = ({ id }: IEmployeeOrder) => {
 // 전자결제 내역(GET)
 export function employeeListApi() {
   try {
-    const { data }: any = userClient.get("/api/user/myorder?page=0&size=5", {});
-    return data.content || [];
+    const data: Promise<AxiosResponse<any, any>> = userClient.get(
+      "/api/user/myorder?page=0&size=10",
+    );
+    return data || [];
   } catch (e) {
     console.error(e);
   }
