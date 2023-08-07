@@ -7,7 +7,7 @@ interface ILogin {
 }
 export const login = ({ email, password }: ILogin) => {
   try {
-    const result = client.post("/api/login", { email, password });
+    const result = userClient.post("/api/login", { email, password });
     return result;
   } catch (e) {
     console.error(e);
@@ -15,12 +15,13 @@ export const login = ({ email, password }: ILogin) => {
 };
 
 // 회원가입(POST)
-export const register = (
-  email: string,
-  password: string,
-  empName: string,
-  position?: string,
-) => {
+interface IRegister {
+  email: string;
+  password: string;
+  empName: string;
+  position?: string;
+}
+export const register = ({ email, password, empName, position }: IRegister) => {
   const result = client.post("/api/register", {
     email,
     password,
