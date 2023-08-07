@@ -9,7 +9,7 @@ function Monthly() {
   const [tabKey, setTabKey] = useState<string>("");
 
   const onChange = (key: string) => {
-    console.log(key);
+    setTabKey(key);
   };
 
   const items: TabsProps["items"] = [
@@ -31,7 +31,7 @@ function Monthly() {
           defaultActiveKey="1"
           items={items}
           tabBarGutter={30}
-          onChange={(activeKey) => setTabKey(activeKey)}
+          onChange={onChange}
         />
       </div>
     </Container>
