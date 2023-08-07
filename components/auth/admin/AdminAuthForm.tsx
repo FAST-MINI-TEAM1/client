@@ -17,13 +17,14 @@ function AdminAuthForm() {
     }
   }, []);
 
-  const onLogin = useCallback(
-    async (event: FormEvent) => {
-      event.preventDefault();
-      await login({ email, password });
-    },
-    [email, password],
-  );
+  const onLogin = async (event: FormEvent) => {
+    event.preventDefault();
+    await login({ email, password })?.then((res) => {
+      console.log(res.headers);
+      console.log(res.data);
+      localStorage.setItem("token", res.headers.authorization);
+    });
+  };
 
   // Render
   return (

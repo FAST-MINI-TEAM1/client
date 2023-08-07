@@ -1,5 +1,5 @@
-import AuthForm from "@components/auth/AuthForm";
-import AuthTemplate from "@components/auth/AuthTemplate";
+import AuthForm from "@components/auth/employee/AuthForm";
+import AuthTemplate from "@components/auth/employee/AuthTemplate";
 import { memo } from "react";
 
 function RegsiterPage() {
