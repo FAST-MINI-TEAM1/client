@@ -1,11 +1,11 @@
 import Input from "@components/common/Input";
-import { login } from "@lib/api/manageAPI";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
 import styled from "styled-components";
 import { MdEmail, MdLock, MdVerifiedUser, MdPerson } from "react-icons/md";
 import { BsFillPersonBadgeFill } from "react-icons/bs";
 import { IAuthFormProps, ITextMap } from "@lib/interface/Auth";
+import { FormEvent, useCallback, useState } from "react";
+import { login } from "@lib/api/authAPI";
 
 // Constant / Variation
 const textMap: ITextMap = {
@@ -19,136 +19,128 @@ function AuthForm({ type }: IAuthFormProps) {
   const text = textMap[type];
 
   // Hooks
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [loginMessage, setLoginMessage] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  // Function
-  // const onLoginChange = (event: FormEvent) => {
-  //   const { name, value } = event.target as HTMLInputElement;
-  //   if (name === "email") {
-  //     setEmail(value);
-  //   } else if (name === "password") {
-  //     setPassword(value);
-  //   }
-  // };
+  const onLoginChange = useCallback((event: FormEvent) => {
+    const { name, value } = event.target as HTMLInputElement;
+    if (name === "email") {
+      setEmail(value);
+    } else if (name === "password") {
+      setPassword(value);
+    }
+  }, []);
 
-  // const onLogin = (event: FormEvent) => {
-  //   event.preventDefault();
-  //   if (email === "" || password === "") {
-  //     setLoginMessage("아이디와 비밀번호를 확인해주세요!");
-  //   } else {
-  //     login(email, password);
-  //     console.log("로그인 성공");
-  //   }
-  // };
+  const onLogin = async (event: FormEvent) => {
+    event.preventDefault();
+    await login({email, password});
+  };
 
   // Render
   return (
-    <AuthFormBlock>
-      <h3>{text}</h3>
-      <form>
-        {type === "login" && (
-          <>
-            <InputWrapper>
-              <EmailIcon />
-              <Input
-                autoComplete="email"
-                name="email"
-                placeholder="이메일"
-                // onChange={onLoginChange}
-                // value={email}
-                auth="true"
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <PasswordIcon />
-              <Input
-                type="password"
-                autoComplete="password"
-                name="password"
-                placeholder="패스워드"
-                auth="true"
-                // onChange={onLoginChange}
-                // value={password}
-              />
-            </InputWrapper>
-            {/* <span>{loginMessage}</span> */}
-          </>
-        )}
-        {type === "register" && (
-          <>
-            <InputWrapper>
-              <IconWrapper>
+    <>
+      <AuthFormBlock>
+        <h3>{text}</h3>
+        <form onSubmit={onLogin}>
+          {type === "login" && (
+            <>
+              <InputWrapper>
                 <EmailIcon />
-              </IconWrapper>
-              <Input
-                autoComplete="email"
-                name="email"
-                placeholder="이메일"
-                auth="true"
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <IconWrapper>
-                <PersonIcon />
-              </IconWrapper>
-              <Input
-                autoComplete="name"
-                name="name"
-                placeholder="이름"
-                auth="true"
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <IconWrapper>
+                <Input
+                  autoComplete="email"
+                  name="email"
+                  placeholder="이메일"
+                  auth="true"
+                  onChange={onLoginChange}
+                />
+              </InputWrapper>
+              <InputWrapper>
                 <PasswordIcon />
-              </IconWrapper>
-              <Input
-                type="password"
-                autoComplete="password"
-                name="password"
-                placeholder="패스워드"
-                auth="true"
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <IconWrapper>
-                <PasswordConfirmIcon />
-              </IconWrapper>
-              <Input
-                type="password"
-                autoComplete="new-password"
-                name="passwordConfirm"
-                placeholder="패스워드 확인"
-                auth="true"
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <RankIconWrapper>
-                <RankIcon />
-              </RankIconWrapper>
-              <Input
-                autoComplete="rank"
-                name="rank"
-                placeholder="직급"
-                auth="true"
-              />
-            </InputWrapper>
-          </>
-        )}
-        <ButtonBlock>
-          <StyledButton>{text}</StyledButton>
-        </ButtonBlock>
-      </form>
-      <Footer>
-        {type === "login" ? (
-          <Link href="/register">회원가입</Link>
-        ) : (
-          <Link href="/login">로그인</Link>
-        )}
-      </Footer>
-    </AuthFormBlock>
+                <Input
+                  type="password"
+                  autoComplete="password"
+                  name="password"
+                  placeholder="패스워드"
+                  auth="true"
+                  onChange={onLoginChange}
+                />
+              </InputWrapper>
+            </>
+          )}
+          {type === "register" && (
+            <>
+              <InputWrapper>
+                <IconWrapper>
+                  <EmailIcon />
+                </IconWrapper>
+                <Input
+                  autoComplete="email"
+                  name="email"
+                  placeholder="이메일"
+                  auth="true"
+                />
+              </InputWrapper>
+              <InputWrapper>
+                <IconWrapper>
+                  <PersonIcon />
+                </IconWrapper>
+                <Input
+                  autoComplete="name"
+                  name="name"
+                  placeholder="이름"
+                  auth="true"
+                />
+              </InputWrapper>
+              <InputWrapper>
+                <IconWrapper>
+                  <PasswordIcon />
+                </IconWrapper>
+                <Input
+                  type="password"
+                  autoComplete="password"
+                  name="password"
+                  placeholder="패스워드"
+                  auth="true"
+                />
+              </InputWrapper>
+              <InputWrapper>
+                <IconWrapper>
+                  <PasswordConfirmIcon />
+                </IconWrapper>
+                <Input
+                  type="password"
+                  autoComplete="new-password"
+                  name="passwordConfirm"
+                  placeholder="패스워드 확인"
+                  auth="true"
+                />
+              </InputWrapper>
+              <InputWrapper>
+                <RankIconWrapper>
+                  <RankIcon />
+                </RankIconWrapper>
+                <Input
+                  autoComplete="rank"
+                  name="rank"
+                  placeholder="직급"
+                  auth="true"
+                />
+              </InputWrapper>
+            </>
+          )}
+          <ButtonBlock>
+            <StyledButton type="submit">{text}</StyledButton>
+          </ButtonBlock>
+        </form>
+        <Footer>
+          {type === "login" ? (
+            <Link href="/register">회원가입</Link>
+          ) : (
+            <Link href="/login">로그인</Link>
+          )}
+        </Footer>
+      </AuthFormBlock>
+    </>
   );
 }
 
