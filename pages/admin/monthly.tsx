@@ -59,17 +59,7 @@ const Container = styled.section`
   }
 `;
 const StyledTabs = styled(Tabs)`
-  .ant-tabs-content-holder {
-    background-color: #fff;
-    border-radius: 10px;
-  }
-  .ant-tabs-tab {
-    &:active {
-      color: #292929;
-    }
-  }
-
-  .ant-tabs-ink-bar.ant-tabs-ink-bar-animated {
-    // background: none;
+  &.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: coral;
   }
 `;
