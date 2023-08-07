@@ -31,10 +31,10 @@ function AuthForm({ type }: IAuthFormProps) {
     }
   }, []);
 
-  const onLogin = async (event: FormEvent) => {
+  const onLogin = useCallback(async (event: FormEvent) => {
     event.preventDefault();
-    await login({email, password});
-  };
+    await login({ email, password });
+  }, [email, password]);
 
   // Render
   return (
