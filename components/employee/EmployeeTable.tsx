@@ -2,6 +2,8 @@ import EmployeeDutyModalForm from "@components/employee/EmployeeDutyModalForm";
 import { Space } from "antd";
 import styled from "styled-components";
 import SelectModal from "@components/employee/SelectModal";
+import { employeeListApi } from "@lib/api/employeeAPI";
+import { useEffect, useState } from "react";
 
 interface selectedTapProps {
   selectedTap: string;
@@ -19,9 +21,25 @@ interface Idatas {
   endDate: string;
   reason: string;
   category: string;
-  etc: "특이사항입니다";
+  etc: string;
 }
 function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
+  const [sdatas, setSdatas] = useState<Idatas[]>();
+
+  const setlist = async () => {
+    const res = await employeeListApi();
+    console.log(res);
+    setSdatas(res);
+    console.log("얍", sdatas);
+  };
+
+  // useEffect(() => {
+  //   const res = employeeListApi();
+  //   console.log(res);
+  //   setSdatas(res);
+  //   console.log("얍", sdatas);
+  // }, [setlist]);
+
   const datas = [
     {
       id: 1,
@@ -63,6 +81,7 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
 
   return (
     <>
+      <button onClick={setlist}>a</button>
       <EmployeeDutyTable>
         {selectedTap == "전체" ? (
           <h1>7월 전체 현황</h1>

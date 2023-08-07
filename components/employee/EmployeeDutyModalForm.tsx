@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input, Modal, Select, Space, DatePicker } from "antd";
 import Button from "@components/common/Button";
 import styled from "styled-components";
 import Image from "next/image";
 import bottomDot from "public/bottomDot.png";
+import { employeeOrderApi } from "@lib/api/employeeAPI";
+import { IEmployeeOrder } from "@lib/interface/EmployeeInterface";
 
 interface IEmployeeDutyModalprops {
   toggle?: boolean;
@@ -12,13 +14,51 @@ interface IEmployeeDutyModalprops {
 function EmployeeDutyModalForm({ toggle }: IEmployeeDutyModalprops) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   //modal에서 받는 inputVlaue값
-  const [inputDate, setInputDate] = useState("");
+  // const [inputstartAt, setInputstartAt] = useState<
+  //   [dayjs.Dayjs, dayjs.Dayjs] | null
+  // >(null);
+  const [selectedDate, setSelectedDate] = useState(true);
+  // const [selectedDates, setSelectedDates] = useState<string[]>([]);
+  // const [inputstartAt, setInputstartAt] = useState<string>("");
+  // const [inputendAt, setInputendAt] = useState<string>("");
+  const [startAt, setStartAt] = useState<string>("");
+  const [endAt, setEndAt] = useState<string>("");
   const [inputCategory, setInputCategory] = useState("");
   const [inputReason, setInputReason] = useState("");
   const [inputEtc, setInputEtc] = useState("");
 
   // DatePicker
+
   const { RangePicker } = DatePicker;
+  // const dateFormat = "YYYY-MM-DD";
+  // const selectDate = (e: dayjs.Dayjs[]) => {
+  //   setInputstartAt(e[0]), setInputendAt(e[1]);
+  //   console.log(
+  //     inputstartAt?.format(dateFormat),
+  //     inputendAt?.format(dateFormat),
+  //   );
+  // };
+
+  const handleDateChange = (dates: string[], dateStrings: string[]) => {
+    setSelectedDate(!selectedDate);
+    const selectedDates = dateStrings;
+    const inputstartAt = selectedDates[0];
+    const inputendAt = selectedDates[1];
+
+    console.log("확인:", selectedDates);
+    console.log("상태변경:", inputstartAt, inputendAt);
+
+    setStartAt(inputstartAt);
+    setEndAt(inputendAt);
+  };
+
+  useEffect(() => {
+    if (endAt) {
+      setStartAt((startAt) => startAt);
+      setEndAt((endAt) => endAt);
+      console.log("진행시켜:", startAt, endAt);
+    }
+  }, [startAt, endAt]);
 
   // select 휴가종류
   const selectCategory = (value: string) => {
@@ -33,13 +73,59 @@ function EmployeeDutyModalForm({ toggle }: IEmployeeDutyModalprops) {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
+  const dutyOrder = () => {
+    try {
+      employeeOrderApi({
+        orderType: "DUTY",
+        startAt: startAt,
+        endAt: endAt,
+        reason: null,
+        category: null,
+        etc: inputEtc,
+      });
+
+      //   if (!response.ok) {
+      //     console.log("서버로 부터 응답이 왔는데 에러임.");
+      //     message.error("오류가 발생하였습니다");
+      //     return;
+      //   }
+      //   // setToggleFetch((prev: boolean) => !prev);
+      //   message.success("소비 내역이 등록되었습니다");
+      // } catch (error) {
+      //   console.log("서버로 부터 응답 안옴", error);
+      //   message.error("오류가 발생하였습니다");
+    } finally {
+      console.log("등록완료");
+    }
+    setIsModalOpen(false);
+  };
+  const annualOrder = () => {
+    try {
+      employeeOrderApi({
+        orderType: "ANNUAL",
+        startAt: startAt,
+        endAt: endAt,
+        reason: inputReason,
+        category: inputCategory,
+        etc: inputEtc,
+      });
+
+      //   if (!response.ok) {
+      //     console.log("서버로 부터 응답이 왔는데 에러임.");
+      //     message.error("오류가 발생하였습니다");
+      //     return;
+      //   }
+      //   // setToggleFetch((prev: boolean) => !prev);
+      //   message.success("소비 내역이 등록되었습니다");
+      // } catch (error) {
+      //   console.log("서버로 부터 응답 안옴", error);
+      //   message.error("오류가 발생하였습니다");
+    } finally {
+      console.log("등록완료");
+    }
     setIsModalOpen(false);
   };
 
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
   return (
     <>
       {toggle ? (
@@ -55,15 +141,23 @@ function EmployeeDutyModalForm({ toggle }: IEmployeeDutyModalprops) {
       <StyledDutyModal
         title={toggle ? "연차 등록하기" : "당직 등록하기"}
         open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
+        onCancel={() => {
+          setIsModalOpen(false);
+        }}
         footer={null}
         width={520}
       >
         {toggle ? <div className="annualNum">남은 연차 횟수 {11}일</div> : null}
         <StyledSpace direction="horizontal">
           <StyledLabel> {toggle ? "연차일" : "당직일"}</StyledLabel>
-          <RangePicker bordered={false} />
+          <RangePicker
+            bordered={false}
+            // onChange={console.log()}
+            // defaultValue={[dayjs(dateFormat), dayjs(dateFormat)]}
+            // value={[inputstartAt, inputendAt]}
+            // onChange={selectDate}
+            onChange={handleDateChange}
+          />
         </StyledSpace>
         {toggle ? (
           <StyledSpace direction="horizontal">
@@ -126,7 +220,13 @@ function EmployeeDutyModalForm({ toggle }: IEmployeeDutyModalprops) {
         </StyledSpace>
         <BtnContainer>
           <Button cancle="ture">취소</Button>
-          <Button application="ture">신청</Button>
+          {toggle ? (
+            <Button application="ture" onClick={annualOrder}>
+              신청
+            </Button>
+          ) : (
+            <Button application="ture" onClick={dutyOrder}></Button>
+          )}
         </BtnContainer>
         <Image src={bottomDot} alt="backpng" />
       </StyledDutyModal>

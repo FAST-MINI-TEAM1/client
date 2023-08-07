@@ -73,7 +73,7 @@ function EmployeeTableTab() {
   );
 }
 const StyledTabs = styled(Tabs)`
-  color: #d9d9d9;
+  color: #090909;
   font-size: 16px;
   text-shadow: 0px 3px 7px rgba(81, 81, 81, 0.25);
   h1 {
