@@ -1,5 +1,4 @@
 import Button from "@components/common/Button";
-import Loading from "@components/common/Loading";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -18,7 +17,6 @@ function Home() {
           </ButtonWrapper>
         </HomeContent>
       </HomeBlock>
-      {/* <Loading /> */}
     </>
   );
 }
