@@ -7,7 +7,7 @@ interface ILogin {
 }
 export const login = ({ email, password }: ILogin) => {
   try {
-    const result = client.post("api/login", { email, password });
+    const result = client.post("/api/login", { email, password });
     return result;
   } catch (e) {
     console.error(e);
