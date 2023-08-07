@@ -6,6 +6,7 @@ import { BsFillPersonBadgeFill } from "react-icons/bs";
 import { IAuthFormProps, ITextMap } from "@lib/interface/Auth";
 import { FormEvent, useCallback, useState } from "react";
 import { login } from "@lib/api/authAPI";
+import { useRouter } from "next/router";
 
 // Constant / Variation
 const textMap: ITextMap = {
@@ -19,6 +20,7 @@ function AuthForm({ type }: IAuthFormProps) {
   const text = textMap[type];
 
   // Hooks
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -33,13 +35,19 @@ function AuthForm({ type }: IAuthFormProps) {
 
   const onLogin = useCallback(
     async (event: FormEvent) => {
-      event.preventDefault();
-      await login({ email, password })?.then((res) => {
-        console.log(res.headers);
-        console.log(res.data);
-      });
+      try {
+        event.preventDefault();
+        await login({ email, password })?.then((res) => {
+          console.log(res.headers);
+          console.log(res.data);
+          localStorage.setItem("token", res.headers.authorization);
+          router.push("/employee");
+        });
+      } catch (e) {
+        console.error(e, "로그인 오류!");
+      }
     },
-    [email, password],
+    [email, password, router],
   );
 
   // Render
