@@ -1,23 +1,51 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { login } from "@lib/api/authAPI";
+import { FormEvent, useCallback, useState } from "react";
 import styled from "styled-components";
 
 // Component
 function AdminAuthForm() {
+  // Hooks
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onLoginChange = useCallback((event: FormEvent) => {
+    const { name, value } = event.target as HTMLInputElement;
+    if (name === "email") {
+      setEmail(value);
+    } else if (name === "password") {
+      setPassword(value);
+    }
+  }, []);
+
+  const onLogin = async (event: FormEvent) => {
+    event.preventDefault();
+    await login({ email, password })?.then((res) => {
+      console.log(res.headers);
+      console.log(res.data);
+      localStorage.setItem("token", res.headers.authorization);
+    });
+  };
+
   // Render
   return (
     <AuthFormBlock>
       <h3>관리자 로그인</h3>
-      <form>
-        <StyledInput autoComplete="email" name="email" placeholder="이메일" />
+      <form onSubmit={onLogin}>
+        <StyledInput
+          autoComplete="email"
+          name="email"
+          placeholder="이메일"
+          onChange={onLoginChange}
+        />
         <StyledInput
           type="password"
           autoComplete="password"
           name="password"
           placeholder="패스워드"
+          onChange={onLoginChange}
         />
         <ButtonBlock>
-          <StyledButton>로그인</StyledButton>
+          <StyledButton type="submit">로그인</StyledButton>
         </ButtonBlock>
       </form>
     </AuthFormBlock>
