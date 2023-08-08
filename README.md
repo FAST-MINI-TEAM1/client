@@ -204,7 +204,7 @@ interface RequestBody {
 ```json
 {
      "id" : 1
-     "status" : “승인”
+     "status" : "승인"
 }
 ```
 
