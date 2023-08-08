@@ -3,7 +3,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import DataTabel from "@components/common/DataTabel";
 import styled from "styled-components";
 import AdminHeader from "@components/common/AdminHeader";
-import { ChangeEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { getUserName, getUserNumber, getOrders } from "@lib/api/adminAPI";
 
 function SearchPage() {
@@ -20,12 +20,16 @@ function SearchPage() {
     if (selectedOption === "1") {
       const { data } = await getUserName(searchWord);
       const { data: listData } = await getOrders(searchWord, 0, 4);
-      console.log(data);
-      console.log(listData);
     } else if (selectedOption === "2") {
       const { data } = await getUserNumber(searchWord);
       const { data: listData } = await getOrders(searchWord, 0, 4);
     }
+  };
+
+  const onSearch = async (event: FormEvent) => {
+    event.preventDefault();
+    const { data } = await getUserName("박지훈");
+    console.log("박지훈", data);
   };
 
   const handleChangeInput = (e) => {
@@ -84,8 +88,12 @@ function SearchPage() {
                 options={options}
                 onChange={(value: string) => setSelectedOption(value)}
               />
-              <input onChange={handleChangeInput} autoFocus />
-              <SearchOutlined />
+              <input
+                onChange={handleChangeInput}
+                autoFocus
+                onKeyDown={onSearch}
+              />
+              <SearchOutlined onClick={onSearch} />
             </form>
           </div>
           <div className="info">
