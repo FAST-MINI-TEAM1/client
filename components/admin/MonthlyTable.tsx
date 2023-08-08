@@ -3,6 +3,7 @@ import type { ColumnsType } from "antd/es/table";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import { useState } from "react";
+
 interface IColumnsData {
   id: number;
   empName: string;
@@ -11,18 +12,7 @@ interface IColumnsData {
   total: number;
 }
 interface IMonth {
-  jan: number;
-  feb: number;
-  mar: number;
-  apr: number;
-  may: number;
-  jun: number;
-  jul: number;
-  aug: number;
-  sep: number;
-  oct: number;
-  nov: number;
-  dec: number;
+  [key: string]: number;
 }
 
 interface IMonthlyTableProps {
@@ -30,6 +20,7 @@ interface IMonthlyTableProps {
 }
 function MonthlyTable({ tabKey }: IMonthlyTableProps) {
   const [year, setYear] = useState(new Date().getFullYear());
+
   const columnsData: ColumnsType<IColumnsData> = [
     {
       title: "사원",
