@@ -1,14 +1,16 @@
+import { Dispatch, SetStateAction } from "react";
 import { Modal } from "antd";
 import Button from "@components/common/Button";
 import styled from "styled-components";
+import { postUpdateOrder } from "@lib/api/adminAPI";
 
 interface IModalProps {
   open: boolean;
-  setOpen: (value: boolean) => void;
+  setOpen: Dispatch<SetStateAction<boolean>>;
   details: IDataSourceItem;
 }
 interface IDataSourceItem {
-  id?: number;
+  id: number;
   empName?: string;
   createdAt?: string;
   orderType?: string;
@@ -21,6 +23,16 @@ interface IDataSourceItem {
 }
 
 function ApprovalModal({ open, setOpen, details }: IModalProps) {
+  const handleClick = async (e: MouseEvent, id: number, status: string) => {
+    e.preventDefault();
+    try {
+      const res = await postUpdateOrder({ id, status });
+      console.log("결재처리 성공", res);
+      setOpen(false);
+    } catch (error) {
+      console.log("결재 처리 실패", error);
+    }
+  };
   return (
     <StyledModal open={open} onCancel={() => setOpen(false)} footer={[]}>
       <div className="details">
@@ -62,7 +74,10 @@ function ApprovalModal({ open, setOpen, details }: IModalProps) {
           <Button deny="true" onClick={() => console.log("반려")}>
             반려
           </Button>
-          <Button accept="true" onClick={() => console.log("승인")}>
+          <Button
+            accept="true"
+            onClick={(e: MouseEvent) => handleClick(e, details.id, "승인")}
+          >
             승인
           </Button>
         </div>

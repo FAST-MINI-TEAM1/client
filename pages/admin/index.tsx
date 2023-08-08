@@ -30,9 +30,9 @@ function Approval() {
 
   const getPendingList = async () => {
     try {
-      const { data } = await getPendingOrders(0, 4);
-      console.log("pending data", data);
-      setPendingOrders(data.content);
+      const { data } = await getPendingOrders(0, 10);
+      setPendingOrders(data.response.content);
+      console.log("pending data", data.response.content);
     } catch (error) {
       console.log("대기 조회 실패", error);
     }
@@ -40,9 +40,9 @@ function Approval() {
 
   const getCompletedList = async () => {
     try {
-      const { data } = await getCompletedOrders(0, 4);
-      console.log("completed data", data);
-      setCompletedOrders(data.content);
+      const { data } = await getCompletedOrders(0, 10);
+      console.log("completed data", data.response.content);
+      setCompletedOrders(data.response.content);
     } catch (error) {
       console.log("완료 조회 실패", error);
     }

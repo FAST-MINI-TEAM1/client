@@ -3,7 +3,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import DataTabel from "@components/common/DataTabel";
 import styled from "styled-components";
 import AdminHeader from "@components/common/AdminHeader";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { getUserName, getUserNumber, getOrders } from "@lib/api/adminAPI";
 
 function SearchPage() {
@@ -18,19 +18,27 @@ function SearchPage() {
   const onSearch = async (event: FormEvent) => {
     event.preventDefault();
     if (selectedOption === "1") {
-      const { data } = await getUserName(searchWord);
+      // searchWord : 사원번호랑, 사원명 x 사원 id값 o
+      const { data } = await getUserName(searchWord); // 사원 기본정보 (userId)
+      // 연차 / 당직 내역
+      // 결재 내역 필터링 필요
+      // const { data: listData } = await getOrders(searchWord, 0, 4);
+      // TODO: 데이터 받은 후 필터링!
+      // 데이터 -> 승인/반려/대기 -== 대기내역을 결재 대기로 넣고
+      // 결재 완료 -> 승인/반려 넣기
+      console.log(data);
+      // console.log(listData);
+    } else if (selectedOption === "2") {
+      const { data } = await getUserNumber(searchWord); // 사원 기본정보
       const { data: listData } = await getOrders(searchWord, 0, 4);
       console.log(data);
       console.log(listData);
-    } else if (selectedOption === "2") {
-      const { data } = await getUserNumber(searchWord);
-      const { data: listData } = await getOrders(searchWord, 0, 4);
     }
   };
 
-  const handleChangeInput = (e) => {
-    setSearchWord(e.target.value);
-    console.log(e.target.value);
+  const handleChangeInput = (event: FormEvent) => {
+    const { value } = event.target as HTMLInputElement;
+    setSearchWord(value);
   };
 
   const pendingData = [
@@ -86,7 +94,7 @@ function SearchPage() {
                 onChange={(value: string) => setSelectedOption(value)}
               />
               <input onChange={handleChangeInput} autoFocus />
-              <SearchOutlined />
+              <button>검색</button>
             </form>
           </div>
           <div className="info">
