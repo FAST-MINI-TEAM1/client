@@ -3,6 +3,7 @@ import type { TabsProps } from "antd";
 import MonthlyTable from "@components/admin/MonthlyTable";
 import styled from "styled-components";
 import { useState } from "react";
+import Header from "@components/common/Header";
 
 function Monthly() {
   const [tabKey, setTabKey] = useState<string>("");
@@ -24,16 +25,19 @@ function Monthly() {
     },
   ];
   return (
-    <Container>
-      <div className="details">
-        <StyledTabs
-          defaultActiveKey="1"
-          items={items}
-          tabBarGutter={30}
-          onChange={onChange}
-        />
-      </div>
-    </Container>
+    <>
+      <Header />
+      <Container>
+        <div className="details">
+          <StyledTabs
+            defaultActiveKey="1"
+            items={items}
+            tabBarGutter={30}
+            onChange={onChange}
+          />
+        </div>
+      </Container>
+    </>
   );
 }
 
