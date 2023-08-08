@@ -24,7 +24,7 @@ export const getUserNumber = (empno: string) => {
   return res;
 };
 
-export const getOrders = (user: string, page: number, size: nu) => {
+export const getOrders = (user: string, page: number, size: number) => {
   const res = userClient.get(
     `/api/admin/order/list?user=${user}&page=${page}&size=${size}`,
   );
