@@ -1,8 +1,10 @@
 import EmployeeDutyModalForm from "@components/employee/EmployeeDutyModalForm";
 import { Space } from "antd";
-
-import styled from "styled-components";
+import { styled } from "styled-components";
 import SelectModal from "@components/employee/SelectModal";
+import { employeeListApi } from "@lib/api/employeeAPI";
+import { useEffect, useState } from "react";
+import { IEmployeeListRequest } from "@lib/interface/EmployeeInterface";
 
 interface selectedTapProps {
   selectedTap: string;
@@ -10,60 +12,33 @@ interface selectedTapProps {
   setToggle?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-interface Idatas {
-  id: number;
-  empName: string;
-  createdAt: string;
-  orderType: string;
-  status: string;
-  startDate: string;
-  endDate: string;
-  reason: string;
-  category: string;
-  etc: "특이사항입니다";
-}
 function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
-  const datas = [
-    {
-      id: 1,
-      empName: "홍길동",
-      createdAt: "2023-07-27",
-      orderType: "연차",
-      status: "대기",
-      startDate: "2023-08-01",
-      endDate: "2023-08-01",
-      reason: "이유입니다",
-      category: "경조사",
-      etc: "특이사항입니다",
-    },
-    {
-      id: 2,
-      empName: "홍길동",
-      createdAt: "2023-07-28",
-      orderType: "당직",
-      status: "대기",
-      startDate: "2023-08-01",
-      endDate: "2023-08-01",
-      reason: "이유입니다",
-      category: "경조사",
-      etc: "특이사항입니다",
-    },
-    {
-      id: 3,
-      empName: "홍길동",
-      createdAt: "2023-07-28",
-      orderType: "연차",
-      status: "대기",
-      startDate: "2023-08-04",
-      endDate: "2023-08-01",
-      reason: "이유입니다",
-      category: "경조사",
-      etc: "특이사항입니다",
-    },
-  ];
+  // const [datass, setDatass] = useState<IEmployeeListRequest[]>();
+  const [datas, setDatas] = useState<IEmployeeListRequest[]>([]);
+
+  const setlist = async () => {
+    const list = await employeeListApi();
+    console.log("얍", list?.data.content);
+
+    setDatas(list?.data.content);
+    console.log("얍", datas);
+  };
+
+  useEffect(() => {
+    async () => {
+      const list = await employeeListApi();
+      console.log("얍", list?.data.content);
+      setDatas(list?.data.content);
+      console.log("얍", datas);
+    };
+    if (datas) {
+      setDatas(datas);
+    }
+  }, [datas]);
 
   return (
     <>
+      <button onClick={setlist}>a</button>
       <EmployeeDutyTable>
         {selectedTap == "전체" ? (
           <h1>7월 전체 현황</h1>
@@ -84,7 +59,7 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
                   </Space>
                 </Employeedata>
               );
-            })}{" "}
+            })}
           </ul>
         ) : (
           <ul>
@@ -118,13 +93,13 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
               })}
           </ul>
         )}
-        {selectedTap == "전체" ? (
-          <SelectModal />
-        ) : (
-          <div>
+        <div>
+          {selectedTap == "전체" ? (
+            <SelectModal />
+          ) : (
             <EmployeeDutyModalForm toggle={toggle} />
-          </div>
-        )}
+          )}
+        </div>
       </EmployeeDutyTable>
     </>
   );
@@ -133,9 +108,9 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
 const EmployeeDutyTable = styled.div`
   width: 290px;
   height: 670px;
-  border-radius: 30px;
+  border-radius: 20px;
   background-color: #fff;
-  padding: 30px 10px;
+  padding: 20px 10px;
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.16);
   display: flex;
   flex-direction: column;
@@ -147,26 +122,30 @@ const EmployeeDutyTable = styled.div`
     margin-bottom: 20px;
   }
   ul {
-    height: 580px;
+    height: 530px;
   }
+`;
+const Employeedata = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  justify-content: space-between;
 `;
 const DutyIcon = styled.div`
   width: 15px;
   height: 15px;
   border-radius: 50px;
-  background-color: #4f75f5;
+  background-color: rgba(19, 13, 216, 1);
 `;
 const AnnualIcon = styled.div`
   width: 15px;
   height: 15px;
   border-radius: 50px;
-  background-color: #ffbd13;
+  background-color: rgba(255, 189, 19, 1);
 `;
 const DutyInfo = styled.div`
   color: rgba(12, 12, 12, 1);
-`;
-const Employeedata = styled.div`
-  margin: 0 auto;
 `;
 
 export default EmployeeTable;

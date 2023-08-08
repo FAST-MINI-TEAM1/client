@@ -16,6 +16,10 @@ const StyledButton = styled.button<{
   pending?: boolean;
   delete?: boolean;
   submit?: boolean;
+  annualSubmit?: boolean;
+  dutySubmit?: boolean;
+  cancle?: boolean;
+  application?: boolean;
 }>`
   border: none;
   border-radius: 10px;
@@ -91,7 +95,10 @@ const StyledButton = styled.button<{
     ${(props) =>
     props.delete &&
     css`
-      background: ${(props) => props.theme.buttonColor.pendingButton};
+      width: 457px;
+      height: 49px;
+      font-size: 18px;
+      background: ${(props) => props.theme.pointColor.red};
       &:hover {
         color: ${(props) => props.theme.buttonColor.pendingButton};
         border: 1px solid ${(props) => props.theme.buttonColor.pendingButton};
@@ -100,10 +107,68 @@ const StyledButton = styled.button<{
     ${(props) =>
     props.submit &&
     css`
-      background: ${(props) => props.theme.buttonColor.pendingButton};
+      width: 247px;
+      height: 58px;
+      font-size: 16px;
+      background: ${(props) => props.theme.pointColor.green};
+      &:hover {
+        color: ${(props) => props.theme.pointColor.green};
+        border: 1px solid ${(props) => props.theme.pointColor.green};
+      }
+    `}
+    ${(props) =>
+    props.annualSubmit &&
+    css`
+      width: 247px;
+      height: 58px;
+      font-size: 16px;
+      background: ${(props) => props.theme.pointColor.yellow};
       &:hover {
         color: ${(props) => props.theme.buttonColor.pendingButton};
         border: 1px solid ${(props) => props.theme.buttonColor.pendingButton};
+      }
+    `}
+    ${(props) =>
+    props.dutySubmit &&
+    css`
+      width: 247px;
+      height: 58px;
+      font-size: 16px;
+      border-radius: 13px;
+      background: ${(props) => props.theme.pointColor.blue};
+      &:hover {
+        color: ${(props) => props.theme.pointColor.blue};
+        border: 1px solid ${(props) => props.theme.pointColor.blue};
+      }
+    `}
+    ${(props) =>
+    props.cancle &&
+    css`
+      width: 125px;
+      height: 40px;
+      font-size: 16px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 4px rgba(106, 106, 106, 0.25);
+      background: #fbfbfb;
+      color: ${(props) => props.theme.pointColor.red};
+      &:hover {
+        color: ${(props) => props.theme.pointColor.rightGray};
+        background: ${(props) => props.theme.pointColor.red};
+      }
+    `}
+    ${(props) =>
+    props.application &&
+    css`
+      width: 125px;
+      height: 40px;
+      font-size: 16px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 4px rgba(106, 106, 106, 0.25);
+      background: #fbfbfb;
+      color: ${(props) => props.theme.pointColor.green};
+      &:hover {
+        color: ${(props) => props.theme.pointColor.rightGray};
+        background: ${(props) => props.theme.pointColor.green};
       }
     `}
 `;

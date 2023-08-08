@@ -45,8 +45,9 @@ function Header() {
 
 const HeaderBlock = styled.header`
   width: 100%;
-  height: 80px;
+  height: 100px;
   background: ${(props) => props.theme.headerColor};
+  box-shadow: 0px 1px 20px rgba(139, 189, 175, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,9 +72,10 @@ const LogoContainer = styled.div`
 `;
 
 const UserWelcome = styled.div`
+  font-size: 18px;
   span {
     &:first-child {
-      color: #00f;
+      color: #1fbf92;
       font-weight: 600;
     }
   }
