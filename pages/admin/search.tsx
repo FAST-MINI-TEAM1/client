@@ -32,6 +32,7 @@ function SearchPage() {
     setSearchWord(e.target.value);
     console.log(e.target.value);
   };
+
   const pendingData = [
     {
       id: 1,
