@@ -1,6 +1,9 @@
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import styled from "styled-components";
+import { useState } from "react";
+
 interface IColumnsData {
   id: number;
   empName: string;
@@ -9,24 +12,15 @@ interface IColumnsData {
   total: number;
 }
 interface IMonth {
-  jan: number;
-  feb: number;
-  mar: number;
-  apr: number;
-  may: number;
-  jun: number;
-  jul: number;
-  aug: number;
-  sep: number;
-  oct: number;
-  nov: number;
-  dec: number;
+  [key: string]: number;
 }
 
 interface IMonthlyTableProps {
   tabKey: string;
 }
 function MonthlyTable({ tabKey }: IMonthlyTableProps) {
+  const [year, setYear] = useState(new Date().getFullYear());
+
   const columnsData: ColumnsType<IColumnsData> = [
     {
       title: "사원",
@@ -282,16 +276,62 @@ function MonthlyTable({ tabKey }: IMonthlyTableProps) {
       total: 31,
     },
   ];
+
   return (
     <>
-      <Table
-        columns={columnsData}
-        dataSource={tabKey === "1" ? annualData : dutyData}
-        size="small"
-        bordered
-      />
+      <Container>
+        <YearChanger>
+          <Arrow type="button" onClick={() => setYear(year - 1)}>
+            <LeftOutlined />
+          </Arrow>
+          <Year>{year}년</Year>
+          <Arrow type="button" onClick={() => setYear(year + 1)}>
+            <RightOutlined />
+          </Arrow>
+        </YearChanger>
+        <Table
+          columns={columnsData}
+          dataSource={tabKey === "1" ? annualData : dutyData}
+          size="small"
+          bordered
+        />
+      </Container>
     </>
   );
 }
 
 export default MonthlyTable;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 30px 30px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: #e2e2e2 0px 5px 10px;
+`;
+
+const YearChanger = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 20px;
+`;
+
+const Year = styled.span`
+  font-size: 30px;
+`;
+const Arrow = styled.button`
+  color: #333;
+  border: 0;
+  font-size: 1rem;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.2);
+    color: #1ebf91;
+  }
+`;
