@@ -41,6 +41,7 @@ function AuthForm({ type }: IAuthFormProps) {
           console.log(res.headers);
           console.log(res.data);
           localStorage.setItem("token", res.headers.authorization);
+          // localStorage.setItem("refreshToken", res.headers.authorization-refresh)
           router.push("/employee");
         });
       } catch (e) {
