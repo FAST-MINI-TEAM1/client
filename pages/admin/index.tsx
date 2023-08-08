@@ -2,6 +2,7 @@ import AdminHeader from "@components/common/AdminHeader";
 import DataTabel from "@components/common/DataTabel";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { getPendingOrders, getCompletedOrders } from "@lib/api/adminAPI";
 
 interface IDataSourceItem {
   id: number;
@@ -18,101 +19,50 @@ interface IDataSourceItem {
 
 function Approval() {
   const [mounted, setMounted] = useState(false);
+  const [pendingOrders, setPendingOrders] = useState([]);
+  const [completedOrders, setCompletedOrders] = useState([]);
 
   useEffect(() => {
     setMounted(true);
+    getPendingList();
+    getCompletedList();
   }, []);
 
-  const pendingData: IDataSourceItem[] = [
-    {
-      id: 1,
-      empName: "홍길동",
-      createdAt: "2023-07-27",
-      orderType: "연차",
-      status: "대기",
-      startDate: "2023-08-01",
-      endDate: "2023-08-01",
-      reason: "이유입니다",
-      category: "경조사",
-      etc: "특이사항입니다",
-    },
-    {
-      id: 1,
-      empName: "김연아",
-      createdAt: "2023-07-27",
-      orderType: "당직",
-      status: "대기",
-      startDate: "2023-08-01",
-      endDate: "2023-08-01",
-      reason: "",
-      category: "",
-      etc: "",
-    },
-    {
-      id: 1,
-      empName: "박보검",
-      createdAt: "2023-07-27",
-      orderType: "당직",
-      status: "대기",
-      startDate: "2023-08-01",
-      endDate: "2023-08-01",
-      reason: "",
-      category: "",
-      etc: "",
-    },
-  ];
+  const getPendingList = async () => {
+    try {
+      const { data } = await getPendingOrders(0, 4);
+      console.log("pending data", data);
+      setPendingOrders(data.content);
+    } catch (error) {
+      console.log("대기 조회 실패", error);
+    }
+  };
 
-  const completedData: IDataSourceItem[] = [
-    {
-      id: 1,
-      empName: "김현철",
-      createdAt: "2023-07-27",
-      orderType: "연차",
-      status: "반려",
-      startDate: "2023-08-01",
-      endDate: "2023-08-01",
-      reason: "이유입니다",
-      category: "병가/경조사/출산휴가/생리휴가/",
-      etc: "특이사항입니다",
-    },
-    {
-      id: 1,
-      empName: "박지성",
-      createdAt: "2023-07-27",
-      orderType: "당직",
-      status: "승인",
-      startDate: "2023-08-01",
-      endDate: "2023-08-01",
-      reason: "",
-      category: "",
-      etc: "",
-    },
-    {
-      id: 1,
-      empName: "문동은",
-      createdAt: "2023-07-27",
-      orderType: "당직",
-      status: "승인",
-      startDate: "2023-08-01",
-      endDate: "2023-08-01",
-      reason: "",
-      category: "",
-      etc: "",
-    },
-  ];
+  const getCompletedList = async () => {
+    try {
+      const { data } = await getCompletedOrders(0, 4);
+      console.log("completed data", data);
+      setCompletedOrders(data.content);
+    } catch (error) {
+      console.log("완료 조회 실패", error);
+    }
+  };
+
   return (
     mounted && (
       <>
         <AdminHeader />
         <Container>
           <div className="details">
-            <DataTabel tableTitle={"결재 대기 내역"} dataSource={pendingData} />
+            <DataTabel
+              tableTitle={"결재 대기 내역"}
+              dataSource={pendingOrders}
+            />
           </div>
-
           <div className="details">
             <DataTabel
               tableTitle={"결재 완료 내역"}
-              dataSource={completedData}
+              dataSource={completedOrders}
             />
           </div>
         </Container>

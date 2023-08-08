@@ -3,15 +3,35 @@ import { SearchOutlined } from "@ant-design/icons";
 import DataTabel from "@components/common/DataTabel";
 import styled from "styled-components";
 import AdminHeader from "@components/common/AdminHeader";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { getUserName, getUserNumber, getOrders } from "@lib/api/adminAPI";
 
 function SearchPage() {
   const [mounted, setMounted] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("1");
+  const [searchWord, setSearchWord] = useState("");
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  const onSearch = async (event) => {
+    event.preventDefault();
+    if (selectedOption === "1") {
+      const { data } = await getUserName(searchWord);
+      const { data: listData } = await getOrders(searchWord, 0, 4);
+      console.log(data);
+      console.log(listData);
+    } else if (selectedOption === "2") {
+      const { data } = await getUserNumber(searchWord);
+      const { data: listData } = await getOrders(searchWord, 0, 4);
+    }
+  };
+
+  const handleChangeInput = (e) => {
+    setSearchWord(e.target.value);
+    console.log(e.target.value);
+  };
   const pendingData = [
     {
       id: 1,
@@ -58,11 +78,15 @@ function SearchPage() {
         <AdminHeader />
         <Search>
           <div className="searchBar">
-            <div className="container">
-              <Select defaultValue="1" options={options} />
-              <input autoFocus />
+            <form className="container" onSubmit={onSearch}>
+              <Select
+                defaultValue="1"
+                options={options}
+                onChange={(value: string) => setSelectedOption(value)}
+              />
+              <input onChange={handleChangeInput} autoFocus />
               <SearchOutlined />
-            </div>
+            </form>
           </div>
           <div className="info">
             <h3>기본정보</h3>
