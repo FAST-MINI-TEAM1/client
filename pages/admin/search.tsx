@@ -3,7 +3,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import DataTabel from "@components/common/DataTabel";
 import styled from "styled-components";
 import AdminHeader from "@components/common/AdminHeader";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { getUserName, getUserNumber, getOrders } from "@lib/api/adminAPI";
 
 function SearchPage() {
@@ -15,7 +15,7 @@ function SearchPage() {
     setMounted(true);
   }, []);
 
-  const onSearch = async (event) => {
+  const onSearch = async (event: FormEvent) => {
     event.preventDefault();
     if (selectedOption === "1") {
       const { data } = await getUserName(searchWord);
