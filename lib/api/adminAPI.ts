@@ -1,7 +1,6 @@
 import { userClient } from "./client";
 
 // 요청 관리 - 결재 처리
-
 interface IRequestBody {
   id: number;
   status: string;
