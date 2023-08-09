@@ -1,9 +1,10 @@
 import { Space, Table } from "antd";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import ApprovalModal from "@components/admin/ApprovalModal";
 // import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
 import Button from "@components/common/Button";
 import type { ColumnsType } from "antd/es/table";
+import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
 
 interface IDataTableProps {
   tableTitle: string;
@@ -147,7 +148,9 @@ function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
       {type === "admin" ? (
         <ApprovalModal open={open} setOpen={setOpen} details={details} />
       ) : (
-        <EmployeeHistoyModal />
+        <EmployeeHistoyModal employeeOpen={false} setEmployeeOpen={function (): void {
+            throw new Error("Function not implemented.");
+          } } />
       )}
     </Space>
   );
