@@ -2,9 +2,11 @@ import { Tabs } from "antd";
 import type { TabsProps } from "antd";
 import MonthlyTable from "@components/admin/MonthlyTable";
 import styled from "styled-components";
+
 import { useMemo, useEffect, useState, useCallback } from "react";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { getMonthlyAnnual, getMonthlyDuty } from "@lib/api/adminAPI";
+import Header from "@components/common/Header";
 interface IColumnsData {
   id: number;
   empName: string;
@@ -55,6 +57,8 @@ function Monthly() {
   ];
 
   return (
+    <>
+    <Header />
     <Container>
       <StyledTabs
         defaultActiveKey="1"
@@ -66,6 +70,7 @@ function Monthly() {
         <MonthlyTable dataSource={tabKey === "당직" ? dutyData : annualData} />
       </Inner>
     </Container>
+    </>
   );
 }
 

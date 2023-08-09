@@ -1,34 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal, Space } from "antd";
 import { styled } from "styled-components";
 import Button from "@components/common/Button";
+import { IDataSourceItem } from "@components/common/DataTabel";
+import { employeeDeleteApi } from "@lib/api/employeeAPI";
 
 interface Iprops {
-  employeeOpen?: boolean;
+  employeeOpen: boolean;
+  setEmployeeOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  details?: IDataSourceItem;
 }
-function EmployeeHistoyModal() {
-  const data = {
-    id: 1,
-    empName: "홍길동",
-    createdAt: "2023-07-27",
-    orderType: "연차",
-    status: "대기",
-    startDate: "2023-08-01",
-    endDate: "2023-08-01",
-    reason: "이유입니다",
-    category: "경조사",
-    etc: "특이사항입니다",
-  };
-
-  const [employeeOpen, setemployeeOpen] = useState(false);
+function EmployeeHistoyModal({
+  employeeOpen,
+  setEmployeeOpen,
+  details,
+}: Iprops) {
+  // const [employeeOpen, setemployeeOpens] = useState(false);
+  const [contnetdetails, setcontnetdetails] = useState<IDataSourceItem>({});
 
   const handleOk = () => {
-    setemployeeOpen(false);
+    employeeOpen;
   };
 
   const handleCancel = () => {
-    setemployeeOpen(false);
+    setEmployeeOpen(false);
   };
+  console.log(contnetdetails?.id);
+  const deletHandeler = async () => {
+    await employeeDeleteApi(contnetdetails.id);
+    setEmployeeOpen(false);
+  };
+
+  useEffect(() => {
+    if (details) setcontnetdetails(details);
+    console.log(contnetdetails);
+  }, [details]);
+
   return (
     <>
       <StyledModal
@@ -37,29 +44,45 @@ function EmployeeHistoyModal() {
         open={employeeOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        footer={<Button delete="true">삭제하기</Button>}
+        footer={
+          <Button delete="true" onClick={deletHandeler}>
+            삭제하기
+          </Button>
+        }
       >
-        <Space direction="horizontal" size="middle">
-          <ul>
-            <li>사원명</li>
-            <li>신청일</li>
-            <li>연차일자</li>
-            <li>휴가종류</li>
-            <li>사유</li>
-            <li>특이사항</li>
-            <li>승인상태</li>
-          </ul>
-          <ul>
-            <li>{data.empName}</li>
-            <li>{data.createdAt}</li>
+        <Space direction="vertical" size="middle">
+          <StyledSpace direction="horizontal" size="middle">
+            <StyledLabel>사원명</StyledLabel>
+            <li>{contnetdetails.empName}</li>
+          </StyledSpace>
+          <StyledSpace direction="horizontal" size="middle">
+            <StyledLabel>신청일</StyledLabel>
+            <li>{contnetdetails.createdAt}</li>
+          </StyledSpace>
+          <StyledSpace direction="horizontal" size="middle">
+            <StyledLabel>연차일자</StyledLabel>
             <li>
-              {data.startDate}~{data.endDate}
+              {contnetdetails.startDate}~{contnetdetails.endDate}
             </li>
-            <li>{data.category}</li>
-            <li>{data.reason}</li>
-            <li>{data.etc}</li>
-            <li>{data.status}</li>
-          </ul>
+          </StyledSpace>
+          {contnetdetails.orderType == "연차" ? (
+            <StyledSpace direction="horizontal" size="middle">
+              <StyledLabel>휴가종류</StyledLabel>
+              <li>{contnetdetails.category}</li>
+            </StyledSpace>
+          ) : null}
+          <StyledSpace direction="horizontal" size="middle">
+            <StyledLabel>사유</StyledLabel>
+            <li>{contnetdetails.reason}</li>
+          </StyledSpace>
+          <StyledSpace direction="horizontal" size="middle">
+            <StyledLabel>특이사항</StyledLabel>
+            <li>{contnetdetails.reason}</li>
+          </StyledSpace>
+          <StyledSpace direction="horizontal" size="middle">
+            <StyledLabel>승인상태</StyledLabel>
+            <li>{contnetdetails.status}</li>
+          </StyledSpace>
         </Space>
       </StyledModal>
     </>
@@ -74,17 +97,26 @@ const StyledModal = styled(Modal)`
     text-align: left;
     margin: 50px 15px;
   }
+`;
+const StyledSpace = styled(Space)`
+  font-size: 15px;
+  width: 100%;
+  margin: 10px 0;
+  border-bottom: 0.5px solid #e0e0e0;
+  // justify-content: space-between;
+  text-shadow: 0px 3px 7px 0px rgba(81, 81, 81, 0.25);
   li {
-    border-bottom: 1px solid #e0e0e0;
-    margin-top: 20px;
-    padding-bottom: 8px;
-    text-shadow: 0px 3px 7px 0px rgba(81, 81, 81, 0.25);
+    text-shadow: 0px 3px 7px rgba(81, 81, 81, 0.25);
     font-family: Noto Sans KR;
-    font-size: 18px;
-    font-style: normal;
+    font-size: 15px;
     font-weight: 400;
-    line-height: normal;
   }
+`;
+const StyledLabel = styled.div`
+  width: 60px;
+  text-align: left;
+  font-weight: bold;
+  margin: 0 20px;
 `;
 
 export default EmployeeHistoyModal;

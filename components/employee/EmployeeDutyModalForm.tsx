@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import bottomDot from "public/bottomDot.png";
 import { employeeOrderApi } from "@lib/api/employeeAPI";
-import { IEmployeeOrder } from "@lib/interface/EmployeeInterface";
+// import { IEmployeeOrder } from "@lib/interface/EmployeeInterface";
 
 interface IEmployeeDutyModalprops {
   toggle?: boolean;
@@ -76,7 +76,7 @@ function EmployeeDutyModalForm({ toggle }: IEmployeeDutyModalprops) {
   const dutyOrder = () => {
     try {
       employeeOrderApi({
-        orderType: "DUTY",
+        orderType: "당직",
         startAt: startAt,
         endAt: endAt,
         reason: null,
@@ -99,10 +99,10 @@ function EmployeeDutyModalForm({ toggle }: IEmployeeDutyModalprops) {
     }
     setIsModalOpen(false);
   };
-  const annualOrder = () => {
+  const annualOrder = async () => {
     try {
-      employeeOrderApi({
-        orderType: "ANNUAL",
+      await employeeOrderApi({
+        orderType: "연차",
         startAt: startAt,
         endAt: endAt,
         reason: inputReason,

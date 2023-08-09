@@ -22,7 +22,6 @@ function ApprovalModal({ open, setOpen, details }: IModalProps) {
       console.log("결재 처리 실패", error);
     }
   };
-
   return (
     <StyledModal open={open} onCancel={() => setOpen(false)} footer={[]}>
       {details && (

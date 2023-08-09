@@ -1,16 +1,17 @@
 import { Space, Table } from "antd";
 import { useState } from "react";
 import ApprovalModal from "@components/admin/ApprovalModal";
-import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
+// import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
 import Button from "@components/common/Button";
 import type { ColumnsType } from "antd/es/table";
 
 interface IDataTableProps {
   tableTitle: string;
   dataSource: IDataSourceItem[];
+  historyToggle?: boolean;
 }
 
-interface IDataSourceItem {
+export interface IDataSourceItem {
   id: number;
   empName: string;
   createdAt: string;
@@ -25,6 +26,7 @@ interface IDataSourceItem {
 
 function DataTabel({ tableTitle, dataSource }: IDataTableProps) {
   const [open, setOpen] = useState(false);
+  
   // const [employeeOpne, setEmployeeOpen] = useState(false);
   const [details, setDetils] = useState<IDataSourceItem>();
 
@@ -33,6 +35,12 @@ function DataTabel({ tableTitle, dataSource }: IDataTableProps) {
     setDetils(data);
     console.log("디테일", details);
   };
+
+  // const employeeOnClickHandler = (data: IDataSourceItem) => {
+  //   setEmployeeOpen(true);
+  //   setDetils(data);
+  //   // employee 랑 admin 구분하는 응답데이터를 받아야할것 같...아...욧
+  // };
 
   //테이블 형식
   const columns: ColumnsType<IDataSourceItem> = [
@@ -77,19 +85,37 @@ function DataTabel({ tableTitle, dataSource }: IDataTableProps) {
       render: (_, data) => {
         if (data.status === "대기") {
           return (
-            <Button pending="true" onClick={() => adminOnClickHandler(data)}>
+            <Button
+              pending="true"
+              onClick={() =>
+                // employeeOnClickHandler(data)
+                adminOnClickHandler(data)
+              }
+            >
               {data?.status}
             </Button>
           );
         } else if (data.status === "승인") {
           return (
-            <Button accept="true" onClick={() => adminOnClickHandler(data)}>
+            <Button
+              accept="true"
+              onClick={() =>
+                // employeeOnClickHandler(data)
+                adminOnClickHandler(data)
+              }
+            >
               {data?.status}
             </Button>
           );
         } else {
           return (
-            <Button deny="true" onClick={() => adminOnClickHandler(data)}>
+            <Button
+              deny="true"
+              onClick={() =>
+                // employeeOnClickHandler(data)
+                adminOnClickHandler(data)
+              }
+            >
               {data?.status}
             </Button>
           );
@@ -119,7 +145,11 @@ function DataTabel({ tableTitle, dataSource }: IDataTableProps) {
         }}
       />
       <ApprovalModal open={open} setOpen={setOpen} details={details} />
-      <EmployeeHistoyModal />
+      {/* <EmployeeHistoyModal
+        employeeOpen={employeeOpen}
+        setEmployeeOpen={setEmployeeOpen}
+        details={details}
+      /> */}
     </Space>
   );
 }
