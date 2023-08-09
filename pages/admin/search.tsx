@@ -5,27 +5,24 @@ import DataTabel from "@components/common/DataTabel";
 import styled from "styled-components";
 import AdminHeader from "@components/common/AdminHeader";
 import { FormEvent, useCallback, useEffect, useState } from "react";
-import {
-  getUserName,
-  getUserNumber,
-  getOrders,
-  getPendingOrders,
-  getCompletedOrders,
-} from "@lib/api/adminAPI";
-import { useQuery } from "@tanstack/react-query";
+import { getUserName, getUserNumber, getOrders } from "@lib/api/adminAPI";
+import { ISearch } from "@lib/interface/Admin";
 
 function SearchPage() {
-  const pendingQuery = useQuery({
-    queryKey: ["pending"],
-    queryFn: getPendingOrders,
-  });
-  const completeQuery = useQuery({
-    queryKey: ["complete"],
-    queryFn: getCompletedOrders,
-  });
   const [mounted, setMounted] = useState(false);
   const [selectedOption, setSelectedOption] = useState("1");
+
   const [searchWord, setSearchWord] = useState("");
+  const [empNumber, setEmpNumber] = useState(0);
+  const [pendingOrder, setPendingOrder] = useState([]);
+  const [completeOrder, setCompleteOrder] = useState([]);
+  const [visible, setVisible] = useState(false);
+  const [basicData, setBasicData] = useState<ISearch>({
+    createdAt: "",
+    empName: "",
+    empNo: 0,
+    id: 0,
+  });
 
   useEffect(() => {
     setMounted(true);
@@ -38,11 +35,69 @@ function SearchPage() {
   // 데이터 -> 승인/반려/대기 -== 대기내역을 결재 대기로 넣고
   // 결재 완료 -> 승인/반려 넣기
   // searchWord : 사원번호랑, 사원명 x 사원 id값 o
-  const onSearch = useCallback(async () => {}, []);
+  const onNameSubmit = useCallback(
+    async (event: FormEvent) => {
+      event.preventDefault();
+      try {
+        if (searchWord) {
+          const fetchData = await getUserName(searchWord);
+          const fetchOrderData = await getOrders(fetchData.data.id, 0, 10);
+          console.log(fetchOrderData.data);
+          console.log(fetchData.data);
+          setBasicData(fetchData.data);
+          setPendingOrder(
+            fetchOrderData.data.content.filter(
+              (data: any) => data.status === "대기",
+            ),
+          );
+          setCompleteOrder(
+            fetchOrderData.data.content.filter(
+              (data: any) => data.status !== "대기",
+            ),
+          );
+          setVisible(true);
+        }
+      } catch (e) {
+        console.error(e, "실패");
+      }
+    },
+    [searchWord],
+  );
+
+  const onNumberSubmit = useCallback(
+    async (event: FormEvent) => {
+      event.preventDefault();
+      try {
+        if (basicData.empNo) {
+          const fetchData = await getUserNumber(basicData.empNo);
+          const fetchOrderData = await getOrders(fetchData.data.id, 0, 10);
+          setBasicData(fetchData.data);
+          setPendingOrder(
+            fetchOrderData.data.content.filter(
+              (data: any) => data.status === "대기",
+            ),
+          );
+          setCompleteOrder(
+            fetchOrderData.data.content.filter(
+              (data: any) => data.status !== "대기",
+            ),
+          );
+          setVisible(true);
+        }
+      } catch (e) {
+        console.error(e, "실패");
+      }
+    },
+    [basicData.empNo],
+  );
 
   const handleChangeInput = (event: FormEvent) => {
     const { value } = event.target as HTMLInputElement;
-    setSearchWord(value);
+    if (selectedOption === "1") {
+      setSearchWord(value);
+    } else {
+      setEmpNumber(Number(value));
+    }
   };
 
   const pendingData = [
@@ -91,7 +146,10 @@ function SearchPage() {
         <AdminHeader />
         <Search>
           <div className="searchBar">
-            <form className="container" onSubmit={onSearch}>
+            <form
+              className="container"
+              onSubmit={selectedOption === "1" ? onNameSubmit : onNumberSubmit}
+            >
               <Select
                 defaultValue="1"
                 options={options}
@@ -101,40 +159,44 @@ function SearchPage() {
               <button>검색</button>
             </form>
           </div>
-          <div className="info">
-            <h3>기본정보</h3>
-            <div className="container">
-              <ul>
-                <li>
-                  <span>사원명</span>
-                  <p>홍길동</p>
-                </li>
-                <li>
-                  <span>사원번호</span>
-                  <p>20230001</p>
-                </li>
-                <li>
-                  <span>입사일</span>
-                  <p>2023.07.29</p>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="tabel">
-            <h3>연차 / 당직</h3>
-            <div className="details">
-              <DataTabel
-                tableTitle="결재 대기"
-                dataSource={pendingQuery.data?.data}
-                type=""
-              />
-              <DataTabel
-                tableTitle="결재 완료"
-                dataSource={completeQuery.data?.data}
-                type=""
-              />
-            </div>
-          </div>
+          {visible && (
+            <>
+              <div className="info">
+                <h3>기본정보</h3>
+                <div className="container">
+                  <ul>
+                    <li>
+                      <span>사원명</span>
+                      <p>{basicData.empName}</p>
+                    </li>
+                    <li>
+                      <span>사원번호</span>
+                      <p>{basicData.empNo}</p>
+                    </li>
+                    <li>
+                      <span>입사일</span>
+                      <p>{basicData.createdAt}</p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="tabel">
+                <h3>연차 / 당직</h3>
+                <div className="details">
+                  <DataTabel
+                    tableTitle="결재 대기"
+                    dataSource={pendingOrder}
+                    type=""
+                  />
+                  <DataTabel
+                    tableTitle="결재 완료"
+                    dataSource={completeOrder}
+                    type=""
+                  />
+                </div>
+              </div>
+            </>
+          )}
         </Search>
       </>
     )
