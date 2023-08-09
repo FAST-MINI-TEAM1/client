@@ -33,13 +33,11 @@ function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
   const adminOnClickHandler = (data: IDataSourceItem) => {
     setOpen(true);
     setDetils(data);
-    console.log("디테일", details);
   };
 
   const employeeOnClickHandler = (data: IDataSourceItem) => {
     setEmployeeOpen(true);
     setDetils(data);
-    // employee 랑 admin 구분하는 응답데이터를 받아야할것 같...아...욧
   };
 
   //테이블 형식
