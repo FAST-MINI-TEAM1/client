@@ -4,8 +4,8 @@ import { styled } from "styled-components";
 import SelectModal from "@components/employee/SelectModal";
 import { employeeListApi } from "@lib/api/employeeAPI";
 import { useEffect, useState } from "react";
-import { IEmployeeListRequest } from "@lib/interface/EmployeeInterface";
-import { IDataSourceItem } from "@components/common/DataTabel";
+// import { IEmployeeListRequest } from "@lib/interface/EmployeeInterface";
+import { IDataSourceItem } from "@lib/interface/Admin";
 import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
 
 interface selectedTapProps {
@@ -18,7 +18,7 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
   const [datas, setDatas] = useState<IDataSourceItem[]>([]);
   const [employeeOpen, setEmployeeOpen] = useState(false);
   const [details, setDetails] = useState<IDataSourceItem>();
-  const [datasLength, setDatasLength] = useState(0);
+  // const [datasLength, setDatasLength] = useState(0);
 
   const openHandler = (data: IDataSourceItem) => {
     setEmployeeOpen(true);
@@ -27,7 +27,7 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
   const setlist = async () => {
     const list = await employeeListApi();
     setDatas(list?.data.response.content);
-    setDatasLength(datas.length);
+    // setDatasLength(datas.length);
   };
 
   useEffect(() => {
