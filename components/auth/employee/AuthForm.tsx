@@ -100,7 +100,7 @@ function AuthForm({ type }: IAuthFormProps) {
           console.log(res);
           console.log(res.headers);
           console.log(res.data);
-          localStorage.setItem("Token", res.headers.authorization);
+          localStorage.setItem("Token", res.data.response.accessToken);
           router.push("/employee");
         });
       } catch (e) {
@@ -122,7 +122,13 @@ function AuthForm({ type }: IAuthFormProps) {
         setRegisterMessage("필수 입력 사항입니다.");
       } else {
         setLoading(true);
-        await register({ email, password, empName, position });
+        await register({ email, password, empName, position }).then((res) => {
+          if (typeof res === "string") {
+            setRegisterMessage("이미 계정이 있습니다!");
+            console.log(res);
+          } else {
+          }
+        });
         router.push("/login");
       }
     },
