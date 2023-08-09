@@ -8,6 +8,7 @@ import type { ColumnsType } from "antd/es/table";
 interface IDataTableProps {
   tableTitle: string;
   dataSource: IDataSourceItem[];
+  type: string;
 }
 
 interface IDataSourceItem {
@@ -23,7 +24,7 @@ interface IDataSourceItem {
   etc?: string;
 }
 
-function DataTabel({ tableTitle, dataSource }: IDataTableProps) {
+function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
   const [open, setOpen] = useState(false);
   // const [employeeOpne, setEmployeeOpen] = useState(false);
   const [details, setDetils] = useState<IDataSourceItem>();
@@ -118,8 +119,11 @@ function DataTabel({ tableTitle, dataSource }: IDataTableProps) {
           };
         }}
       />
-      <ApprovalModal open={open} setOpen={setOpen} details={details} />
-      <EmployeeHistoyModal />
+      {type === "admin" ? (
+        <ApprovalModal open={open} setOpen={setOpen} details={details} />
+      ) : (
+        <EmployeeHistoyModal />
+      )}
     </Space>
   );
 }
