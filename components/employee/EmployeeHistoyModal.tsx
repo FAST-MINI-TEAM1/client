@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Modal, Space } from "antd";
 import { styled } from "styled-components";
 import Button from "@components/common/Button";
-import { IDataSourceItem } from "@components/common/DataTabel";
+import { IDataSourceItem } from "@lib/interface/Admin";
 import { employeeDeleteApi } from "@lib/api/employeeAPI";
 
 interface Iprops {

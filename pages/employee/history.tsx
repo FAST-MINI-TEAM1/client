@@ -3,7 +3,7 @@ import Header from "@components/common/Header";
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { employeeListApi } from "@lib/api/employeeAPI";
-import { IDataSourceItem } from "@components/common/DataTabel";
+import { IDataSourceItem } from "@lib/interface/Admin";
 import { useQuery } from "@tanstack/react-query";
 
 function History() {
@@ -13,20 +13,16 @@ function History() {
   });
   const [mounted, setMounted] = useState(false);
   const [datas, setDatas] = useState<IDataSourceItem[]>([]);
-  //사원용 구분
-  // const [historyToggle, setHistoryToggle] = useState(true);
 
   const setlist = async () => {
     const list = await employeeListApi();
     setDatas(list?.data.response.content);
     console.log("얍", datas);
-    // setDataSource(datas.filter((data)=>{data.status == "대기"}))
   };
 
   useEffect(() => {
     setlist();
     setMounted(true);
-    // setHistoryToggle(true);
   }, []);
 
   return (
@@ -41,7 +37,6 @@ function History() {
               dataSource={datas.filter((data) => {
                 return data.status == "대기";
               })}
-              // historyToggle={historyToggle}
             />
           </div>
 
@@ -52,7 +47,6 @@ function History() {
               dataSource={datas.filter((data) => {
                 return data.status == "승인" && "반려";
               })}
-              // historyToggle={historyToggle}
             />
           </div>
         </Container>

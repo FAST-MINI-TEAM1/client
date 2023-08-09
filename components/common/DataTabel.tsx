@@ -6,26 +6,6 @@ import Button from "@components/common/Button";
 import type { ColumnsType } from "antd/es/table";
 import { IDataTableProps, IDataSourceItem } from "@lib/interface/Admin";
 
-interface IDataTableProps {
-  tableTitle: string;
-  dataSource: IDataSourceItem[];
-  type: string;
-}
-
-export interface IDataSourceItem {
-  id: number;
-  empName: string;
-  createdAt: string;
-  orderType: string;
-  status: string;
-  startDate: string;
-  endDate: string;
-  reason?: string;
-  category?: string;
-  etc?: string;
-}
-
-
 function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
   const [open, setOpen] = useState(false);
 
