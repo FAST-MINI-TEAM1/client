@@ -1,12 +1,32 @@
+import React, { useEffect, useState } from "react";
 import Header from "@components/common/Header";
 import EmployeeTableTab from "@components/employee/EmployeeTableTab";
 import Calendar from "@components/common/Calender";
 import { styled } from "styled-components";
+import { userschedule } from "@lib/api/employeeAPI";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 function EmployeePage() {
   const router = useRouter();
+  const [scheduleData, setScheduleData] = useState([]);
+   useEffect(() => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
+
+    const fetchData = async () => {
+      try {
+        const result = await userschedule({ year: currentYear, month: currentMonth }); 
+        if (result) {
+          setScheduleData(result.data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
   useEffect(() => {
     const token = localStorage.getItem("Token");
     if (token === undefined) {
@@ -20,11 +40,11 @@ function EmployeePage() {
   return (
     <>
       <Header />
-      <Inner>
+      <Inner >
         {/* <Container>
           <Calendar />
         </Container> */}
-        <EmployeeTableTab />
+        <EmployeeTableTab scheduleData={scheduleData} /> 
       </Inner>
     </>
   );

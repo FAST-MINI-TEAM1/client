@@ -48,3 +48,23 @@ export function employeeListApi() {
   }
   console.log("안나옴");
 }
+
+
+interface User {
+  year: number;
+  month: number;
+}
+
+export const userschedule = async ({ year, month }: User) => {
+  try {
+    const result = await userClient.get(`/api/user/main?year=${year}&month=${month}`, {
+      params: {
+        year,
+        month,
+      },
+    });
+    return result;
+  } catch (e) {
+    console.error(e);
+  }
+};

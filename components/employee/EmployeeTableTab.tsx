@@ -5,26 +5,27 @@ import EmployeeTable from "@components/employee/EmployeeTable";
 import { styled } from "styled-components";
 import Calendar from "@components/common/Calender";
 
-function EmployeeTableTab() {
+interface EmployeeTableTabProps {
+  scheduleData: any[];
+}
+
+function EmployeeTableTab({ scheduleData }: EmployeeTableTabProps) {
   const [selectedTap, setSelectedTap] = useState("전체");
   const [toggle, setToggle] = useState(true);
+
   const onChange = (key: string) => {
     setSelectedTap(key);
-    if (key == "당직") {
-      return setToggle(false);
+
+    if (key === "당직") {
+      setToggle(false);
+    } else if (key === "연차") {
+      setToggle(true);
+    } else if (key === "전체") {
+      // 어떤 처리를 하고자 하는지 기입
     }
-    if (key == "연차") {
-      return setToggle(true);
-    }
-    if (key == "전체") {
-      {
-        return null;
-      }
-    }
-    console.log(key);
   };
 
-  const employeeHandeler: TabsProps["items"] = [
+  const employeeHandler: TabsProps["items"] = [
     {
       key: "전체",
       label: `전체`,
@@ -62,16 +63,18 @@ function EmployeeTableTab() {
       ),
     },
   ];
+
   return (
     <>
       <StyledTabs
         defaultActiveKey="전체"
-        items={employeeHandeler}
+        items={employeeHandler}
         onChange={onChange}
       />
     </>
   );
 }
+
 const StyledTabs = styled(Tabs)`
   color: #090909;
   font-size: 16px;
@@ -97,7 +100,6 @@ const StyledTabs = styled(Tabs)`
   .ant-tabs-tab:hover {
     color: black;
     color: #090909;
-
     text-shadow: 0px 3px 7px rgba(81, 81, 81, 0.25);
   }
   .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
@@ -106,6 +108,7 @@ const StyledTabs = styled(Tabs)`
     text-shadow: 0px 3px 7px rgba(81, 81, 81, 0.25);
   }
 `;
+
 const Layout = styled.div`
   width: 1280px;
   margin: 0 auto;
@@ -114,6 +117,7 @@ const Layout = styled.div`
   position: relative;
   justify-content: space-between;
 `;
+
 const CalendarContainer = styled.div`
   width: 950px;
   height: 670px;
