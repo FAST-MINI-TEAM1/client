@@ -1,17 +1,11 @@
-import { Dispatch, SetStateAction } from "react";
 import { Modal } from "antd";
 import Button from "@components/common/Button";
 import styled from "styled-components";
 import { postUpdateOrder } from "@lib/api/adminAPI";
-
-interface IModalProps {
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-  details: any;
-}
+import { IModalProps } from "@lib/interface/Admin";
 
 function ApprovalModal({ open, setOpen, details }: IModalProps) {
-  const handleClick = async (e: MouseEvent, id: unknown, status: string) => {
+  const handleClick = async (e: MouseEvent, id: number, status: string) => {
     e.preventDefault();
     try {
       const res = await postUpdateOrder({ id, status });
@@ -22,6 +16,7 @@ function ApprovalModal({ open, setOpen, details }: IModalProps) {
       console.log("결재 처리 실패", error);
     }
   };
+
   return (
     <StyledModal open={open} onCancel={() => setOpen(false)} footer={[]}>
       {details && (
