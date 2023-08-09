@@ -88,8 +88,8 @@ const Inner = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px 30px 30px;
-  border-radius: 10px;
   box-sizing: border-box;
-  background-color: #fff;
-  box-shadow: #e2e2e2 0px 5px 10px;
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
 `;
