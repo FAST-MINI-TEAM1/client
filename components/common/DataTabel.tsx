@@ -1,7 +1,7 @@
 import { Space, Table } from "antd";
 import { useState } from "react";
 import ApprovalModal from "@components/admin/ApprovalModal";
-// import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
+import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
 import Button from "@components/common/Button";
 import type { ColumnsType } from "antd/es/table";
 
