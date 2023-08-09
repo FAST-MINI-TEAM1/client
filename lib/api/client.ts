@@ -15,7 +15,7 @@ const tokenConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
   headers: {
     "content-type": "application/json",
-    Authorization: `${accessToken}`,
+    "Authorization": `${accessToken}`,
   },
 };
 
