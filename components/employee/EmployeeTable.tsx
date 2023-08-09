@@ -5,6 +5,7 @@ import SelectModal from "@components/employee/SelectModal";
 import { employeeListApi } from "@lib/api/employeeAPI";
 import { useEffect, useState } from "react";
 import { IEmployeeListRequest } from "@lib/interface/EmployeeInterface";
+// import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
 
 interface selectedTapProps {
   selectedTap: string;
@@ -13,73 +14,45 @@ interface selectedTapProps {
 }
 
 function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
-  // const [datass, setDatass] = useState<IEmployeeListRequest[]>();
   const [datas, setDatas] = useState<IEmployeeListRequest[]>([]);
+  // const [employeeOpen, setEmployeeOpen] = useState(false);
+
+  // const openHandler = () => {
+  //   setEmployeeOpen(true);
+  // };
 
   const setlist = async () => {
     const list = await employeeListApi();
-    console.log("얍", list?.data.content);
+    console.log("얍", list?.data.response.content);
 
-    setDatas(list?.data.content);
+    setDatas(list?.data.response.content);
     console.log("얍", datas);
   };
 
   useEffect(() => {
-    async () => {
-      const list = await employeeListApi();
-      console.log("얍", list?.data.content);
-      setDatas(list?.data.content);
-      console.log("얍", datas);
-    };
-    if (datas) {
-      setDatas(datas);
-    }
-  }, [datas]);
+    setlist();
+  }, []);
 
   return (
     <>
-      <button onClick={setlist}>a</button>
       <EmployeeDutyTable>
         {selectedTap == "전체" ? (
-          <h1>7월 전체 현황</h1>
+          <h1>전체 현황</h1>
         ) : selectedTap == "연차" ? (
-          <h1>7월 연차 현황</h1>
+          <h1>연차 현황</h1>
         ) : (
-          <h1>7월 당직 현황</h1>
+          <h1>당직 현황</h1>
         )}
         {selectedTap == "전체" ? (
           <ul>
-            {datas.map((data) => {
-              return (
-                <Employeedata key={data.id}>
-                  <Space direction="horizontal" size="middle">
-                    {data.orderType === "당직" ? <DutyIcon /> : <AnnualIcon />}
-                    <DutyInfo>{data.startDate}</DutyInfo>
-                    <DutyInfo>{data.status}</DutyInfo>
-                  </Space>
-                </Employeedata>
-              );
-            })}
-          </ul>
-        ) : (
-          <ul>
-            {datas
-              .filter((data) => {
-                if (selectedTap == "연차") {
-                  return data.orderType == "연차";
-                }
-                if (selectedTap == "당직") {
-                  return data.orderType == "당직";
-                }
-              })
-              .map((data) => {
+            {datas &&
+              datas.map((data) => {
                 return (
-                  <Employeedata key={data.id}>
-                    <Space
-                      direction="horizontal"
-                      size="middle"
-                      style={{ width: "200px", margin: "5px auto" }}
-                    >
+                  <Employeedata
+                    key={data.id}
+                    // onClick={openHandler}
+                  >
+                    <Space direction="horizontal" size="middle">
                       {data.orderType === "당직" ? (
                         <DutyIcon />
                       ) : (
@@ -92,6 +65,38 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
                 );
               })}
           </ul>
+        ) : (
+          <ul>
+            {datas &&
+              datas
+                .filter((data) => {
+                  if (selectedTap == "연차") {
+                    return data.orderType == "연차";
+                  }
+                  if (selectedTap == "당직") {
+                    return data.orderType == "당직";
+                  }
+                })
+                .map((data) => {
+                  return (
+                    <Employeedata key={data.id}>
+                      <Space
+                        direction="horizontal"
+                        size="middle"
+                        style={{ width: "200px", margin: "5px auto" }}
+                      >
+                        {data.orderType === "당직" ? (
+                          <DutyIcon />
+                        ) : (
+                          <AnnualIcon />
+                        )}
+                        <DutyInfo>{data.startDate}</DutyInfo>
+                        <DutyInfo>{data.status}</DutyInfo>
+                      </Space>
+                    </Employeedata>
+                  );
+                })}
+          </ul>
         )}
         <div>
           {selectedTap == "전체" ? (
@@ -100,6 +105,10 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
             <EmployeeDutyModalForm toggle={toggle} />
           )}
         </div>
+        {/* <EmployeeHistoyModal
+          employeeOpen={employeeOpen}
+          setEmployeeOpen={setEmployeeOpen}
+        /> */}
       </EmployeeDutyTable>
     </>
   );

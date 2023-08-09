@@ -1,9 +1,11 @@
 import { login } from "@lib/api/authAPI";
+import { useRouter } from "next/router";
 import { FormEvent, useCallback, useState } from "react";
 import styled from "styled-components";
 
 // Component
 function AdminAuthForm() {
+  const router = useRouter();
   // Hooks
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,6 +25,9 @@ function AdminAuthForm() {
       console.log(res.headers);
       console.log(res.data);
       localStorage.setItem("token", res.headers.authorization);
+      router.push({
+        pathname: "/admin",
+      });
     });
   };
 

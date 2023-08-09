@@ -5,7 +5,7 @@ const accessToken =
   typeof window !== "undefined" && localStorage.getItem("token");
 const refreshToken =
   typeof window !== "undefined" && localStorage.getItem("refreshToken");
-
+console.log(accessToken);
 const axiosConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
   headers: {

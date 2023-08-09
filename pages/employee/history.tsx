@@ -2,43 +2,29 @@ import DataTabel from "@components/common/DataTabel";
 import Header from "@components/common/Header";
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
+import { employeeListApi } from "@lib/api/employeeAPI";
+// import { IEmployeeListRequest } from "@lib/interface/EmployeeInterface";
+import { IDataSourceItem } from "@components/common/DataTabel";
 
 function History() {
   const [mounted, setMounted] = useState(false);
+  const [datas, setDatas] = useState<IDataSourceItem[]>([]);
+  //사원용 구분
+  // const [historyToggle, setHistoryToggle] = useState(true);
+
+  const setlist = async () => {
+    const list = await employeeListApi();
+    setDatas(list?.data.response.content);
+    console.log("얍", datas);
+    // setDataSource(datas.filter((data)=>{data.status == "대기"}))
+  };
 
   useEffect(() => {
+    setlist();
     setMounted(true);
+    // setHistoryToggle(true);
   }, []);
 
-  const pendingData = [
-    {
-      id: 1,
-      empName: "홍길동",
-      createdAt: "2023-07-27",
-      orderType: "연차",
-      status: "대기",
-      startDate: "2023-08-01",
-      endDate: "2023-08-01",
-      reason: "이유입니다",
-      category: "경조사",
-      etc: "특이사항입니다",
-    },
-  ];
-
-  const completedData = [
-    {
-      id: 2,
-      empName: "홍길동",
-      createdAt: "2023-07-27",
-      orderType: "연차",
-      status: "승인",
-      startDate: "2023-08-01",
-      endDate: "2023-08-01",
-      reason: "이유입니다",
-      category: "경조사",
-      etc: "특이사항입니다",
-    },
-  ];
   return (
     mounted && (
       <>
@@ -47,16 +33,22 @@ function History() {
           <div className="details">
             <DataTabel
               tableTitle={"결재 대기 내역"}
-              dataSource={pendingData}
               type={"employee"}
+              dataSource={datas.filter((data) => {
+                return data.status == "대기";
+              })}
+              // historyToggle={historyToggle}
             />
           </div>
 
           <div className="details">
             <DataTabel
               tableTitle={"결재 완료 내역"}
-              dataSource={completedData}
               type={"employee"}
+              dataSource={datas.filter((data) => {
+                return data.status == "승인" && "반려";
+              })}
+              // historyToggle={historyToggle}
             />
           </div>
         </Container>

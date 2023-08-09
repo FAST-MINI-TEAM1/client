@@ -1,8 +1,19 @@
+import { logout } from "@lib/api/authAPI";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useCallback } from "react";
 import styled from "styled-components";
 
 function AdminHeader() {
+  const onLogout = useCallback(async () => {
+    try {
+      await logout();
+      localStorage.removeItem("token");
+      console.log("로그아웃 성공");
+    } catch (e) {
+      console.error(e, "로그아웃 실패");
+    }
+  }, []);
   const router = useRouter();
   return (
     <HeaderBlock>
@@ -15,6 +26,7 @@ function AdminHeader() {
             <span>관리자</span>
             <span>님, 반갑습니다!</span>
           </UserWelcome>
+          <button onClick={onLogout}>로그아웃</button>
         </LogoContainer>
         <Nav>
           <ul>

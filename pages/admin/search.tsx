@@ -15,27 +15,32 @@ function SearchPage() {
     setMounted(true);
   }, []);
 
-  const onSearch = async (event) => {
+  const onSearch = async (event: FormEvent) => {
     event.preventDefault();
     if (selectedOption === "1") {
-      const { data } = await getUserName(searchWord);
-      const { data: listData } = await getOrders(searchWord, 0, 4);
+      // searchWord : 사원번호랑, 사원명 x 사원 id값 o
+      const { data } = await getUserName(searchWord); // 사원 기본정보 (userId)
+      // 연차 / 당직 내역
+      // 결재 내역 필터링 필요
+      // const { data: listData } = await getOrders(searchWord, 0, 4);
+      // TODO: 데이터 받은 후 필터링!
+      // 데이터 -> 승인/반려/대기 -== 대기내역을 결재 대기로 넣고
+      // 결재 완료 -> 승인/반려 넣기
+      console.log(data);
+      // console.log(listData);
     } else if (selectedOption === "2") {
-      const { data } = await getUserNumber(searchWord);
+      const { data } = await getUserNumber(searchWord); // 사원 기본정보
       const { data: listData } = await getOrders(searchWord, 0, 4);
+      console.log(data);
+      console.log(listData);
     }
   };
 
-  const onSearch = async (event: FormEvent) => {
-    event.preventDefault();
-    const { data } = await getUserName("박지훈");
-    console.log("박지훈", data);
+  const handleChangeInput = (event: FormEvent) => {
+    const { value } = event.target as HTMLInputElement;
+    setSearchWord(value);
   };
 
-  const handleChangeInput = (e) => {
-    setSearchWord(e.target.value);
-    console.log(e.target.value);
-  };
   const pendingData = [
     {
       id: 1,
@@ -88,12 +93,8 @@ function SearchPage() {
                 options={options}
                 onChange={(value: string) => setSelectedOption(value)}
               />
-              <input
-                onChange={handleChangeInput}
-                autoFocus
-                onKeyDown={onSearch}
-              />
-              <SearchOutlined onClick={onSearch} />
+              <input onChange={handleChangeInput} autoFocus />
+              <button>검색</button>
             </form>
           </div>
           <div className="info">
