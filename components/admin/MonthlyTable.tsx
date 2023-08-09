@@ -1,7 +1,5 @@
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { useEffect, useState } from "react";
-import { getMonthlyAnnual, getMonthlyDuty } from "@lib/api/adminAPI";
 
 interface IMonthlyPros {
   dataSource: IColumnsData[];
@@ -19,10 +17,6 @@ interface IMonth {
 }
 
 function MonthlyTable({ dataSource }: IMonthlyPros) {
-  const [year, setYear] = useState(Number(new Date().getFullYear()));
-  const [annualData, setAnnualData] = useState([]);
-  const [dutyData, setDutyData] = useState([]);
-
   const columnsData: ColumnsType<IColumnsData> = [
     {
       title: "사원",
