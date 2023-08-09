@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useCallback } from "react";
 import styled from "styled-components";
 
 function AdminHeader() {
   const router = useRouter();
+  const onClick = useCallback(() => {
+    localStorage.removeItem("Token");
+    router.push("/admin/login");
+  }, [router]);
   return (
     <HeaderBlock>
       <HeaderContent>
@@ -15,6 +20,7 @@ function AdminHeader() {
             <span>관리자</span>
             <span>님, 반갑습니다!</span>
           </UserWelcome>
+          <button onClick={onClick}>로그아웃</button>
         </LogoContainer>
         <Nav>
           <ul>
@@ -144,7 +150,7 @@ const SubMenu = styled.div`
   align-items: center;
   gap: 20px;
   padding: 8px;
-  opacity: 0;
+  /* opacity: 0; */
   z-index: 99999;
   a {
     text-align: center;

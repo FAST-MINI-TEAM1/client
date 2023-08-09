@@ -1,20 +1,6 @@
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-
-interface IMonthlyPros {
-  dataSource: IColumnsData[];
-}
-
-interface IColumnsData {
-  id: number;
-  empName: string;
-  empNo: number;
-  month: IMonth;
-  total: number;
-}
-interface IMonth {
-  [key: string]: number;
-}
+import { IMonthlyPros, IColumnsData } from "@lib/interface/Admin";
 
 function MonthlyTable({ dataSource }: IMonthlyPros) {
   const columnsData: ColumnsType<IColumnsData> = [

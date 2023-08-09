@@ -35,4 +35,6 @@ export interface IEmployeeListRequest {
   startDate: string;
   endDate: string;
   reason?: null;
+  category?: string;
+  etc?: string;
 }

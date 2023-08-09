@@ -1,8 +1,11 @@
 import GlobalStyle from "@styles/GlobalStyle";
 import { theme } from "@styles/theme";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { ThemeProvider } from "styled-components";
+
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -11,8 +14,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>TEAM1</title>
       </Head>
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Component {...pageProps} />
+        <QueryClientProvider client={queryClient}>
+          <GlobalStyle />
+          <Component {...pageProps} />
+        </QueryClientProvider>
       </ThemeProvider>
     </>
   );

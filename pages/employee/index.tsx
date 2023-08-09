@@ -4,11 +4,13 @@ import EmployeeTableTab from "@components/employee/EmployeeTableTab";
 import Calendar from "@components/common/Calender";
 import { styled } from "styled-components";
 import { userschedule } from "@lib/api/employeeAPI";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 function EmployeePage() {
+  const router = useRouter();
   const [scheduleData, setScheduleData] = useState([]);
-
-  useEffect(() => {
+   useEffect(() => {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1;
@@ -25,6 +27,15 @@ function EmployeePage() {
     };
     fetchData();
   }, []);
+  useEffect(() => {
+    const token = localStorage.getItem("Token");
+    if (token === undefined) {
+      alert("로그인 하십시오!");
+      router.push("/login");
+    } else {
+      return;
+    }
+  }, [router]);
 
   return (
     <>
