@@ -54,10 +54,18 @@ function Approval() {
         <AdminHeader />
         <Container>
           <div className="details">
-            <DataTabel tableTitle={"결재 대기"} dataSource={pendingOrders} />
+            <DataTabel
+              tableTitle={"결재 대기"}
+              dataSource={pendingOrders}
+              type={"admin"}
+            />
           </div>
           <div className="details">
-            <DataTabel tableTitle={"결재 완료"} dataSource={completedOrders} />
+            <DataTabel
+              tableTitle={"결재 완료"}
+              dataSource={completedOrders}
+              type={"admin"}
+            />
           </div>
         </Container>
       </>
