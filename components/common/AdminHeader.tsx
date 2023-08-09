@@ -150,7 +150,7 @@ const SubMenu = styled.div`
   align-items: center;
   gap: 20px;
   padding: 8px;
-  opacity: 0;
+  /* opacity: 0; */
   z-index: 99999;
   a {
     text-align: center;
