@@ -7,7 +7,7 @@ function AdminHeader() {
   const router = useRouter();
   const onClick = useCallback(() => {
     localStorage.removeItem("Token");
-    router.push("/login");
+    router.push("/admin/login");
   }, [router]);
   return (
     <HeaderBlock>
