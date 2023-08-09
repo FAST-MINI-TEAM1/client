@@ -2,8 +2,21 @@ import Header from "@components/common/Header";
 import EmployeeTableTab from "@components/employee/EmployeeTableTab";
 import Calendar from "@components/common/Calender";
 import { styled } from "styled-components";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 function EmployeePage() {
+  const router = useRouter();
+  useEffect(() => {
+    const token = localStorage.getItem("Token");
+    if (token === undefined) {
+      alert("로그인 하십시오!");
+      router.push("/login");
+    } else {
+      return;
+    }
+  }, [router]);
+
   return (
     <>
       <Header />
