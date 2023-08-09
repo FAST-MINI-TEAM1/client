@@ -2,21 +2,10 @@ import { Tabs } from "antd";
 import type { TabsProps } from "antd";
 import MonthlyTable from "@components/admin/MonthlyTable";
 import styled from "styled-components";
-
-import { useMemo, useEffect, useState, useCallback } from "react";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { useEffect, useState, useCallback } from "react";
 import { getMonthlyAnnual, getMonthlyDuty } from "@lib/api/adminAPI";
 import Header from "@components/common/Header";
-interface IColumnsData {
-  id: number;
-  empName: string;
-  empNo: number;
-  month: IMonth;
-  total: number;
-}
-interface IMonth {
-  [key: string]: number;
-}
+import { IColumnsData } from "@lib/interface/Admin";
 
 function Monthly() {
   const [dutyData, setDutyData] = useState<IColumnsData[]>([]);
@@ -58,18 +47,20 @@ function Monthly() {
 
   return (
     <>
-    <Header />
-    <Container>
-      <StyledTabs
-        defaultActiveKey="1"
-        items={items}
-        tabBarGutter={30}
-        onTabClick={(key) => handleClick(key)}
-      />
-      <Inner>
-        <MonthlyTable dataSource={tabKey === "당직" ? dutyData : annualData} />
-      </Inner>
-    </Container>
+      <Header />
+      <Container>
+        <StyledTabs
+          defaultActiveKey="1"
+          items={items}
+          tabBarGutter={30}
+          onTabClick={(key) => handleClick(key)}
+        />
+        <Inner>
+          <MonthlyTable
+            dataSource={tabKey === "당직" ? dutyData : annualData}
+          />
+        </Inner>
+      </Container>
     </>
   );
 }

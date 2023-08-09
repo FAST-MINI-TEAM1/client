@@ -1,10 +1,7 @@
 import { userClient } from "./client";
+import { IRequestBody } from "@lib/interface/Admin";
 
 // 요청 관리 - 결재 처리
-interface IRequestBody {
-  id: unknown;
-  status: string;
-}
 export const postUpdateOrder = ({ id, status }: IRequestBody) => {
   const res = userClient.post(`/api/admin/order/update`, { id, status });
   return res;

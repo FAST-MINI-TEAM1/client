@@ -3,19 +3,7 @@ import DataTabel from "@components/common/DataTabel";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getPendingOrders, getCompletedOrders } from "@lib/api/adminAPI";
-
-interface IDataSourceItem {
-  id: number;
-  empName: string;
-  createdAt: string;
-  orderType: string;
-  status: string;
-  startDate: string;
-  endDate: string;
-  reason?: string;
-  category?: string;
-  etc?: string;
-}
+import { IDataSourceItem } from "@lib/interface/Admin";
 
 function Approval() {
   const [mounted, setMounted] = useState(false);
