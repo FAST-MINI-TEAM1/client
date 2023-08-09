@@ -9,9 +9,19 @@ import {
   getUserNumber,
   getOrders,
   getPendingOrders,
+  getCompletedOrders,
 } from "@lib/api/adminAPI";
+import { useQuery } from "@tanstack/react-query";
 
 function SearchPage() {
+  const pendingQuery = useQuery({
+    queryKey: ["pending"],
+    queryFn: getPendingOrders,
+  });
+  const completeQuery = useQuery({
+    queryKey: ["complete"],
+    queryFn: getCompletedOrders,
+  });
   const [mounted, setMounted] = useState(false);
   const [selectedOption, setSelectedOption] = useState("1");
   const [searchWord, setSearchWord] = useState("");
@@ -27,9 +37,7 @@ function SearchPage() {
   // 데이터 -> 승인/반려/대기 -== 대기내역을 결재 대기로 넣고
   // 결재 완료 -> 승인/반려 넣기
   // searchWord : 사원번호랑, 사원명 x 사원 id값 o
-  const onSearch = useCallback(async () => {
-
-  }, []);
+  const onSearch = useCallback(async () => {}, []);
 
   const handleChangeInput = (event: FormEvent) => {
     const { value } = event.target as HTMLInputElement;
@@ -114,8 +122,14 @@ function SearchPage() {
           <div className="tabel">
             <h3>연차 / 당직</h3>
             <div className="details">
-              <DataTabel tableTitle={"결재 대기"} dataSource={pendingData} />
-              <DataTabel tableTitle={"결재 완료"} dataSource={completedData} />
+              <DataTabel
+                tableTitle={"결재 대기"}
+                dataSource={pendingQuery.data?.data}
+              />
+              <DataTabel
+                tableTitle={"결재 완료"}
+                dataSource={completeQuery.data?.data}
+              />
             </div>
           </div>
         </Search>
@@ -216,4 +230,3 @@ const Search = styled.section`
 `;
 
 export default SearchPage;
-
