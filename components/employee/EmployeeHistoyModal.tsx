@@ -15,8 +15,7 @@ function EmployeeHistoyModal({
   setEmployeeOpen,
   details,
 }: Iprops) {
-  // const [employeeOpen, setemployeeOpens] = useState(false);
-  const [contnetdetails, setcontnetdetails] = useState<IDataSourceItem>({});
+  const [contnetdetails, setcontnetdetails] = useState<IDataSourceItem>();
 
   const handleOk = () => {
     employeeOpen;
@@ -25,15 +24,18 @@ function EmployeeHistoyModal({
   const handleCancel = () => {
     setEmployeeOpen(false);
   };
-  console.log(contnetdetails?.id);
+
   const deletHandeler = async () => {
-    await employeeDeleteApi(contnetdetails.id);
-    setEmployeeOpen(false);
+    if (contnetdetails) {
+      await employeeDeleteApi(contnetdetails.id);
+      setEmployeeOpen(false);
+    }
   };
 
   useEffect(() => {
-    if (details) setcontnetdetails(details);
-    console.log(contnetdetails);
+    if (details) {
+      setcontnetdetails(details);
+    }
   }, [details]);
 
   return (
@@ -53,19 +55,19 @@ function EmployeeHistoyModal({
         <Space direction="vertical" size="middle">
           <StyledSpace direction="horizontal" size="middle">
             <StyledLabel>사원명</StyledLabel>
-            <li>{contnetdetails.empName}</li>
+            <li>{contnetdetails?.empName}</li>
           </StyledSpace>
           <StyledSpace direction="horizontal" size="middle">
             <StyledLabel>신청일</StyledLabel>
-            <li>{contnetdetails.createdAt}</li>
+            <li>{contnetdetails?.createdAt}</li>
           </StyledSpace>
           <StyledSpace direction="horizontal" size="middle">
             <StyledLabel>연차일자</StyledLabel>
             <li>
-              {contnetdetails.startDate}~{contnetdetails.endDate}
+              {contnetdetails?.startDate}~{contnetdetails?.endDate}
             </li>
           </StyledSpace>
-          {contnetdetails.orderType == "연차" ? (
+          {contnetdetails?.orderType == "연차" ? (
             <StyledSpace direction="horizontal" size="middle">
               <StyledLabel>휴가종류</StyledLabel>
               <li>{contnetdetails.category}</li>
@@ -73,15 +75,15 @@ function EmployeeHistoyModal({
           ) : null}
           <StyledSpace direction="horizontal" size="middle">
             <StyledLabel>사유</StyledLabel>
-            <li>{contnetdetails.reason}</li>
+            <li>{contnetdetails?.reason}</li>
           </StyledSpace>
           <StyledSpace direction="horizontal" size="middle">
             <StyledLabel>특이사항</StyledLabel>
-            <li>{contnetdetails.reason}</li>
+            <li>{contnetdetails?.etc}</li>
           </StyledSpace>
           <StyledSpace direction="horizontal" size="middle">
             <StyledLabel>승인상태</StyledLabel>
-            <li>{contnetdetails.status}</li>
+            <li>{contnetdetails?.status}</li>
           </StyledSpace>
         </Space>
       </StyledModal>

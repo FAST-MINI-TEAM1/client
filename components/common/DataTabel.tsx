@@ -9,20 +9,18 @@ import { IDataTableProps, IDataSourceItem } from "@lib/interface/Admin";
 function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
   const [open, setOpen] = useState(false);
 
-  // const [employeeOpne, setEmployeeOpen] = useState(false);
+  const [employeeOpen, setEmployeeOpen] = useState(false);
   const [details, setDetils] = useState<IDataSourceItem>();
 
   const adminOnClickHandler = (data: IDataSourceItem) => {
     setOpen(true);
     setDetils(data);
-    console.log("디테일", details);
   };
 
-  // const employeeOnClickHandler = (data: IDataSourceItem) => {
-  //   setEmployeeOpen(true);
-  //   setDetils(data);
-  //   // employee 랑 admin 구분하는 응답데이터를 받아야할것 같...아...욧
-  // };
+  const employeeOnClickHandler = (data: IDataSourceItem) => {
+    setEmployeeOpen(true);
+    setDetils(data);
+  };
 
   //테이블 형식
   const columns: ColumnsType<IDataSourceItem> = [
@@ -69,10 +67,11 @@ function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
           return (
             <Button
               pending="true"
-              onClick={() =>
-                // employeeOnClickHandler(data)
-                adminOnClickHandler(data)
-              }
+              onClick={() => {
+                type === "admin"
+                  ? adminOnClickHandler(data)
+                  : employeeOnClickHandler(data);
+              }}
             >
               {data?.status}
             </Button>
@@ -81,10 +80,11 @@ function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
           return (
             <Button
               accept="true"
-              onClick={() =>
-                // employeeOnClickHandler(data)
-                adminOnClickHandler(data)
-              }
+              onClick={() => {
+                type === "admin"
+                  ? adminOnClickHandler(data)
+                  : employeeOnClickHandler(data);
+              }}
             >
               {data?.status}
             </Button>
@@ -93,10 +93,11 @@ function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
           return (
             <Button
               deny="true"
-              onClick={() =>
-                // employeeOnClickHandler(data)
-                adminOnClickHandler(data)
-              }
+              onClick={() => {
+                type === "admin"
+                  ? adminOnClickHandler(data)
+                  : employeeOnClickHandler(data);
+              }}
             >
               {data?.status}
             </Button>
@@ -129,7 +130,11 @@ function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
       {type === "admin" ? (
         <ApprovalModal open={open} setOpen={setOpen} details={details} />
       ) : (
-        <EmployeeHistoyModal />
+        <EmployeeHistoyModal
+          employeeOpen={employeeOpen}
+          setEmployeeOpen={setEmployeeOpen}
+          details={details}
+        />
       )}
     </Space>
   );

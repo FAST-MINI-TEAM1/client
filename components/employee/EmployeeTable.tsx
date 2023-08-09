@@ -1,11 +1,12 @@
 import EmployeeDutyModalForm from "@components/employee/EmployeeDutyModalForm";
-import { Space } from "antd";
+import { Button, Space } from "antd";
 import { styled } from "styled-components";
 import SelectModal from "@components/employee/SelectModal";
 import { employeeListApi } from "@lib/api/employeeAPI";
 import { useEffect, useState } from "react";
 import { IEmployeeListRequest } from "@lib/interface/EmployeeInterface";
-// import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
+import { IDataSourceItem } from "@components/common/DataTabel";
+import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
 
 interface selectedTapProps {
   selectedTap: string;
@@ -14,23 +15,25 @@ interface selectedTapProps {
 }
 
 function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
-  const [datas, setDatas] = useState<IEmployeeListRequest[]>([]);
-  // const [employeeOpen, setEmployeeOpen] = useState(false);
+  const [datas, setDatas] = useState<IDataSourceItem[]>([]);
+  const [employeeOpen, setEmployeeOpen] = useState(false);
+  const [details, setDetails] = useState<IDataSourceItem>();
+  const [datasLength, setDatasLength] = useState(0);
 
-  // const openHandler = () => {
-  //   setEmployeeOpen(true);
-  // };
-
+  const openHandler = (data: IDataSourceItem) => {
+    setEmployeeOpen(true);
+    setDetails(data);
+  };
   const setlist = async () => {
     const list = await employeeListApi();
-    console.log("얍", list?.data.response.content);
-
     setDatas(list?.data.response.content);
-    console.log("얍", datas);
+    setDatasLength(datas.length);
   };
 
   useEffect(() => {
-    setlist();
+    if (datas) {
+      setlist();
+    }
   }, []);
 
   return (
@@ -50,7 +53,9 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
                 return (
                   <Employeedata
                     key={data.id}
-                    // onClick={openHandler}
+                    onClick={() => {
+                      openHandler(data);
+                    }}
                   >
                     <Space direction="horizontal" size="middle">
                       {data.orderType === "당직" ? (
@@ -105,10 +110,11 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
             <EmployeeDutyModalForm toggle={toggle} />
           )}
         </div>
-        {/* <EmployeeHistoyModal
+        <EmployeeHistoyModal
           employeeOpen={employeeOpen}
           setEmployeeOpen={setEmployeeOpen}
-        /> */}
+          details={details}
+        />
       </EmployeeDutyTable>
     </>
   );
@@ -134,7 +140,7 @@ const EmployeeDutyTable = styled.div`
     height: 530px;
   }
 `;
-const Employeedata = styled.div`
+const Employeedata = styled(Button)`
   width: 100%;
   display: flex;
   flex-direction: column;

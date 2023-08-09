@@ -3,7 +3,6 @@ import Header from "@components/common/Header";
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { employeeListApi } from "@lib/api/employeeAPI";
-// import { IEmployeeListRequest } from "@lib/interface/EmployeeInterface";
 import { IDataSourceItem } from "@components/common/DataTabel";
 import { useQuery } from "@tanstack/react-query";
 
