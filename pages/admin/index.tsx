@@ -19,8 +19,8 @@ interface IDataSourceItem {
 
 function Approval() {
   const [mounted, setMounted] = useState(false);
-  const [pendingOrders, setPendingOrders] = useState([]);
-  const [completedOrders, setCompletedOrders] = useState([]);
+  const [pendingOrders, setPendingOrders] = useState<IDataSourceItem[]>([]);
+  const [completedOrders, setCompletedOrders] = useState<IDataSourceItem[]>([]);
 
   useEffect(() => {
     setMounted(true);
@@ -30,7 +30,7 @@ function Approval() {
 
   const getPendingList = async () => {
     try {
-      const { data } = await getPendingOrders(0, 10);
+      const { data } = await getPendingOrders();
       setPendingOrders(data.response.content);
       console.log("pending data", data.response.content);
     } catch (error) {
@@ -40,7 +40,7 @@ function Approval() {
 
   const getCompletedList = async () => {
     try {
-      const { data } = await getCompletedOrders(0, 10);
+      const { data } = await getCompletedOrders();
       console.log("completed data", data.response.content);
       setCompletedOrders(data.response.content);
     } catch (error) {
@@ -54,16 +54,10 @@ function Approval() {
         <AdminHeader />
         <Container>
           <div className="details">
-            <DataTabel
-              tableTitle={"결재 대기 내역"}
-              dataSource={pendingOrders}
-            />
+            <DataTabel tableTitle={"결재 대기"} dataSource={pendingOrders} />
           </div>
           <div className="details">
-            <DataTabel
-              tableTitle={"결재 완료 내역"}
-              dataSource={completedOrders}
-            />
+            <DataTabel tableTitle={"결재 완료"} dataSource={completedOrders} />
           </div>
         </Container>
       </>
