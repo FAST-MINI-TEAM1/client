@@ -26,12 +26,12 @@ interface IDataSourceItem {
 function DataTabel({ tableTitle, dataSource }: IDataTableProps) {
   const [open, setOpen] = useState(false);
   // const [employeeOpne, setEmployeeOpen] = useState(false);
-
-  const [details, setDetils] = useState({});
+  const [details, setDetils] = useState<IDataSourceItem>();
 
   const adminOnClickHandler = (data: IDataSourceItem) => {
     setOpen(true);
     setDetils(data);
+    console.log("디테일", details);
   };
 
   //테이블 형식
