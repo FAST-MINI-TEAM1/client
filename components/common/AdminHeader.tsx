@@ -1,25 +1,8 @@
-import { logout } from "@lib/api/authAPI";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 function AdminHeader() {
-  const [hover, setHover] = useState(false);
-  const hoverRef = useRef();
-  const onLogout = useCallback(async () => {
-    try {
-      await logout();
-      localStorage.removeItem("token");
-      console.log("로그아웃 성공");
-    } catch (e) {
-      console.error(e, "로그아웃 실패");
-    }
-  }, []);
-
-  useEffect(() => {
-    setHover(true);
-  }, []);
   const router = useRouter();
   return (
     <HeaderBlock>
@@ -32,7 +15,6 @@ function AdminHeader() {
             <span>관리자</span>
             <span>님, 반갑습니다!</span>
           </UserWelcome>
-          <button onClick={onLogout}>로그아웃</button>
         </LogoContainer>
         <Nav>
           <ul>
@@ -45,7 +27,7 @@ function AdminHeader() {
             </li>
             <li>
               <span>사용대장</span>
-              <SubMenu ref={hoverRef.current}>
+              <SubMenu>
                 <Link href="/admin/daily">
                   <a>일별사용대장</a>
                 </Link>
@@ -129,7 +111,6 @@ const Nav = styled.nav`
     li {
       background: coral;
       position: relative;
-      
       span {
         cursor: pointer;
         color: ${(props) => props.theme.inactiveColor};
@@ -150,6 +131,9 @@ const Nav = styled.nav`
 `;
 
 const SubMenu = styled.div`
+  &.hoverActive {
+    opacity: 1;
+  }
   width: 250px;
   background: #ccc;
   position: absolute;
@@ -160,7 +144,7 @@ const SubMenu = styled.div`
   align-items: center;
   gap: 20px;
   padding: 8px;
-  /* opacity: 0; */
+  opacity: 0;
   z-index: 99999;
   a {
     text-align: center;
