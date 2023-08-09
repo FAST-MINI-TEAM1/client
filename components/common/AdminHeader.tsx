@@ -1,10 +1,12 @@
 import { logout } from "@lib/api/authAPI";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 function AdminHeader() {
+  const [hover, setHover] = useState(false);
+  const hoverRef = useRef();
   const onLogout = useCallback(async () => {
     try {
       await logout();
@@ -13,6 +15,10 @@ function AdminHeader() {
     } catch (e) {
       console.error(e, "로그아웃 실패");
     }
+  }, []);
+
+  useEffect(() => {
+    setHover(true);
   }, []);
   const router = useRouter();
   return (
@@ -39,6 +45,14 @@ function AdminHeader() {
             </li>
             <li>
               <span>사용대장</span>
+              <SubMenu ref={hoverRef.current}>
+                <Link href="/admin/daily">
+                  <a>일별사용대장</a>
+                </Link>
+                <Link href="/admin/monthly">
+                  <a>월별사용대장</a>
+                </Link>
+              </SubMenu>
             </li>
             <li>
               <Link href="/admin/search">
@@ -113,6 +127,9 @@ const Nav = styled.nav`
     align-items: center;
     gap: 20px;
     li {
+      background: coral;
+      position: relative;
+      
       span {
         cursor: pointer;
         color: ${(props) => props.theme.inactiveColor};
@@ -128,6 +145,28 @@ const Nav = styled.nav`
           color: ${(props) => props.theme.activeColor};
         }
       }
+    }
+  }
+`;
+
+const SubMenu = styled.div`
+  width: 250px;
+  background: #ccc;
+  position: absolute;
+  left: -100px;
+  top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 8px;
+  /* opacity: 0; */
+  z-index: 99999;
+  a {
+    text-align: center;
+    transition: color 0.2s ease-in-out;
+    &:hover {
+      color: #000;
     }
   }
 `;
