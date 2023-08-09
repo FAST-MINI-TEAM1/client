@@ -8,7 +8,7 @@ import type { ColumnsType } from "antd/es/table";
 interface IDataTableProps {
   tableTitle: string;
   dataSource: IDataSourceItem[];
-  historyToggle?: boolean;
+  type: string;
 }
 
 export interface IDataSourceItem {
@@ -24,9 +24,9 @@ export interface IDataSourceItem {
   etc?: string;
 }
 
-function DataTabel({ tableTitle, dataSource }: IDataTableProps) {
+function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
   const [open, setOpen] = useState(false);
-  
+
   // const [employeeOpne, setEmployeeOpen] = useState(false);
   const [details, setDetils] = useState<IDataSourceItem>();
 
@@ -144,12 +144,11 @@ function DataTabel({ tableTitle, dataSource }: IDataTableProps) {
           };
         }}
       />
-      <ApprovalModal open={open} setOpen={setOpen} details={details} />
-      {/* <EmployeeHistoyModal
-        employeeOpen={employeeOpen}
-        setEmployeeOpen={setEmployeeOpen}
-        details={details}
-      /> */}
+      {type === "admin" ? (
+        <ApprovalModal open={open} setOpen={setOpen} details={details} />
+      ) : (
+        <EmployeeHistoyModal />
+      )}
     </Space>
   );
 }

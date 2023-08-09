@@ -33,6 +33,7 @@ function History() {
           <div className="details">
             <DataTabel
               tableTitle={"결재 대기 내역"}
+              type={"employee"}
               dataSource={datas.filter((data) => {
                 return data.status == "대기";
               })}
@@ -43,6 +44,7 @@ function History() {
           <div className="details">
             <DataTabel
               tableTitle={"결재 완료 내역"}
+              type={"employee"}
               dataSource={datas.filter((data) => {
                 return data.status == "승인" && "반려";
               })}
