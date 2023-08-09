@@ -48,7 +48,7 @@ function History() {
             <DataTabel
               tableTitle={"결재 대기 내역"}
               dataSource={pendingData}
-              // type={"employee"}
+              type={"employee"}
             />
           </div>
 
@@ -56,7 +56,7 @@ function History() {
             <DataTabel
               tableTitle={"결재 완료 내역"}
               dataSource={completedData}
-              // type={"employee"}
+              type={"employee"}
             />
           </div>
         </Container>
