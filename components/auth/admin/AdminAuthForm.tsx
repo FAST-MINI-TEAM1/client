@@ -22,9 +22,7 @@ function AdminAuthForm() {
   const onLogin = async (event: FormEvent) => {
     event.preventDefault();
     await login({ email, password })?.then((res) => {
-      console.log(res.headers);
-      console.log(res.data);
-      localStorage.setItem("token", res.headers.authorization);
+      localStorage.setItem("Token", res.data.response.accessToken);
       router.push({
         pathname: "/admin",
       });
