@@ -17,6 +17,7 @@ function ApprovalModal({ open, setOpen, details }: IModalProps) {
       const res = await postUpdateOrder({ id, status });
       console.log("결재처리 성공", res);
       setOpen(false);
+      window.location.reload();
     } catch (error) {
       console.log("결재 처리 실패", error);
     }
@@ -59,7 +60,10 @@ function ApprovalModal({ open, setOpen, details }: IModalProps) {
           </div>
           {details.status == "대기" && (
             <div className="btnBox">
-              <Button deny="true" onClick={() => console.log("반려")}>
+              <Button
+                deny="true"
+                onClick={(e: MouseEvent) => handleClick(e, details.id, "반려")}
+              >
                 반려
               </Button>
               <Button
