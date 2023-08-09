@@ -70,3 +70,10 @@ export interface IColumnsData {
   month: IMonth;
   total: number;
 }
+
+export interface ISearch {
+  id: number;
+  empNo: number;
+  empName: string;
+  createdAt: string;
+}
