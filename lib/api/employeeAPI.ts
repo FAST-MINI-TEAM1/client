@@ -1,9 +1,6 @@
 import { AxiosResponse } from "axios";
-import { client, userClient } from "./client";
-import {
-  IEmployeeOrder,
-  IEmployeeListRequest,
-} from "@lib/interface/EmployeeInterface";
+import { userClient } from "./client";
+import { IEmployeeOrder } from "@lib/interface/EmployeeInterface";
 
 // 연차,당직 등록(POST)
 export const employeeOrderApi = ({
@@ -30,11 +27,9 @@ export const employeeOrderApi = ({
 };
 
 // 연차,당직 삭제(POST)
-export const employeeDeleteApi = ({ id }: IEmployeeOrder) => {
+export const employeeDeleteApi = (Id: number) => {
   try {
-    const result = userClient.post("/api/user/order/add", {
-      id,
-    });
+    const result = userClient.post(`/api/user/order/delete?id=${Id}`);
     return result;
   } catch (e) {
     console.error(e);
