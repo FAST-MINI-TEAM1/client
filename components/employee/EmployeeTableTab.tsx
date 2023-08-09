@@ -97,9 +97,9 @@ const StyledTabs = styled(Tabs)`
   .ant-tabs-tab:hover {
     color: black;
     color: #090909;
-  
-    text-shadow: 0px 3px 7px rgba(81, 81, 81, 0.25);
 
+    text-shadow: 0px 3px 7px rgba(81, 81, 81, 0.25);
+  }
   .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
     color: rgba(31, 191, 146, 1);
     font-weight: bold;
