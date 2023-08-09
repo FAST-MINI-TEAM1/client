@@ -5,8 +5,9 @@ import { MdEmail, MdLock, MdVerifiedUser, MdPerson } from "react-icons/md";
 import { BsFillPersonBadgeFill } from "react-icons/bs";
 import { IAuthFormProps, ITextMap } from "@lib/interface/Auth";
 import { FormEvent, useCallback, useState } from "react";
-import { login } from "@lib/api/authAPI";
+import { login, register } from "@lib/api/authAPI";
 import { useRouter } from "next/router";
+import Loading from "@components/common/Loading";
 
 // Constant / Variation
 const textMap: ITextMap = {
@@ -22,7 +23,18 @@ function AuthForm({ type }: IAuthFormProps) {
   // Hooks
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [emailMessage, setEmailMessage] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordMessage, setPasswordMessage] = useState("");
+  const [empName, setEmpName] = useState("");
+  const [nameMessage, setNameMessage] = useState("");
+  const [isName, setIsName] = useState(false);
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+  const [position, setPosition] = useState("");
+  const [registerMessage, setRegisterMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const onLoginChange = useCallback((event: FormEvent) => {
     const { name, value } = event.target as HTMLInputElement;
@@ -33,15 +45,62 @@ function AuthForm({ type }: IAuthFormProps) {
     }
   }, []);
 
+  const onRegisterChange = useCallback(
+    (event: FormEvent) => {
+      const { name, value } = event.target as HTMLInputElement;
+      if (name === "email") {
+        const rEmail =
+          /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        if (!rEmail.test(value)) {
+          setEmailMessage("이메일 형식으로 적어주세요.");
+        } else {
+          setEmailMessage("");
+          setEmail(value);
+        }
+      } else if (name === "password") {
+        const rPassword =
+          /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+        if (!rPassword.test(value)) {
+          setPasswordMessage(
+            "숫자 + 영문 + 특수문자 조합으로 8자리 이상 입력해주세요.",
+          );
+        } else {
+          setPasswordMessage("");
+          setPassword(value);
+        }
+      } else if (name === "name") {
+        if (value.length <= 2 || value.length > 5) {
+          setEmpName(value);
+          setIsName(true);
+        } else if (value.length < 1 || value.length > 6) {
+          setNameMessage("2글자 이상 5글자 미만으로 입력해주세요.");
+          setIsName(false);
+        }
+      } else if (name === "passwordConfirm") {
+        if (password === value) {
+          setPasswordConfirm(value);
+          setPasswordConfirmMessage("비밀번호가 일치합니다.");
+          setIsPasswordConfirm(true);
+        } else {
+          setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
+          setIsPasswordConfirm(false);
+        }
+      } else if (name === "rank") {
+        setPosition(value);
+      }
+    },
+    [password],
+  );
+
   const onLogin = useCallback(
     async (event: FormEvent) => {
       try {
         event.preventDefault();
         await login({ email, password })?.then((res) => {
+          console.log(res);
           console.log(res.headers);
           console.log(res.data);
-          localStorage.setItem("token", res.headers.authorization);
-          // localStorage.setItem("refreshToken", res.headers.authorization-refresh)
+          localStorage.setItem("Token", res.headers.authorization);
           router.push("/employee");
         });
       } catch (e) {
@@ -51,12 +110,32 @@ function AuthForm({ type }: IAuthFormProps) {
     [email, password, router],
   );
 
+  const onRegister = useCallback(
+    async (event: FormEvent) => {
+      event.preventDefault();
+      if (
+        email === "" ||
+        password === "" ||
+        passwordConfirm === "" ||
+        empName === ""
+      ) {
+        setRegisterMessage("필수 입력 사항입니다.");
+      } else {
+        setLoading(true);
+        await register({ email, password, empName, position });
+        router.push("/login");
+      }
+    },
+    [email, password, empName, position, passwordConfirm, router],
+  );
+
   // Render
   return (
     <>
+      {loading && <Loading />}
       <AuthFormBlock>
         <h3>{text}</h3>
-        <form onSubmit={onLogin}>
+        <form onSubmit={type === "login" ? onLogin : onRegister}>
           {type === "login" && (
             <>
               <InputWrapper>
@@ -93,6 +172,7 @@ function AuthForm({ type }: IAuthFormProps) {
                   name="email"
                   placeholder="이메일"
                   auth="true"
+                  onChange={onRegisterChange}
                 />
               </InputWrapper>
               <InputWrapper>
@@ -104,6 +184,7 @@ function AuthForm({ type }: IAuthFormProps) {
                   name="name"
                   placeholder="이름"
                   auth="true"
+                  onChange={onRegisterChange}
                 />
               </InputWrapper>
               <InputWrapper>
@@ -116,6 +197,7 @@ function AuthForm({ type }: IAuthFormProps) {
                   name="password"
                   placeholder="패스워드"
                   auth="true"
+                  onChange={onRegisterChange}
                 />
               </InputWrapper>
               <InputWrapper>
@@ -128,6 +210,7 @@ function AuthForm({ type }: IAuthFormProps) {
                   name="passwordConfirm"
                   placeholder="패스워드 확인"
                   auth="true"
+                  onChange={onRegisterChange}
                 />
               </InputWrapper>
               <InputWrapper>
@@ -139,6 +222,7 @@ function AuthForm({ type }: IAuthFormProps) {
                   name="rank"
                   placeholder="직급"
                   auth="true"
+                  onChange={onRegisterChange}
                 />
               </InputWrapper>
             </>

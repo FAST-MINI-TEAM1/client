@@ -3,8 +3,13 @@ import { SearchOutlined } from "@ant-design/icons";
 import DataTabel from "@components/common/DataTabel";
 import styled from "styled-components";
 import AdminHeader from "@components/common/AdminHeader";
-import { FormEvent, useEffect, useState } from "react";
-import { getUserName, getUserNumber, getOrders } from "@lib/api/adminAPI";
+import { FormEvent, useCallback, useEffect, useState } from "react";
+import {
+  getUserName,
+  getUserNumber,
+  getOrders,
+  getPendingOrders,
+} from "@lib/api/adminAPI";
 
 function SearchPage() {
   const [mounted, setMounted] = useState(false);
@@ -15,26 +20,16 @@ function SearchPage() {
     setMounted(true);
   }, []);
 
-  const onSearch = async (event: FormEvent) => {
-    event.preventDefault();
-    if (selectedOption === "1") {
-      // searchWord : 사원번호랑, 사원명 x 사원 id값 o
-      const { data } = await getUserName(searchWord); // 사원 기본정보 (userId)
-      // 연차 / 당직 내역
-      // 결재 내역 필터링 필요
-      // const { data: listData } = await getOrders(searchWord, 0, 4);
-      // TODO: 데이터 받은 후 필터링!
-      // 데이터 -> 승인/반려/대기 -== 대기내역을 결재 대기로 넣고
-      // 결재 완료 -> 승인/반려 넣기
-      console.log(data);
-      // console.log(listData);
-    } else if (selectedOption === "2") {
-      const { data } = await getUserNumber(searchWord); // 사원 기본정보
-      const { data: listData } = await getOrders(searchWord, 0, 4);
-      console.log(data);
-      console.log(listData);
-    }
-  };
+  // 연차 / 당직 내역
+  // 결재 내역 필터링 필요
+  // const { data: listData } = await getOrders(searchWord, 0, 4);
+  // TODO: 데이터 받은 후 필터링!
+  // 데이터 -> 승인/반려/대기 -== 대기내역을 결재 대기로 넣고
+  // 결재 완료 -> 승인/반려 넣기
+  // searchWord : 사원번호랑, 사원명 x 사원 id값 o
+  const onSearch = useCallback(async () => {
+
+  }, []);
 
   const handleChangeInput = (event: FormEvent) => {
     const { value } = event.target as HTMLInputElement;
@@ -129,8 +124,6 @@ function SearchPage() {
   );
 }
 
-export default SearchPage;
-
 const Search = styled.section`
   display: flex;
   flex-direction: column;
@@ -221,3 +214,6 @@ const Search = styled.section`
     }
   }
 `;
+
+export default SearchPage;
+
