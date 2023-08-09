@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Drawer } from "antd";
 import EmployeeDutyModalForm from "@components/employee/EmployeeDutyModalForm";

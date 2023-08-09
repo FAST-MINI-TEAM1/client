@@ -1,5 +1,5 @@
 import { Space, Table } from "antd";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import ApprovalModal from "@components/admin/ApprovalModal";
 import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
 import Button from "@components/common/Button";

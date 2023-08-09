@@ -12,10 +12,6 @@ function Monthly() {
   const [annualData, setAnnualData] = useState<IColumnsData[]>([]);
   const [tabKey, setTabKey] = useState("");
 
-  useEffect(() => {
-    getMonthlyData();
-  }, []);
-
   const getMonthlyData = useCallback(async () => {
     const year = new Date().getFullYear();
     try {
@@ -29,6 +25,10 @@ function Monthly() {
       console.log("월별 조회 실패, error");
     }
   }, [dutyData, annualData]);
+
+  useEffect(() => {
+    getMonthlyData();
+  }, [getMonthlyData]);
 
   const handleClick = (key: string) => {
     setTabKey(key);
@@ -53,7 +53,7 @@ function Monthly() {
           defaultActiveKey="1"
           items={items}
           tabBarGutter={30}
-          onTabClick={(key) => handleClick(key)}
+          onTabClick={(key: any) => handleClick(key)}
         />
         <Inner>
           <MonthlyTable

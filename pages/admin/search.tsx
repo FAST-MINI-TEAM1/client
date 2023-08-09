@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Select } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import DataTabel from "@components/common/DataTabel";
@@ -123,12 +124,14 @@ function SearchPage() {
             <h3>연차 / 당직</h3>
             <div className="details">
               <DataTabel
-                tableTitle={"결재 대기"}
+                tableTitle="결재 대기"
                 dataSource={pendingQuery.data?.data}
+                type=""
               />
               <DataTabel
-                tableTitle={"결재 완료"}
+                tableTitle="결재 완료"
                 dataSource={completeQuery.data?.data}
+                type=""
               />
             </div>
           </div>

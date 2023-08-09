@@ -34,7 +34,7 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
     if (datas) {
       setlist();
     }
-  }, []);
+  }, [datas]);
 
   return (
     <>
