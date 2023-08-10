@@ -4,7 +4,6 @@ import { styled } from "styled-components";
 import SelectModal from "@components/employee/SelectModal";
 import { employeeListApi } from "@lib/api/employeeAPI";
 import { useEffect, useState } from "react";
-// import { IEmployeeListRequest } from "@lib/interface/EmployeeInterface";
 import { IDataSourceItem } from "@lib/interface/Admin";
 import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
 
@@ -77,7 +76,11 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
                         <AnnualIcon />
                       )}
                       <DutyInfo>{data.startDate}</DutyInfo>
-                      <DutyInfo>승인 {data.status}</DutyInfo>
+                      <DutyInfo>
+                        {data.status == "대기"
+                          ? `승인 ${data.status}`
+                          : `${data.status} 완료`}
+                      </DutyInfo>
                     </Space>
                   </Employeedata>
                 );
@@ -116,7 +119,9 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
                           <AnnualIcon />
                         )}
                         <DutyInfo>{data.startDate}</DutyInfo>
-                        <DutyInfo>승인 {data.status}</DutyInfo>
+                        {data.status == "대기"
+                          ? `승인 ${data.status}`
+                          : `${data.status} 완료`}
                       </Space>
                     </Employeedata>
                   );
@@ -153,6 +158,7 @@ const EmployeeDutyTable = styled.div`
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.16);
   display: flex;
   flex-direction: column;
+  overflow: scroll;
   div {
     margin: 0 auto;
   }
