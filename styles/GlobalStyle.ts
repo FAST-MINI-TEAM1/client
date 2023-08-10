@@ -31,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     background: ${(props) => props.theme.bgColor};
     box-sizing: inherit;
+    font-family: 'Noto Sans KR', sans-serif;
   }
   ol, ul {
     list-style: none;
