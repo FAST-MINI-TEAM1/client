@@ -6,9 +6,10 @@ import Button from "@components/common/Button";
 
 interface Iprops {
   toggle?: boolean;
+  setListUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function SelectModal({ toggle }: Iprops) {
+function SelectModal({ toggle, setListUpdate }: Iprops) {
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -33,14 +34,14 @@ function SelectModal({ toggle }: Iprops) {
       </Button>
       <StyledDrawer
         placement="bottom"
-        closable={false}
+        closable={true}
         onClose={onClose}
         open={open}
         getContainer={false}
         style={{ color: "aqua" }}
       >
-        <EmployeeDutyModalForm toggle={toggle} />
-        <EmployeeDutyModalForm toggle={!toggle} />
+        <EmployeeDutyModalForm toggle={toggle} setListUpdate={setListUpdate} />
+        <EmployeeDutyModalForm toggle={!toggle} setListUpdate={setListUpdate} />
       </StyledDrawer>
     </>
   );
