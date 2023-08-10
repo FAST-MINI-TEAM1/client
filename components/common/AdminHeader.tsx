@@ -98,17 +98,17 @@ const UserWelcome = styled.div`
   }
 `;
 
-const Logo = styled.a`
-  width: 70px;
-  height: 70px;
-  background: #fff;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-`;
+// const Logo = styled.a`
+//   width: 70px;
+//   height: 70px;
+//   background: #fff;
+//   border-radius: 50%;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   cursor: pointer;
+//   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+// `;
 
 const Nav = styled.nav`
   ul {
