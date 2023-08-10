@@ -5,6 +5,7 @@ import { styled } from "styled-components";
 import Image from "next/image";
 import bottomDot from "public/bottomDot.png";
 import { employeeOrderApi } from "@lib/api/employeeAPI";
+import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
 
 interface IEmployeeDutyModalprops {
   toggle?: boolean;
@@ -26,7 +27,10 @@ function EmployeeDutyModalForm({
   // select 연차/당직일
   const { RangePicker } = DatePicker;
 
-  const handleDateChange = (dates: string[], dateStrings: string[]) => {
+  const handleDateChange = (
+    _: DatePickerProps["value"] | RangePickerProps["value"],
+    dateStrings: string[],
+  ) => {
     const selectedDates = dateStrings;
     const inputstartAt = selectedDates[0];
     const inputendAt = selectedDates[1];
