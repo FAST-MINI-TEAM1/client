@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Drawer } from "antd";
+import { Dropdown } from "antd";
+import type { MenuProps } from "antd";
 import EmployeeDutyModalForm from "@components/employee/EmployeeDutyModalForm";
 import { styled } from "styled-components";
 import Button from "@components/common/Button";
@@ -10,48 +10,30 @@ interface Iprops {
 }
 
 function SelectModal({ toggle, setListUpdate }: Iprops) {
-  const [open, setOpen] = useState(false);
-
-  const showDrawer = () => {
-    setOpen(true);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
-
-  const containerStyle: React.CSSProperties = {
-    position: "relative",
-    height: "50px",
-    // overflow: "hidden",
-    textAlign: "center",
-  };
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: (
+        <EmployeeDutyModalForm toggle={toggle} setListUpdate={setListUpdate} />
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <EmployeeDutyModalForm toggle={!toggle} setListUpdate={setListUpdate} />
+      ),
+    },
+  ];
 
   return (
     <>
-      <Button submit="true" onClick={showDrawer}>
-        등록하기
-      </Button>
-      <StyledDrawer
-        placement="bottom"
-        closable={true}
-        onClose={onClose}
-        open={open}
-        getContainer={false}
-        style={{ color: "aqua" }}
-      >
-        <EmployeeDutyModalForm toggle={toggle} setListUpdate={setListUpdate} />
-        <EmployeeDutyModalForm toggle={!toggle} setListUpdate={setListUpdate} />
-      </StyledDrawer>
+      <StyledDropdown menu={{ items }} placement="top">
+        <Button submit="true">등록하기</Button>
+      </StyledDropdown>
     </>
   );
 }
 
-const StyledDrawer = styled(Drawer)`
-  margin: 20px 0;
-  height: 400px;
-  background-color: red;
-  color: red;
-`;
+const StyledDropdown = styled(Dropdown)``;
 
 export default SelectModal;

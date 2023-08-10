@@ -69,13 +69,15 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
                       size="middle"
                       style={{ width: "200px" }}
                     >
-                      {data.orderType === "당직" ? (
+                      {data.status === "대기" ? (
+                        <StanByIcon />
+                      ) : data.orderType === "당직" ? (
                         <DutyIcon />
                       ) : (
                         <AnnualIcon />
                       )}
                       <DutyInfo>{data.startDate}</DutyInfo>
-                      <DutyInfo>{data.status}</DutyInfo>
+                      <DutyInfo>승인 {data.status}</DutyInfo>
                     </Space>
                   </Employeedata>
                 );
@@ -106,13 +108,15 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
                         size="middle"
                         style={{ width: "200px" }}
                       >
-                        {data.orderType === "당직" ? (
+                        {data.status === "대기" ? (
+                          <StanByIcon />
+                        ) : data.orderType === "당직" ? (
                           <DutyIcon />
                         ) : (
                           <AnnualIcon />
                         )}
                         <DutyInfo>{data.startDate}</DutyInfo>
-                        <DutyInfo>{data.status}</DutyInfo>
+                        <DutyInfo>승인 {data.status}</DutyInfo>
                       </Space>
                     </Employeedata>
                   );
@@ -173,13 +177,19 @@ const DutyIcon = styled.div`
   width: 15px;
   height: 15px;
   border-radius: 50px;
-  background-color: rgba(19, 13, 216, 1);
+  background-color: ${(props) => props.theme.pointColor.blue};
 `;
 const AnnualIcon = styled.div`
   width: 15px;
   height: 15px;
   border-radius: 50px;
-  background-color: rgba(255, 189, 19, 1);
+  background-color: ${(props) => props.theme.pointColor.yellow};
+`;
+const StanByIcon = styled.div`
+  width: 15px;
+  height: 15px;
+  border-radius: 50px;
+  background-color: ${(props) => props.theme.pointColor.gray};
 `;
 const DutyInfo = styled.div`
   color: rgba(12, 12, 12, 1);
