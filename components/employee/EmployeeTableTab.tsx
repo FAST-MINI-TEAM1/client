@@ -16,13 +16,11 @@ function EmployeeTableTab({ scheduleData }: EmployeeTableTabProps) {
 
   const onChange = (key: string) => {
     setSelectedTap(key);
-
     if (key === "당직") {
       setToggle(false);
     } else if (key === "연차") {
       setToggle(true);
     } else if (key === "전체") {
-      // 어떤 처리를 하고자 하는지 기입
     }
   };
 

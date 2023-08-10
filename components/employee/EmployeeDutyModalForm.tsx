@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Input, Modal, Select, Space, DatePicker } from "antd";
 import Button from "@components/common/Button";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import Image from "next/image";
 import bottomDot from "public/bottomDot.png";
 import { employeeOrderApi } from "@lib/api/employeeAPI";
@@ -114,11 +114,11 @@ function EmployeeDutyModalForm({
   return (
     <>
       {toggle ? (
-        <Button annualSubmit="true" onClick={showModal}>
+        <Button annual="true" onClick={showModal}>
           연차 등록하기
         </Button>
       ) : (
-        <Button dutySubmit="true" onClick={showModal}>
+        <Button duty="true" onClick={showModal}>
           당직 등록하기
         </Button>
       )}
@@ -132,17 +132,9 @@ function EmployeeDutyModalForm({
         footer={null}
         width={520}
       >
-        {toggle ? <div className="annualNum">남은 연차 횟수 {11}일</div> : null}
         <StyledSpace direction="horizontal">
           <StyledLabel> {toggle ? "연차일" : "당직일"}</StyledLabel>
-          <RangePicker
-            bordered={false}
-            // onChange={console.log()}
-            // defaultValue={[dayjs(dateFormat), dayjs(dateFormat)]}
-            // value={[inputstartAt, inputendAt]}
-            // onChange={selectDate}
-            onChange={handleDateChange}
-          />
+          <RangePicker bordered={false} onChange={handleDateChange} />
         </StyledSpace>
         {toggle ? (
           <StyledSpace direction="horizontal">
@@ -204,13 +196,22 @@ function EmployeeDutyModalForm({
           ></StyledInput>
         </StyledSpace>
         <BtnContainer>
-          <Button cancle="ture">취소</Button>
+          <Button
+            cancle="ture"
+            onClick={() => {
+              setIsModalOpen(false);
+            }}
+          >
+            취소
+          </Button>
           {toggle ? (
             <Button application="ture" onClick={annualOrder}>
               신청
             </Button>
           ) : (
-            <Button application="ture" onClick={dutyOrder}></Button>
+            <Button application="ture" onClick={dutyOrder}>
+              신청
+            </Button>
           )}
         </BtnContainer>
         <Image src={bottomDot} alt="backpng" />
