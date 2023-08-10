@@ -773,3 +773,197 @@ interface ResponseValue {
   "empty": false
 }
 ```
+
+---
+
+### 연차/당직 등록
+
+- 시원 전용 API 입니다.
+
+```curl
+curl http://54.79.60.180:8080/api/admin/order/add
+  \ -X 'POST'
+  \ -H 'Authorization: Bearer <token>'
+```
+
+요청 데이터 타입 및 예시:
+
+```ts
+interface RequestBody {
+  orderType: string;
+  startAt: string;
+  endAt: string;
+  reason: string | null;
+  category: string | null;
+  etc: string | null;
+}
+```
+
+```json
+{
+    "orderType": “당직 or 연차”,
+    "startAt": “2023-07-31”,
+    "endAt": “2023-07-31”,
+    "reason" : “이유”
+    "category"? : “경조사”
+    "etc"?: “특이사항입니다.”
+}
+```
+
+응답 데이터 타입 및 예시:
+
+```ts
+interface ResponseValue {
+  success: boolean;
+  response: string;
+  error: null;
+}
+```
+
+```json
+{
+  "success": true,
+  "response": "등록 완료",
+  "error": null
+}
+```
+
+### 전자결제내역
+
+- 시원 전용 API 입니다.
+
+```curl
+curl http://54.79.60.180:8080/api/user/myorder?page={page}&size={size}
+  \ -X 'GET'
+  \ -H 'Authorization: Bearer <token>'
+```
+
+요청 데이터 타입 및 예시:
+
+- 없음
+
+응답 데이터 타입 및 예시:
+
+```ts
+interface ResponseValue {
+  success: boolean;
+  response: {
+    content: [
+      {
+        id: number;
+        empName: string;
+        createdAt: string;
+        orderType: string;
+        status: string;
+        startDate: string;
+        endDate: string;
+        reason: string | null;
+      },
+    ];
+    pageable: {
+      sort: {
+        empty: boolean;
+        sorted: boolean;
+        unsorted: boolean;
+      };
+      offset: number;
+      pageNumber: number;
+      pageSize: number;
+      paged: boolean;
+      unpaged: boolean;
+    };
+    totalPages: number;
+    totalElements: number;
+    last: boolean;
+    number: number;
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    size: number;
+    numberOfElements: number;
+    first: boolean;
+    empty: boolean;
+  };
+  error: string | null;
+}
+```
+
+```json
+{
+  "success": true,
+  "response": {
+    "content": [
+      {
+        "id": 87,
+        "empName": "마두기",
+        "createdAt": "2023-08-09",
+        "orderType": "당직",
+        "status": "승인",
+        "startDate": "2023-08-10",
+        "endDate": "2023-08-10",
+        "reason": null
+      }
+    ],
+    "pageable": {
+      "sort": {
+        "empty": true,
+        "sorted": false,
+        "unsorted": true
+      },
+      "offset": 0,
+      "pageNumber": 0,
+      "pageSize": 10,
+      "paged": true,
+      "unpaged": false
+    },
+    "totalPages": 2,
+    "totalElements": 12,
+    "last": false,
+    "number": 0,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "size": 10,
+    "numberOfElements": 10,
+    "first": true,
+    "empty": false
+  },
+  "error": null
+}
+```
+
+### 연차/당직 내역 삭제
+
+- 시원 전용 API 입니다.
+
+```curl
+curl http://54.79.60.180:8080/api/user/order/delete?id={id}
+  \ -X 'POST'
+  \ -H 'Authorization: Bearer <token>'
+```
+
+요청 데이터 타입 및 예시:
+
+- 없음
+
+응답 데이터 타입 및 예시:
+
+```ts
+interface ResponseValue {
+  success: boolean;
+  response: string;
+  error: string | null;
+}
+```
+
+```json
+{
+  "success": "true",
+  "response": "등록 완료",
+  "error": null
+}
+```
