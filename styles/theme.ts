@@ -25,11 +25,12 @@ export const theme: DefaultTheme = {
   inactiveColor: "#939393",
   activeColor: "#000",
   pointColor: {
-    blue: "rgba(19, 13, 216, 1)",
+    blue: "rgba(53, 95, 240, 1)",
     green: "rgba(30, 191, 145, 1)",
     yellow: "rgba(255, 189, 19, 1)",
     red: "rgba(242, 118, 118, 1)",
     black: "rgba(12, 12, 12, 1)",
     rightGray: "#fbfbfb",
+    gray: "#D9D9D9",
   },
 };

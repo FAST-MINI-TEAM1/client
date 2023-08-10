@@ -1,19 +1,26 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useCallback } from "react";
 import styled from "styled-components";
 
 function Header() {
   const router = useRouter();
+  const onClick = useCallback(() => {
+    localStorage.removeItem("Token");
+    router.push("/login");
+  }, [router]);
   return (
     <HeaderBlock>
       <HeaderContent>
         <LogoContainer>
-          <Link href="/">
+          <Link href="/employee">
             <Logo>LOGO</Logo>
           </Link>
           <UserWelcome>
-            <span>홍길동</span>
-            <span>님, 반갑습니다!</span>
+            <p>
+              <span>홍길동</span>님, 반갑습니다!
+            </p>
+            <LogOutBtn onClick={onClick}>로그아웃 ⇢</LogOutBtn>
           </UserWelcome>
         </LogoContainer>
         <Nav>
@@ -73,6 +80,9 @@ const LogoContainer = styled.div`
 
 const UserWelcome = styled.div`
   font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   span {
     &:first-child {
       color: #1fbf92;
@@ -108,6 +118,22 @@ const Nav = styled.nav`
         }
       }
     }
+  }
+`;
+
+const LogOutBtn = styled.button`
+  font-size: 12px;
+  border: 1px solid #adb5bd;
+  padding: 5px 12px;
+  border-radius: 30px;
+  background-color: transparent;
+  color: #adb5bd;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: #f27676;
+    border: 1px solid #f27676;
   }
 `;
 

@@ -11,7 +11,6 @@ import { ISearch } from "@lib/interface/Admin";
 function SearchPage() {
   const [mounted, setMounted] = useState(false);
   const [selectedOption, setSelectedOption] = useState("1");
-
   const [searchWord, setSearchWord] = useState("");
   const [empNumber, setEmpNumber] = useState(0);
   const [pendingOrder, setPendingOrder] = useState([]);
@@ -35,8 +34,6 @@ function SearchPage() {
         if (searchWord) {
           const fetchData = await getUserName(searchWord);
           const fetchOrderData = await getOrders(fetchData.data.id, 0, 10);
-          console.log(fetchOrderData.data);
-          console.log(fetchData.data);
           setBasicData(fetchData.data);
           setPendingOrder(
             fetchOrderData.data.content.filter(
@@ -93,35 +90,6 @@ function SearchPage() {
     }
   };
 
-  const pendingData = [
-    {
-      id: 1,
-      empName: "홍길동",
-      createdAt: "2023-07-27",
-      orderType: "연차",
-      status: "대기",
-      startDate: "2023-08-01",
-      endDate: "2023-08-01",
-      reason: "이유입니다",
-      category: "경조사",
-      etc: "특이사항입니다",
-    },
-  ];
-
-  const completedData = [
-    {
-      id: 1,
-      empName: "홍길동",
-      createdAt: "2023-07-27",
-      orderType: "연차",
-      status: "승인",
-      startDate: "2023-08-01",
-      endDate: "2023-08-01",
-      reason: "이유입니다",
-      category: "경조사",
-      etc: "특이사항입니다",
-    },
-  ];
   const options = [
     {
       value: "1",
@@ -138,9 +106,8 @@ function SearchPage() {
       <>
         <AdminHeader />
         <Search>
-          <div className="searchBar">
-            <form
-              className="container"
+          <SearchBar>
+            <SearchForm
               onSubmit={selectedOption === "1" ? onNameSubmit : onNumberSubmit}
             >
               <Select
@@ -148,13 +115,13 @@ function SearchPage() {
                 options={options}
                 onChange={(value: string) => setSelectedOption(value)}
               />
-              <input onChange={handleChangeInput} autoFocus />
-              <button>검색</button>
-            </form>
-          </div>
+              <StyledInput onChange={handleChangeInput} autoFocus />
+              <StyeldBtn className="searchBtn">Search</StyeldBtn>
+            </SearchForm>
+          </SearchBar>
           {visible && (
             <>
-              <div className="info">
+              <BasicSection>
                 <h3>기본정보</h3>
                 <div className="container">
                   <ul>
@@ -172,22 +139,22 @@ function SearchPage() {
                     </li>
                   </ul>
                 </div>
-              </div>
-              <div className="tabel">
+              </BasicSection>
+              <TableSection>
                 <h3>연차 / 당직</h3>
                 <div className="details">
                   <DataTabel
                     tableTitle="결재 대기"
                     dataSource={pendingOrder}
-                    type=""
+                    type="admin"
                   />
                   <DataTabel
                     tableTitle="결재 완료"
                     dataSource={completeOrder}
-                    type=""
+                    type="admin"
                   />
                 </div>
-              </div>
+              </TableSection>
             </>
           )}
         </Search>
@@ -202,89 +169,87 @@ const Search = styled.section`
   justify-content: center;
   align-items: center;
   padding: 50px 0 0;
-
+  margin-bottom: 30px;
   h3 {
     font-size: 20px;
     margin-bottom: 10px;
   }
-
-  .searchBar {
-    margin-bottom: 30px;
-    .container {
-      position: relative;
-      display: grid;
-      grid-template-columns: 100px auto;
-      align-items: center;
-      width: 700px;
-      height: 50px;
-      padding: 5px 10px;
-      border-radius: 10px;
-      box-sizing: border-box;
-      background-color: #fff;
-      box-shadow: #e2e2e2 0px 5px 10px;
-
-      .ant-select-selector {
-        border: none;
-      }
-
-      input {
-        height: 100%;
-        border: none;
-        outline: none;
-        padding-bottom: 3px;
-        font-size: 14px;
-        text-indent: 10px;
-      }
-      .anticon-search {
-        position: absolute;
-        height: 16px;
-        top: 0;
-        bottom: 0;
-        right: 13px;
-        margin: auto 0;
-        color: #626262;
-      }
-    }
-  }
-
-  .info {
-    width: 700px;
-
-    .container {
-      padding: 20px 30px 30px;
-      border-radius: 10px;
-      box-sizing: border-box;
-      background-color: #fff;
-      box-shadow: #e2e2e2 0px 5px 10px;
-
-      ul {
-        width: 30%;
-        li {
-          margin-top: 20px;
-          display: flex;
-          span {
-            width: 100px;
-          }
-        }
-      }
-    }
-  }
-
-  .tabel {
-    margin-top: 30px;
-    .details {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 700px;
-      padding: 20px 30px 30px;
-      border-radius: 10px;
-      box-sizing: border-box;
-      background-color: #fff;
-      box-shadow: #e2e2e2 0px 5px 10px;
-    }
   }
 `;
 
+const SearchBar = styled.div`
+  margin-bottom: 30px;
+`;
+const SearchForm = styled.form`
+  position: relative;
+  display: grid;
+  grid-template-columns: 100px auto;
+  align-items: center;
+  width: 700px;
+  height: 50px;
+  padding: 5px 20px;
+  box-sizing: border-box;
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border: none;
+  }
+`;
+
+const StyledInput = styled.input`
+  height: 100%;
+  border: none;
+  outline: none;
+  padding-bottom: 3px;
+  font-size: 14px;
+  text-indent: 10px;
+`;
+
+const StyeldBtn = styled.button`
+  position: absolute;
+  right: 15px;
+  background-color: transparent;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+`;
+
+const BasicSection = styled.section`
+  width: 700px;
+  .container {
+    padding: 20px 30px 30px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    background: #fff;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+
+    ul {
+      width: 30%;
+      li {
+        margin-top: 20px;
+        display: flex;
+        span {
+          width: 100px;
+        }
+      }
+    }
+`;
+
+const TableSection = styled.section`
+  margin-top: 30px;
+  .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    padding: 20px 30px 30px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    background: #fff;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+  }
+`;
 export default SearchPage;
