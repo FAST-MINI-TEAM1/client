@@ -5,49 +5,31 @@ import styled from "styled-components";
 import Image from "next/image";
 import bottomDot from "public/bottomDot.png";
 import { employeeOrderApi } from "@lib/api/employeeAPI";
-// import { IEmployeeOrder } from "@lib/interface/EmployeeInterface";
 
 interface IEmployeeDutyModalprops {
   toggle?: boolean;
+  setListUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function EmployeeDutyModalForm({ toggle }: IEmployeeDutyModalprops) {
+function EmployeeDutyModalForm({
+  toggle,
+  setListUpdate,
+}: IEmployeeDutyModalprops) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   //modal에서 받는 inputVlaue값
-  // const [inputstartAt, setInputstartAt] = useState<
-  //   [dayjs.Dayjs, dayjs.Dayjs] | null
-  // >(null);
-  const [selectedDate, setSelectedDate] = useState(true);
-  // const [selectedDates, setSelectedDates] = useState<string[]>([]);
-  // const [inputstartAt, setInputstartAt] = useState<string>("");
-  // const [inputendAt, setInputendAt] = useState<string>("");
   const [startAt, setStartAt] = useState<string>("");
   const [endAt, setEndAt] = useState<string>("");
   const [inputCategory, setInputCategory] = useState("");
   const [inputReason, setInputReason] = useState("");
   const [inputEtc, setInputEtc] = useState("");
 
-  // DatePicker
-
+  // select 연차/당직일
   const { RangePicker } = DatePicker;
-  // const dateFormat = "YYYY-MM-DD";
-  // const selectDate = (e: dayjs.Dayjs[]) => {
-  //   setInputstartAt(e[0]), setInputendAt(e[1]);
-  //   console.log(
-  //     inputstartAt?.format(dateFormat),
-  //     inputendAt?.format(dateFormat),
-  //   );
-  // };
 
   const handleDateChange = (dates: string[], dateStrings: string[]) => {
-    setSelectedDate(!selectedDate);
     const selectedDates = dateStrings;
     const inputstartAt = selectedDates[0];
     const inputendAt = selectedDates[1];
-
-    console.log("확인:", selectedDates);
-    console.log("상태변경:", inputstartAt, inputendAt);
-
     setStartAt(inputstartAt);
     setEndAt(inputendAt);
   };
@@ -56,14 +38,12 @@ function EmployeeDutyModalForm({ toggle }: IEmployeeDutyModalprops) {
     if (endAt) {
       setStartAt((startAt) => startAt);
       setEndAt((endAt) => endAt);
-      console.log("진행시켜:", startAt, endAt);
     }
   }, [startAt, endAt]);
 
-  // select 휴가종류
+  // select 연차종류
   const selectCategory = (value: string) => {
     setInputCategory(value);
-    console.log(`selected ${value}`);
   };
   const searchCategory = (value: string) => {
     console.log("search:", value);
@@ -73,9 +53,10 @@ function EmployeeDutyModalForm({ toggle }: IEmployeeDutyModalprops) {
     setIsModalOpen(true);
   };
 
-  const dutyOrder = () => {
+  // 당직 등록 API
+  const dutyOrder = async () => {
     try {
-      employeeOrderApi({
+      const res = await employeeOrderApi({
         orderType: "당직",
         startAt: startAt,
         endAt: endAt,
@@ -83,25 +64,28 @@ function EmployeeDutyModalForm({ toggle }: IEmployeeDutyModalprops) {
         category: null,
         etc: inputEtc,
       });
-
-      //   if (!response.ok) {
-      //     console.log("서버로 부터 응답이 왔는데 에러임.");
-      //     message.error("오류가 발생하였습니다");
-      //     return;
-      //   }
-      //   // setToggleFetch((prev: boolean) => !prev);
-      //   message.success("소비 내역이 등록되었습니다");
-      // } catch (error) {
-      //   console.log("서버로 부터 응답 안옴", error);
-      //   message.error("오류가 발생하였습니다");
+      const Data = res?.data;
+      if (!Data.success) {
+        console.error("서버로 부터 응답, 에러 발생");
+        return;
+      }
+    } catch (error) {
+      console.error("서버로 부터 응답 없음", error);
     } finally {
-      console.log("등록완료");
+      setListUpdate((prev: boolean) => !prev);
+      setIsModalOpen(false);
+      setStartAt("");
+      setEndAt("");
+      setInputCategory("");
+      setInputReason("");
+      setInputEtc("");
     }
-    setIsModalOpen(false);
   };
+
+  // 연차 등록 API
   const annualOrder = async () => {
     try {
-      await employeeOrderApi({
+      const res = await employeeOrderApi({
         orderType: "연차",
         startAt: startAt,
         endAt: endAt,
@@ -109,21 +93,22 @@ function EmployeeDutyModalForm({ toggle }: IEmployeeDutyModalprops) {
         category: inputCategory,
         etc: inputEtc,
       });
-
-      //   if (!response.ok) {
-      //     console.log("서버로 부터 응답이 왔는데 에러임.");
-      //     message.error("오류가 발생하였습니다");
-      //     return;
-      //   }
-      //   // setToggleFetch((prev: boolean) => !prev);
-      //   message.success("소비 내역이 등록되었습니다");
-      // } catch (error) {
-      //   console.log("서버로 부터 응답 안옴", error);
-      //   message.error("오류가 발생하였습니다");
+      const Data = res?.data;
+      if (!Data.success) {
+        console.error("서버로 부터 응답, 에러 발생");
+        return;
+      }
+    } catch (error) {
+      console.error("서버로 부터 응답 없음", error);
     } finally {
-      console.log("등록완료");
+      setListUpdate((prev: boolean) => !prev);
+      setIsModalOpen(false);
+      setStartAt("");
+      setEndAt("");
+      setInputCategory("");
+      setInputReason("");
+      setInputEtc("");
     }
-    setIsModalOpen(false);
   };
 
   return (

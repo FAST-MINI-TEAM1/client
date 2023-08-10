@@ -4,16 +4,20 @@ import { styled } from "styled-components";
 import Button from "@components/common/Button";
 import { IDataSourceItem } from "@lib/interface/Admin";
 import { employeeDeleteApi } from "@lib/api/employeeAPI";
+import Image from "next/image";
+import bottomDot from "public/bottomDot.png";
 
 interface Iprops {
   employeeOpen: boolean;
   setEmployeeOpen: React.Dispatch<React.SetStateAction<boolean>>;
   details?: IDataSourceItem;
+  setListUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 function EmployeeHistoyModal({
   employeeOpen,
   setEmployeeOpen,
   details,
+  setListUpdate,
 }: Iprops) {
   const [contnetdetails, setcontnetdetails] = useState<IDataSourceItem>();
 
@@ -29,6 +33,7 @@ function EmployeeHistoyModal({
     if (contnetdetails) {
       await employeeDeleteApi(contnetdetails.id);
       setEmployeeOpen(false);
+      setListUpdate((prev: boolean) => !prev);
     }
   };
 
@@ -41,18 +46,14 @@ function EmployeeHistoyModal({
   return (
     <>
       <StyledModal
-        title="결재내역"
-        style={{ width: "420px", height: "680px" }}
+        title={`${details?.orderType} 결재 관리`}
         open={employeeOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        footer={
-          <Button delete="true" onClick={deletHandeler}>
-            삭제하기
-          </Button>
-        }
+        footer={null}
+        width={420}
       >
-        <Space direction="vertical" size="middle">
+        <Container>
           <StyledSpace direction="horizontal" size="middle">
             <StyledLabel>사원명</StyledLabel>
             <li>{contnetdetails?.empName}</li>
@@ -85,15 +86,35 @@ function EmployeeHistoyModal({
             <StyledLabel>승인상태</StyledLabel>
             <li>{contnetdetails?.status}</li>
           </StyledSpace>
-        </Space>
+        </Container>
+        <StyledBtn delete="true" onClick={deletHandeler}>
+          삭제하기
+        </StyledBtn>
+        <Image src={bottomDot} alt="backpng" />
       </StyledModal>
     </>
   );
 }
 const StyledModal = styled(Modal)`
-  width: 420px;
   height: 680px;
   text-align: center;
+  padding: auto;
+  .ant-modal-title {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+  .ant-modal-body {
+    font-size: 16px;
+    padding-bottom: 20px;
+
+    // background-color: red;
+  }
+`;
+const Container = styled.div`
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
   padding: auto;
   ul {
     text-align: left;
@@ -105,7 +126,7 @@ const StyledSpace = styled(Space)`
   width: 100%;
   margin: 10px 0;
   border-bottom: 0.5px solid #e0e0e0;
-  // justify-content: space-between;
+  padding-bottom: 10px;
   text-shadow: 0px 3px 7px 0px rgba(81, 81, 81, 0.25);
   li {
     text-shadow: 0px 3px 7px rgba(81, 81, 81, 0.25);
@@ -120,5 +141,8 @@ const StyledLabel = styled.div`
   font-weight: bold;
   margin: 0 20px;
 `;
-
+const StyledBtn = styled(Button)`
+  width: 90%;
+  margin: 10px auto 30px auto;
+`;
 export default EmployeeHistoyModal;

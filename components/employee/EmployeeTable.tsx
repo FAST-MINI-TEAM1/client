@@ -18,33 +18,40 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
   const [datas, setDatas] = useState<IDataSourceItem[]>([]);
   const [employeeOpen, setEmployeeOpen] = useState(false);
   const [details, setDetails] = useState<IDataSourceItem>();
-  // const [datasLength, setDatasLength] = useState(0);
+  const [listUpdate, setListUpdate] = useState(true);
 
   const openHandler = (data: IDataSourceItem) => {
     setEmployeeOpen(true);
     setDetails(data);
   };
+
   const setlist = async () => {
-    const list = await employeeListApi();
-    setDatas(list?.data.response.content);
-    // setDatasLength(datas.length);
+    try {
+      const res = await employeeListApi();
+      const Data = res?.data;
+      setDatas(Data.response.content);
+      if (!Data.success) {
+        console.log("서버로 부터 응답이 왔는데 에러임.");
+        return;
+      }
+    } catch (error) {
+      console.error("서버로 부터 응답 안옴", error);
+    }
   };
 
   useEffect(() => {
-    if (datas) {
-      setlist();
-    }
-  }, [datas]);
+    setlist();
+  }, [listUpdate]);
 
   return (
     <>
       <EmployeeDutyTable>
         {selectedTap == "전체" ? (
-          <h1>전체 현황</h1>
+          <h1>전체 결재 현황</h1>
         ) : selectedTap == "연차" ? (
-          <h1>연차 현황</h1>
+          <h1>연차 결재 현황</h1>
         ) : (
-          <h1>당직 현황</h1>
+          <h1>당직 결재 현황</h1>
         )}
         {selectedTap == "전체" ? (
           <ul>
@@ -57,14 +64,20 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
                       openHandler(data);
                     }}
                   >
-                    <Space direction="horizontal" size="middle">
-                      {data.orderType === "당직" ? (
+                    <Space
+                      direction="horizontal"
+                      size="middle"
+                      style={{ width: "200px" }}
+                    >
+                      {data.status === "대기" ? (
+                        <StanByIcon />
+                      ) : data.orderType === "당직" ? (
                         <DutyIcon />
                       ) : (
                         <AnnualIcon />
                       )}
                       <DutyInfo>{data.startDate}</DutyInfo>
-                      <DutyInfo>{data.status}</DutyInfo>
+                      <DutyInfo>승인 {data.status}</DutyInfo>
                     </Space>
                   </Employeedata>
                 );
@@ -84,19 +97,26 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
                 })
                 .map((data) => {
                   return (
-                    <Employeedata key={data.id}>
+                    <Employeedata
+                      key={data.id}
+                      onClick={() => {
+                        openHandler(data);
+                      }}
+                    >
                       <Space
                         direction="horizontal"
                         size="middle"
-                        style={{ width: "200px", margin: "5px auto" }}
+                        style={{ width: "200px" }}
                       >
-                        {data.orderType === "당직" ? (
+                        {data.status === "대기" ? (
+                          <StanByIcon />
+                        ) : data.orderType === "당직" ? (
                           <DutyIcon />
                         ) : (
                           <AnnualIcon />
                         )}
                         <DutyInfo>{data.startDate}</DutyInfo>
-                        <DutyInfo>{data.status}</DutyInfo>
+                        <DutyInfo>승인 {data.status}</DutyInfo>
                       </Space>
                     </Employeedata>
                   );
@@ -105,15 +125,19 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
         )}
         <div>
           {selectedTap == "전체" ? (
-            <SelectModal />
+            <SelectModal setListUpdate={setListUpdate} />
           ) : (
-            <EmployeeDutyModalForm toggle={toggle} />
+            <EmployeeDutyModalForm
+              toggle={toggle}
+              setListUpdate={setListUpdate}
+            />
           )}
         </div>
         <EmployeeHistoyModal
           employeeOpen={employeeOpen}
           setEmployeeOpen={setEmployeeOpen}
           details={details}
+          setListUpdate={setListUpdate}
         />
       </EmployeeDutyTable>
     </>
@@ -134,30 +158,38 @@ const EmployeeDutyTable = styled.div`
   }
   h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin: 10px 0 20px 0;
+    font-size: 20px;
   }
   ul {
     height: 530px;
   }
 `;
 const Employeedata = styled(Button)`
-  width: 100%;
+  width: 247px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin: 10px auto;
   justify-content: space-between;
+  border: none;
 `;
 const DutyIcon = styled.div`
   width: 15px;
   height: 15px;
   border-radius: 50px;
-  background-color: rgba(19, 13, 216, 1);
+  background-color: ${(props) => props.theme.pointColor.blue};
 `;
 const AnnualIcon = styled.div`
   width: 15px;
   height: 15px;
   border-radius: 50px;
-  background-color: rgba(255, 189, 19, 1);
+  background-color: ${(props) => props.theme.pointColor.yellow};
+`;
+const StanByIcon = styled.div`
+  width: 15px;
+  height: 15px;
+  border-radius: 50px;
+  background-color: ${(props) => props.theme.pointColor.gray};
 `;
 const DutyInfo = styled.div`
   color: rgba(12, 12, 12, 1);

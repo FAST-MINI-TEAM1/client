@@ -31,6 +31,7 @@ declare module "styled-components" {
       red: string;
       black: string;
       rightGray: string;
+      gray: string;
     };
   }
 }
