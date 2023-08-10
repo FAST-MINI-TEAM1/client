@@ -15,11 +15,21 @@ const tokenConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
   headers: {
     "content-type": "application/json",
-    "Authorization": `${accessToken}`,
+    Authorization: `${accessToken}`,
+  },
+};
+
+const adminConfig: AxiosRequestConfig = {
+  baseURL: BASE_URL,
+  headers: {
+    "content-type": "application/json",
+    Authorization:
+      "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2OTE2NjQ0NTYsImV4cCI6MTY5MTc1MDg1Nn0.fRiZUByNNC5R4XPL1FrOAvH5RB6PBkIOMUR9ks-Sne4",
   },
 };
 
 const client = axios.create(axiosConfig);
 const userClient = axios.create(tokenConfig);
+const adminClient = axios.create(adminConfig);
 
-export { client, userClient };
+export { client, userClient, adminClient };
