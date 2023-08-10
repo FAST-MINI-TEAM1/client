@@ -1,6 +1,6 @@
 import AdminHeader from "@components/common/AdminHeader";
 import DataTabel from "@components/common/DataTabel";
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getPendingOrders, getCompletedOrders } from "@lib/api/adminAPI";
 import { IDataSourceItem } from "@lib/interface/Admin";
@@ -83,4 +83,4 @@ const Container = styled.section`
   }
 `;
 
-export default memo(Approval);
+export default Approval;

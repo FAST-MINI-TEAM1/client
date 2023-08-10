@@ -101,6 +101,7 @@ function AuthForm({ type }: IAuthFormProps) {
           console.log(res.headers);
           console.log(res.data);
           localStorage.setItem("Token", res.data.response.accessToken);
+          localStorage.setItem("empName", res.data.response.empName);
           router.push("/employee");
         });
       } catch (e) {

@@ -136,12 +136,10 @@ const Nav = styled.nav`
   }
 `;
 const SheetSection = styled.li`
-
- .subMenu {
-  display: none;
-  font-size: 12px;
-
- }
+  .subMenu {
+    display: none;
+    font-size: 12px;
+  }
   &:hover {
     .subMenu {
       display: visible;
@@ -166,6 +164,7 @@ const SheetSection = styled.li`
         &:hover {
           color: #000;
         }
+      }
     }
   }
 `;

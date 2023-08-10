@@ -7,6 +7,7 @@ import AdminHeader from "@components/common/AdminHeader";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { getUserName, getUserNumber, getOrders } from "@lib/api/adminAPI";
 import { ISearch } from "@lib/interface/Admin";
+import { useQuery } from "@tanstack/react-query";
 
 function SearchPage() {
   const [mounted, setMounted] = useState(false);
@@ -174,7 +175,6 @@ const Search = styled.section`
     font-size: 20px;
     margin-bottom: 10px;
   }
-  }
 `;
 
 const SearchBar = styled.div`
@@ -235,6 +235,7 @@ const BasicSection = styled.section`
         }
       }
     }
+  }
 `;
 
 const TableSection = styled.section`
