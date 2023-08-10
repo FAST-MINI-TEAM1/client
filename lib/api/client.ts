@@ -1,4 +1,6 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, {
+  AxiosRequestConfig,
+} from "axios";
 
 const BASE_URL = "http://54.79.60.180:8080";
 const accessToken =
