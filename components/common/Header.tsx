@@ -7,18 +7,19 @@ function Header() {
   const router = useRouter();
   const onClick = useCallback(() => {
     localStorage.removeItem("Token");
-    router.push("/admin/login");
+    router.push("/login");
   }, [router]);
   return (
     <HeaderBlock>
       <HeaderContent>
         <LogoContainer>
-          <Link href="/">
+          <Link href="/employee">
             <Logo>LOGO</Logo>
           </Link>
           <UserWelcome>
-            <span>홍길동</span>
-            <span>님, 반갑습니다!</span>
+            <p>
+              <span>홍길동</span>님, 반갑습니다!
+            </p>
             <LogOutBtn onClick={onClick}>로그아웃 ⇢</LogOutBtn>
           </UserWelcome>
         </LogoContainer>
@@ -79,6 +80,9 @@ const LogoContainer = styled.div`
 
 const UserWelcome = styled.div`
   font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   span {
     &:first-child {
       color: #1fbf92;
