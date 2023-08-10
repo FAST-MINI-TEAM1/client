@@ -1,16 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import DataTabel from "@components/common/DataTabel";
 import Header from "@components/common/Header";
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { employeeListApi } from "@lib/api/employeeAPI";
 import { IDataSourceItem } from "@lib/interface/Admin";
-import { useQuery } from "@tanstack/react-query";
 
 function History() {
-  const query = useQuery({
-    queryKey: ["employeeList"],
-    queryFn: employeeListApi,
-  });
   const [mounted, setMounted] = useState(false);
   const [datas, setDatas] = useState<IDataSourceItem[]>([]);
 

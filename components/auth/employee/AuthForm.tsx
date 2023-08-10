@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Input from "@components/common/Input";
 import Link from "next/link";
 import styled from "styled-components";

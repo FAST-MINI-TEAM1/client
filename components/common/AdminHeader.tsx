@@ -13,14 +13,14 @@ function AdminHeader() {
     <HeaderBlock>
       <HeaderContent>
         <LogoContainer>
-          <Link href="/">
+          <Link href="/admin">
             <Logo>LOGO</Logo>
           </Link>
           <UserWelcome>
             <span>관리자</span>
             <span>님, 반갑습니다!</span>
           </UserWelcome>
-          <button onClick={onClick}>로그아웃</button>
+          <LogOutBtn onClick={onClick}>로그아웃 ⇢</LogOutBtn>
         </LogoContainer>
         <Nav>
           <ul>
@@ -31,17 +31,17 @@ function AdminHeader() {
                 </a>
               </Link>
             </li>
-            <li>
+            <SheetSection>
               <span>사용대장</span>
-              <SubMenu>
+              <div className="subMenu">
                 <Link href="/admin/daily">
                   <a>일별사용대장</a>
                 </Link>
                 <Link href="/admin/monthly">
                   <a>월별사용대장</a>
                 </Link>
-              </SubMenu>
-            </li>
+              </div>
+            </SheetSection>
             <li>
               <Link href="/admin/search">
                 <a
@@ -114,14 +114,14 @@ const Nav = styled.nav`
     justify-content: center;
     align-items: center;
     gap: 20px;
+
     li {
-      background: coral;
       position: relative;
       span {
         cursor: pointer;
         color: ${(props) => props.theme.inactiveColor};
         &.active {
-          font-weight: 700;
+          font-weight: 600;
           color: ${(props) => props.theme.activeColor};
         }
       }
@@ -135,29 +135,54 @@ const Nav = styled.nav`
     }
   }
 `;
+const SheetSection = styled.li`
 
-const SubMenu = styled.div`
-  &.hoverActive {
-    opacity: 1;
-  }
-  width: 250px;
-  background: #ccc;
-  position: absolute;
-  left: -100px;
-  top: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  padding: 8px;
-  /* opacity: 0; */
-  z-index: 99999;
-  a {
-    text-align: center;
-    transition: color 0.2s ease-in-out;
-    &:hover {
-      color: #000;
+ .subMenu {
+  display: none;
+  font-size: 12px;
+
+ }
+  &:hover {
+    .subMenu {
+      display: visible;
+      &.hoverActive {
+        opacity: 1;
+      }
+      width: 250px;
+      background: #fff;
+      position: absolute;
+      left: -100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding: 10px 5px;
+      border-radius: 10px;
+      /* opacity: 0; */
+      z-index: 99999;
+      a {
+        text-align: center;
+        transition: color 0.2s ease-in-out;
+        &:hover {
+          color: #000;
+        }
     }
+  }
+`;
+
+const LogOutBtn = styled.button`
+  font-size: 12px;
+  border: 1px solid #adb5bd;
+  padding: 5px 12px;
+  border-radius: 30px;
+  background-color: transparent;
+  color: #adb5bd;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: #f27676;
+    border: 1px solid #f27676;
   }
 `;
 
