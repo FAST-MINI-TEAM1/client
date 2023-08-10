@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useCallback } from "react";
 import styled from "styled-components";
 
 function Header() {
   const router = useRouter();
+  const onClick = useCallback(() => {
+    localStorage.removeItem("Token");
+    router.push("/admin/login");
+  }, [router]);
   return (
     <HeaderBlock>
       <HeaderContent>
@@ -14,6 +19,7 @@ function Header() {
           <UserWelcome>
             <span>홍길동</span>
             <span>님, 반갑습니다!</span>
+            <LogOutBtn onClick={onClick}>로그아웃 ⇢</LogOutBtn>
           </UserWelcome>
         </LogoContainer>
         <Nav>
@@ -108,6 +114,22 @@ const Nav = styled.nav`
         }
       }
     }
+  }
+`;
+
+const LogOutBtn = styled.button`
+  font-size: 12px;
+  border: 1px solid #adb5bd;
+  padding: 5px 12px;
+  border-radius: 30px;
+  background-color: transparent;
+  color: #adb5bd;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: #f27676;
+    border: 1px solid #f27676;
   }
 `;
 
