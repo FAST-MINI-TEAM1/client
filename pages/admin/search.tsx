@@ -147,12 +147,12 @@ function SearchPage() {
                   <DataTabel
                     tableTitle="결재 대기"
                     dataSource={pendingOrder}
-                    type="admin"
+                    type={"admin"}
                   />
                   <DataTabel
                     tableTitle="결재 완료"
                     dataSource={completeOrder}
-                    type="admin"
+                    type={"admin"}
                   />
                 </div>
               </TableSection>
