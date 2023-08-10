@@ -158,7 +158,7 @@ const EmployeeDutyTable = styled.div`
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.16);
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  // overflow: scroll;
   div {
     margin: 0 auto;
   }

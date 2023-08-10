@@ -34,6 +34,8 @@ function SelectModal({ toggle, setListUpdate }: Iprops) {
   );
 }
 
-const StyledDropdown = styled(Dropdown)``;
+const StyledDropdown = styled(Dropdown)`
+  padding: 2px auto;
+`;
 
 export default SelectModal;

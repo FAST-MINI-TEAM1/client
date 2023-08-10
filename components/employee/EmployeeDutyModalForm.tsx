@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Input, Modal, Select, Space, DatePicker } from "antd";
 import Button from "@components/common/Button";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import Image from "next/image";
 import bottomDot from "public/bottomDot.png";
 import { employeeOrderApi } from "@lib/api/employeeAPI";
@@ -114,11 +114,11 @@ function EmployeeDutyModalForm({
   return (
     <>
       {toggle ? (
-        <Button annualSubmit="true" onClick={showModal}>
+        <Button annual="true" onClick={showModal}>
           연차 등록하기
         </Button>
       ) : (
-        <Button dutySubmit="true" onClick={showModal}>
+        <Button duty="true" onClick={showModal}>
           당직 등록하기
         </Button>
       )}
