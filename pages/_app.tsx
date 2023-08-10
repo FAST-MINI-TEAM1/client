@@ -12,6 +12,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>TEAM1</title>
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
       </Head>
       <ThemeProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
