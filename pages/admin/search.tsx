@@ -28,13 +28,6 @@ function SearchPage() {
     setMounted(true);
   }, []);
 
-  // 연차 / 당직 내역
-  // 결재 내역 필터링 필요
-  // const { data: listData } = await getOrders(searchWord, 0, 4);
-  // TODO: 데이터 받은 후 필터링!
-  // 데이터 -> 승인/반려/대기 -== 대기내역을 결재 대기로 넣고
-  // 결재 완료 -> 승인/반려 넣기
-  // searchWord : 사원번호랑, 사원명 x 사원 id값 o
   const onNameSubmit = useCallback(
     async (event: FormEvent) => {
       event.preventDefault();
@@ -68,7 +61,7 @@ function SearchPage() {
     async (event: FormEvent) => {
       event.preventDefault();
       try {
-        if (basicData.empNo) {
+        if (empNumber) {
           const fetchData = await getUserNumber(basicData.empNo);
           const fetchOrderData = await getOrders(fetchData.data.id, 0, 10);
           setBasicData(fetchData.data);
@@ -88,7 +81,7 @@ function SearchPage() {
         console.error(e, "실패");
       }
     },
-    [basicData.empNo],
+    [empNumber, basicData.empNo],
   );
 
   const handleChangeInput = (event: FormEvent) => {
