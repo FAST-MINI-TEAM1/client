@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>TEAM1</title>
+        <title>Work Fairy</title>
       </Head>
       <ThemeProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
