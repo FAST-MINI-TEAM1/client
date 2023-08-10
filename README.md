@@ -1,4 +1,4 @@
-# TEAM1(가제)
+# WORK FAIRY(근태 요정)
 
 # 👩‍🚀 프론트엔드 개발팀
 
@@ -46,8 +46,7 @@
         <sub><b>- 템플릿 디자인 담당</b><br></sub>
     </td>
      <td align="center">
-        <sub><b>- 공통 컴포넌트(input, button, 캘린더) / 사원 페이지</b><br></sub>
-        <sub><b>- API Document 담당</b><br></sub>
+        <sub><b>- 캘린더 컴포넌트 </b><br></sub>
     </td>
   </tr>
 
