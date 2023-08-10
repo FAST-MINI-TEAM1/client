@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import { Input, Modal, Select, Space, DatePicker } from "antd";
 import Button from "@components/common/Button";
 import { styled } from "styled-components";
@@ -178,7 +178,7 @@ function EmployeeDutyModalForm({
             type="text"
             placeholder="입력하세요"
             value={inputReason}
-            onChange={(e) => {
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
               setInputReason(e.target.value);
             }}
           ></StyledInput>
@@ -190,7 +190,7 @@ function EmployeeDutyModalForm({
             type="text"
             placeholder="입력하세요"
             value={inputEtc}
-            onChange={(e) => {
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
               setInputEtc(e.target.value);
             }}
           ></StyledInput>
