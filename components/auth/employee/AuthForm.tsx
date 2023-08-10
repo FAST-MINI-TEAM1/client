@@ -28,7 +28,6 @@ function AuthForm({ type }: IAuthFormProps) {
   const [passwordMessage, setPasswordMessage] = useState("");
   const [empName, setEmpName] = useState("");
   const [nameMessage, setNameMessage] = useState("");
-  const [isName, setIsName] = useState(false);
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
@@ -69,12 +68,10 @@ function AuthForm({ type }: IAuthFormProps) {
           setPassword(value);
         }
       } else if (name === "name") {
-        if (value.length <= 2 || value.length > 5) {
+        if (value === "") {
+          setNameMessage("이름을 입력하세요.");
+        } else {
           setEmpName(value);
-          setIsName(true);
-        } else if (value.length < 1 || value.length > 6) {
-          setNameMessage("2글자 이상 5글자 미만으로 입력해주세요.");
-          setIsName(false);
         }
       } else if (name === "passwordConfirm") {
         if (password === value) {
@@ -97,12 +94,11 @@ function AuthForm({ type }: IAuthFormProps) {
       try {
         event.preventDefault();
         await login({ email, password })?.then((res) => {
-          console.log(res);
-          console.log(res.headers);
-          console.log(res.data);
           localStorage.setItem("Token", res.data.response.accessToken);
           localStorage.setItem("empName", res.data.response.empName);
-          router.push("/employee");
+          router.push({
+            pathname: "/employee",
+          });
         });
       } catch (e) {
         console.error(e, "로그인 오류!");
@@ -182,7 +178,6 @@ function AuthForm({ type }: IAuthFormProps) {
                   onChange={onRegisterChange}
                 />
               </InputWrapper>
-              <span>{emailMessage}</span>
               <InputWrapper>
                 <IconWrapper>
                   <PersonIcon />
@@ -195,7 +190,6 @@ function AuthForm({ type }: IAuthFormProps) {
                   onChange={onRegisterChange}
                 />
               </InputWrapper>
-              {isName && <span>{nameMessage}</span>}
               <InputWrapper>
                 <IconWrapper>
                   <PasswordIcon />
@@ -209,7 +203,6 @@ function AuthForm({ type }: IAuthFormProps) {
                   onChange={onRegisterChange}
                 />
               </InputWrapper>
-              <span>{passwordMessage}</span>
               <InputWrapper>
                 <IconWrapper>
                   <PasswordConfirmIcon />
@@ -223,7 +216,6 @@ function AuthForm({ type }: IAuthFormProps) {
                   onChange={onRegisterChange}
                 />
               </InputWrapper>
-              {isPasswordConfirm && <span>{passwordConfirmMessage}</span>}
               <InputWrapper>
                 <RankIconWrapper>
                   <RankIcon />
@@ -241,7 +233,13 @@ function AuthForm({ type }: IAuthFormProps) {
           <ButtonBlock>
             <StyledButton type="submit">{text}</StyledButton>
           </ButtonBlock>
-          <span>{registerMessage}</span>
+          <span>
+            {registerMessage ||
+              emailMessage ||
+              passwordMessage ||
+              (isPasswordConfirm && passwordConfirmMessage) ||
+              nameMessage}
+          </span>
         </form>
         <Footer>
           {type === "login" ? (

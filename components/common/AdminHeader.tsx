@@ -2,6 +2,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import styled from "styled-components";
+import Image from "next/image";
+import logo from "public/workFairy_logo.png";
 
 function AdminHeader() {
   const router = useRouter();
@@ -14,7 +16,7 @@ function AdminHeader() {
       <HeaderContent>
         <LogoContainer>
           <Link href="/admin">
-            <Logo>LOGO</Logo>
+            <Image src={logo} alt="logo" width={189} height={65} />
           </Link>
           <UserWelcome>
             <span>관리자</span>
@@ -96,17 +98,17 @@ const UserWelcome = styled.div`
   }
 `;
 
-const Logo = styled.a`
-  width: 70px;
-  height: 70px;
-  background: #fff;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-`;
+// const Logo = styled.a`
+//   width: 70px;
+//   height: 70px;
+//   background: #fff;
+//   border-radius: 50%;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   cursor: pointer;
+//   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+// `;
 
 const Nav = styled.nav`
   ul {

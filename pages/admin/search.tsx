@@ -1,13 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { Select } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
 import DataTabel from "@components/common/DataTabel";
 import styled from "styled-components";
 import AdminHeader from "@components/common/AdminHeader";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { getUserName, getUserNumber, getOrders } from "@lib/api/adminAPI";
 import { ISearch } from "@lib/interface/Admin";
-import { useQuery } from "@tanstack/react-query";
 
 function SearchPage() {
   const [mounted, setMounted] = useState(false);
@@ -60,7 +58,7 @@ function SearchPage() {
       event.preventDefault();
       try {
         if (empNumber) {
-          const fetchData = await getUserNumber(basicData.empNo);
+          const fetchData = await getUserNumber(empNumber);
           const fetchOrderData = await getOrders(fetchData.data.id, 0, 10);
           setBasicData(fetchData.data);
           setPendingOrder(
@@ -79,7 +77,7 @@ function SearchPage() {
         console.error(e, "실패");
       }
     },
-    [empNumber, basicData.empNo],
+    [empNumber],
   );
 
   const handleChangeInput = (event: FormEvent) => {
@@ -88,6 +86,7 @@ function SearchPage() {
       setSearchWord(value);
     } else {
       setEmpNumber(Number(value));
+      console.log(empNumber);
     }
   };
 
@@ -114,7 +113,10 @@ function SearchPage() {
               <Select
                 defaultValue="1"
                 options={options}
-                onChange={(value: string) => setSelectedOption(value)}
+                onChange={(value: string) => {
+                  setSelectedOption(value);
+                  console.log(selectedOption);
+                }}
               />
               <StyledInput onChange={handleChangeInput} autoFocus />
               <StyeldBtn className="searchBtn">Search</StyeldBtn>

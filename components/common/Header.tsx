@@ -9,6 +9,7 @@ function Header() {
   const router = useRouter();
   const onClick = useCallback(() => {
     localStorage.removeItem("Token");
+    localStorage.removeItem("empName");
     router.push("/login");
   }, [router]);
   const userName =
