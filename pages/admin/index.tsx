@@ -4,11 +4,22 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getPendingOrders, getCompletedOrders } from "@lib/api/adminAPI";
 import { IDataSourceItem } from "@lib/interface/Admin";
+// import { useQuery } from "@tanstack/react-query";
 
 function Approval() {
   const [mounted, setMounted] = useState(false);
   const [pendingOrders, setPendingOrders] = useState<IDataSourceItem[]>([]);
   const [completedOrders, setCompletedOrders] = useState<IDataSourceItem[]>([]);
+
+  // const pendingQuery = useQuery({
+  //   queryKey: ["pending"],
+  //   queryFn: getPendingOrders,
+  // });
+
+  // const completedQuery = useQuery({
+  //   queryKey: ["completed"],
+  //   queryFn: getCompletedOrders,
+  // });
 
   useEffect(() => {
     setMounted(true);
@@ -35,6 +46,24 @@ function Approval() {
       console.log("완료 조회 실패", error);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await getPendingOrders();
+      setPendingOrders(data.response.content);
+      console.log("pending data", data.response.content);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await getCompletedOrders();
+      console.log("completed data", data.response.content);
+      setCompletedOrders(data.response.content);
+    };
+    fetchData();
+  }, []);
 
   return (
     mounted && (
