@@ -13,7 +13,6 @@ function History() {
   const setlist = async () => {
     const list = await employeeListApi();
     setDatas(list?.data.response.content);
-    console.log("얍", datas);
   };
 
   useEffect(() => {
@@ -41,7 +40,7 @@ function History() {
               tableTitle={"결재 완료 내역"}
               type={"employee"}
               dataSource={datas.filter((data) => {
-                return data.status == "승인" && "반려";
+                return data.status != "대기";
               })}
             />
           </div>

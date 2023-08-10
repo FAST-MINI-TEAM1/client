@@ -11,6 +11,7 @@ function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
 
   const [employeeOpen, setEmployeeOpen] = useState(false);
   const [details, setDetils] = useState<IDataSourceItem>();
+  const [listUpdate, setListUpdate] = useState(false);
 
   const adminOnClickHandler = (data: IDataSourceItem) => {
     setOpen(true);
@@ -20,6 +21,7 @@ function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
   const employeeOnClickHandler = (data: IDataSourceItem) => {
     setEmployeeOpen(true);
     setDetils(data);
+    setListUpdate(listUpdate);
   };
 
   //테이블 형식
@@ -134,6 +136,7 @@ function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
           employeeOpen={employeeOpen}
           setEmployeeOpen={setEmployeeOpen}
           details={details}
+          setListUpdate={setListUpdate}
         />
       )}
     </Space>
