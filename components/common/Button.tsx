@@ -98,10 +98,14 @@ const StyledButton = styled.button<{
       width: 457px;
       height: 49px;
       font-size: 18px;
+      color: ${(props) => props.theme.pointColor.rightGray};
       background: ${(props) => props.theme.pointColor.red};
+      box-shadow: 0px 3px 12px 2px rgba(106, 106, 106, 0.15);
+      transition: 0.4s;
       &:hover {
-        color: ${(props) => props.theme.buttonColor.pendingButton};
-        border: 1px solid ${(props) => props.theme.buttonColor.pendingButton};
+        color: ${(props) => props.theme.pointColor.red};
+        border: 0.5px solid ${(props) => props.theme.pointColor.red};
+        box-shadow: 0px 3px 7px 2px rgba(106, 106, 106, 0.25);
       }
     `}
     ${(props) =>
@@ -111,9 +115,13 @@ const StyledButton = styled.button<{
       height: 58px;
       font-size: 16px;
       background: ${(props) => props.theme.pointColor.green};
+      color: ${(props) => props.theme.pointColor.rightGray};
+      box-shadow: 0px 3px 7px 2px rgba(106, 106, 106, 0.25);
+      transition: 0.3s;
       &:hover {
         color: ${(props) => props.theme.pointColor.green};
         border: 1px solid ${(props) => props.theme.pointColor.green};
+        box-shadow: 0px 3px 7px 2px rgba(106, 106, 106, 0.25);
       }
     `}
     ${(props) =>
@@ -123,9 +131,13 @@ const StyledButton = styled.button<{
       height: 58px;
       font-size: 16px;
       background: ${(props) => props.theme.pointColor.yellow};
+      color: ${(props) => props.theme.pointColor.rightGray};
+      box-shadow: 0px 3px 7px 2px rgba(106, 106, 106, 0.25);
+      transition: 0.3s;
       &:hover {
-        color: ${(props) => props.theme.buttonColor.pendingButton};
-        border: 1px solid ${(props) => props.theme.buttonColor.pendingButton};
+        color: ${(props) => props.theme.pointColor.yellow};
+        border: 1px solid ${(props) => props.theme.pointColor.yellow};
+        box-shadow: 0px 3px 7px 2px rgba(106, 106, 106, 0.25);
       }
     `}
     ${(props) =>
@@ -136,9 +148,13 @@ const StyledButton = styled.button<{
       font-size: 16px;
       border-radius: 13px;
       background: ${(props) => props.theme.pointColor.blue};
+      color: ${(props) => props.theme.pointColor.rightGray};
+      box-shadow: 0px 3px 7px 2px rgba(106, 106, 106, 0.25);
+      transition: 0.3s;
       &:hover {
         color: ${(props) => props.theme.pointColor.blue};
         border: 1px solid ${(props) => props.theme.pointColor.blue};
+        box-shadow: 0px 3px 7px 2px rgba(106, 106, 106, 0.25);
       }
     `}
     ${(props) =>
@@ -148,12 +164,14 @@ const StyledButton = styled.button<{
       height: 40px;
       font-size: 16px;
       border-radius: 10px;
-      box-shadow: 0px 2px 4px rgba(106, 106, 106, 0.25);
       background: #fbfbfb;
       color: ${(props) => props.theme.pointColor.red};
+      box-shadow: 0px 3px 7px 2px rgba(106, 106, 106, 0.25);
+      transition: 0.3s;
       &:hover {
         color: ${(props) => props.theme.pointColor.rightGray};
         background: ${(props) => props.theme.pointColor.red};
+        box-shadow: 0px 3px 7px 2px rgba(106, 106, 106, 0.25);
       }
     `}
     ${(props) =>
@@ -166,9 +184,12 @@ const StyledButton = styled.button<{
       box-shadow: 0px 2px 4px rgba(106, 106, 106, 0.25);
       background: #fbfbfb;
       color: ${(props) => props.theme.pointColor.green};
+      box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.16);
+      transition: 0.3s;
       &:hover {
         color: ${(props) => props.theme.pointColor.rightGray};
         background: ${(props) => props.theme.pointColor.green};
+        box-shadow: 0px 3px 3px 0px #6a6a6a;
       }
     `}
 `;
