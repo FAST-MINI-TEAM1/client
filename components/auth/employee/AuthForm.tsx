@@ -28,7 +28,6 @@ function AuthForm({ type }: IAuthFormProps) {
   const [passwordMessage, setPasswordMessage] = useState("");
   const [empName, setEmpName] = useState("");
   const [nameMessage, setNameMessage] = useState("");
-  const [isName, setIsName] = useState(false);
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
@@ -239,7 +238,7 @@ function AuthForm({ type }: IAuthFormProps) {
               emailMessage ||
               passwordMessage ||
               (isPasswordConfirm && passwordConfirmMessage) ||
-              (isName && nameMessage)}
+              nameMessage}
           </span>
         </form>
         <Footer>
