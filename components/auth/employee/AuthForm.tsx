@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Input from "@components/common/Input";
 import Link from "next/link";
 import styled from "styled-components";
@@ -182,6 +181,7 @@ function AuthForm({ type }: IAuthFormProps) {
                   onChange={onRegisterChange}
                 />
               </InputWrapper>
+              <span>{emailMessage}</span>
               <InputWrapper>
                 <IconWrapper>
                   <PersonIcon />
@@ -194,6 +194,7 @@ function AuthForm({ type }: IAuthFormProps) {
                   onChange={onRegisterChange}
                 />
               </InputWrapper>
+              {isName && <span>{nameMessage}</span>}
               <InputWrapper>
                 <IconWrapper>
                   <PasswordIcon />
@@ -207,6 +208,7 @@ function AuthForm({ type }: IAuthFormProps) {
                   onChange={onRegisterChange}
                 />
               </InputWrapper>
+              <span>{passwordMessage}</span>
               <InputWrapper>
                 <IconWrapper>
                   <PasswordConfirmIcon />
@@ -220,6 +222,7 @@ function AuthForm({ type }: IAuthFormProps) {
                   onChange={onRegisterChange}
                 />
               </InputWrapper>
+              {isPasswordConfirm && <span>{passwordConfirmMessage}</span>}
               <InputWrapper>
                 <RankIconWrapper>
                   <RankIcon />
@@ -237,6 +240,7 @@ function AuthForm({ type }: IAuthFormProps) {
           <ButtonBlock>
             <StyledButton type="submit">{text}</StyledButton>
           </ButtonBlock>
+          <span>{registerMessage}</span>
         </form>
         <Footer>
           {type === "login" ? (
