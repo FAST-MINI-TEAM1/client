@@ -16,8 +16,8 @@ const StyledButton = styled.button<{
   pending?: boolean;
   delete?: boolean;
   submit?: boolean;
-  annualSubmit?: boolean;
-  dutySubmit?: boolean;
+  annual?: boolean;
+  duty?: boolean;
   cancle?: boolean;
   application?: boolean;
 }>`
@@ -125,7 +125,7 @@ const StyledButton = styled.button<{
       }
     `}
     ${(props) =>
-    props.annualSubmit &&
+    props.annual &&
     css`
       width: 247px;
       height: 58px;
@@ -141,7 +141,7 @@ const StyledButton = styled.button<{
       }
     `}
     ${(props) =>
-    props.dutySubmit &&
+    props.duty &&
     css`
       width: 247px;
       height: 58px;
