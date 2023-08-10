@@ -4,8 +4,8 @@ import MonthlyTable from "@components/admin/MonthlyTable";
 import styled from "styled-components";
 import { useEffect, useState, useCallback } from "react";
 import { getMonthlyAnnual, getMonthlyDuty } from "@lib/api/adminAPI";
-import Header from "@components/common/Header";
 import { IColumnsData } from "@lib/interface/Admin";
+import AdminHeader from "@components/common/AdminHeader";
 
 function Monthly() {
   const [dutyData, setDutyData] = useState<IColumnsData[]>([]);
@@ -17,14 +17,12 @@ function Monthly() {
     try {
       const { data } = await getMonthlyAnnual(year);
       setAnnualData(data.response);
-      console.log("연차내역", annualData);
       const { data: duty } = await getMonthlyDuty(year);
       setDutyData(duty.response);
-      console.log("당직내역", dutyData);
     } catch (error) {
       console.log("월별 조회 실패, error");
     }
-  }, [dutyData, annualData]);
+  }, []);
 
   useEffect(() => {
     getMonthlyData();
@@ -47,27 +45,39 @@ function Monthly() {
 
   return (
     <>
-      <Header />
-      <Container>
-        <StyledTabs
-          defaultActiveKey="1"
-          items={items}
-          tabBarGutter={30}
-          onTabClick={(key: any) => handleClick(key)}
-        />
-        <Inner>
-          <MonthlyTable
-            dataSource={tabKey === "당직" ? dutyData : annualData}
+      <AdminHeader />
+      <MonthlySection>
+        <h2>월별 사용 대장</h2>
+        <Container>
+          <StyledTabs
+            defaultActiveKey="1"
+            items={items}
+            tabBarGutter={30}
+            onTabClick={(key: any) => handleClick(key)}
           />
-        </Inner>
-      </Container>
+          <Inner>
+            <MonthlyTable
+              dataSource={tabKey === "당직" ? dutyData : annualData}
+            />
+          </Inner>
+        </Container>
+      </MonthlySection>
     </>
   );
 }
 
 export default Monthly;
+const MonthlySection = styled.section`
+  position: relative;
+  h2 {
+    position: absolute;
+    top: 30px;
+    left: 90px;
+    font-size: 20px;
+  }
+`;
 
-const Container = styled.section`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

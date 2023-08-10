@@ -1,6 +1,6 @@
 import AdminHeader from "@components/common/AdminHeader";
 import DataTabel from "@components/common/DataTabel";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import { getPendingOrders, getCompletedOrders } from "@lib/api/adminAPI";
 import { IDataSourceItem } from "@lib/interface/Admin";
@@ -61,8 +61,6 @@ function Approval() {
   );
 }
 
-export default Approval;
-
 const Container = styled.section`
   display: flex;
   flex-direction: column;
@@ -84,3 +82,5 @@ const Container = styled.section`
     box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
   }
 `;
+
+export default memo(Approval);
