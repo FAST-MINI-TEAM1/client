@@ -2,6 +2,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import styled from "styled-components";
+import Image from "next/image";
+import logo from "public/workFairy_logo.png";
 
 function Header() {
   const router = useRouter();
@@ -9,16 +11,19 @@ function Header() {
     localStorage.removeItem("Token");
     router.push("/login");
   }, [router]);
+  const userName =
+    typeof window !== "undefined" && localStorage.getItem("empName");
+
   return (
     <HeaderBlock>
       <HeaderContent>
         <LogoContainer>
           <Link href="/employee">
-            <Logo>LOGO</Logo>
+            <Image src={logo} alt="logo" width={189} height={65} />
           </Link>
           <UserWelcome>
             <p>
-              <span>홍길동</span>님, 반갑습니다!
+              <span>{userName}</span> 님, 반갑습니다!
             </p>
             <LogOutBtn onClick={onClick}>로그아웃 ⇢</LogOutBtn>
           </UserWelcome>
@@ -86,21 +91,10 @@ const UserWelcome = styled.div`
   span {
     &:first-child {
       color: #1fbf92;
-      font-weight: 600;
+      margin-left: 5px;
+      font-weight: 500;
     }
   }
-`;
-
-const Logo = styled.a`
-  width: 70px;
-  height: 70px;
-  background: #fff;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 `;
 
 const Nav = styled.nav`
@@ -125,6 +119,7 @@ const LogOutBtn = styled.button`
   font-size: 12px;
   border: 1px solid #adb5bd;
   padding: 5px 12px;
+  margin: 0 5px 4px 5px;
   border-radius: 30px;
   background-color: transparent;
   color: #adb5bd;
