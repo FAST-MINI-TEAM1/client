@@ -1,9 +1,24 @@
 import AdminHeader from "@components/common/AdminHeader";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { getDailyDuty, getDailyAnnual } from "@lib/api/adminAPI";
 
 const Daily: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
+
+  useEffect(() => {
+    const getDailyData = async () => {
+      try {
+        const { data: dutyData } = await getDailyDuty(2023, 8);
+        const { data: annualData } = await getDailyAnnual(2023, 8);
+        console.log("일별 당직 성공", dutyData.response);
+        console.log("일별 연차 성공", annualData.response);
+      } catch (error) {
+        console.log("일별 당직 실패", error);
+      }
+    };
+    getDailyData();
+  }, []);
 
   // 이전 달로 이동하는 함수
   const prevMonth = () => {
