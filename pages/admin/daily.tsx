@@ -2,6 +2,10 @@ import AdminHeader from "@components/common/AdminHeader";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getDailyDuty, getDailyAnnual } from "@lib/api/adminAPI";
+import FullCalendar from "@fullcalendar/react";
+// The import order DOES MATTER here. If you change it, you'll get an error!
+import interactionPlugin from "@fullcalendar/interaction";
+import timeGridPlugin from "@fullcalendar/timegrid";
 
 const Daily: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
