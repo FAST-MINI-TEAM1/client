@@ -1,4 +1,4 @@
-import { adminClient } from "./client";
+import { accessToken, adminClient } from "./client";
 import { IRequestBody } from "@lib/interface/Admin";
 
 interface IAdminLogin {
@@ -16,19 +16,35 @@ export const adminLogin = ({ email, password }: IAdminLogin) => {
 
 // 요청 관리 - 결재 처리
 export const postUpdateOrder = ({ id, status }: IRequestBody) => {
-  const res = adminClient.post(`/api/admin/order/update`, { id, status });
+  const res = adminClient.post(
+    `/api/admin/order/update`,
+    { id, status },
+    {
+      headers: {
+        Authorization: accessToken,
+      },
+    },
+  );
   return res;
 };
 
 // 요청 관리 - 결재 대기 조회
 export const getPendingOrders = () => {
-  const res = adminClient.get(`/api/admin/order/list/status/wait`);
+  const res = adminClient.get(`/api/admin/order/list/status/wait`, {
+    headers: {
+      Authorization: accessToken,
+    },
+  });
   return res;
 };
 
 // 요청관리 - 결재 완료 조회
 export const getCompletedOrders = () => {
-  const res = adminClient.get(`/api/admin/order/list/status/complete`);
+  const res = adminClient.get(`/api/admin/order/list/status/complete`, {
+    headers: {
+      Authorization: accessToken,
+    },
+  });
   return res;
 };
 
@@ -36,6 +52,11 @@ export const getCompletedOrders = () => {
 export const getMonthlyDuty = (year: number) => {
   const res = adminClient.get(
     `/api/admin/order/list/monthly/duty?year=${year}`,
+    {
+      headers: {
+        Authorization: accessToken,
+      },
+    },
   );
   return res;
 };
@@ -44,6 +65,11 @@ export const getMonthlyDuty = (year: number) => {
 export const getMonthlyAnnual = (year: number) => {
   const res = adminClient.get(
     `/api/admin/order/list/monthly/annual?year=${year}`,
+    {
+      headers: {
+        Authorization: accessToken,
+      },
+    },
   );
   return res;
 };
@@ -52,6 +78,11 @@ export const getMonthlyAnnual = (year: number) => {
 export const getDailyDuty = (year: number, month: number) => {
   const res = adminClient.get(
     `/api/admin/order/list/daily/duty?year=${year}&month=${month}`,
+    {
+      headers: {
+        Authorization: accessToken,
+      },
+    },
   );
   return res;
 };
@@ -60,19 +91,32 @@ export const getDailyDuty = (year: number, month: number) => {
 export const getDailyAnnual = (year: number, month: number) => {
   const res = adminClient.get(
     `/api/admin/order/list/daily/annual?year=${year}&month=${month}`,
+    {
+      headers: {
+        Authorization: accessToken,
+      },
+    },
   );
   return res;
 };
 
 // 사원조회 - 사원명 검색
 export const getUserName = (name: string) => {
-  const res = adminClient.get(`/api/admin/user/search?name=${name}`);
+  const res = adminClient.get(`/api/admin/user/search?name=${name}`, {
+    headers: {
+      Authorization: accessToken,
+    },
+  });
   return res;
 };
 
 // 사원조회 - 사원번호 검색
 export const getUserNumber = (empno: number) => {
-  const res = adminClient.get(`/api/admin/user/search?empno=${empno}`);
+  const res = adminClient.get(`/api/admin/user/search?empno=${empno}`, {
+    headers: {
+      Authorization: accessToken,
+    },
+  });
   return res;
 };
 
@@ -80,6 +124,11 @@ export const getUserNumber = (empno: number) => {
 export const getOrders = (user: number, page: number, size: number) => {
   const res = adminClient.get(
     `/api/admin/order/list?user=${user}&page=${page}&size=${size}`,
+    {
+      headers: {
+        Authorization: accessToken,
+      },
+    },
   );
   return res;
 };
