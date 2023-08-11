@@ -1,6 +1,9 @@
 import axios, { AxiosRequestConfig } from "axios";
 
 const BASE_URL = "http://3.34.110.127";
+
+// const BASE_URL = "https://alsl1wpqkf1.shop";
+
 const accessToken =
   typeof window !== "undefined" && localStorage.getItem("Token");
 console.log(accessToken);
