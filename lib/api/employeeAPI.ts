@@ -42,9 +42,9 @@ interface User {
   month: number;
 }
 
-export const userscheduleApi = async ({ year, month }: User) => {
+export const userscheduleApi = ({ year, month }: User) => {
   try {
-    const result = await userClient.get(
+    const result = userClient.get(
       `/api/user/main?year=${year}&month=${month}`,
       {
         params: {
