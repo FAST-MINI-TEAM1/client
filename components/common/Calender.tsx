@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
-function Calendar() {
+interface EmployeeTableTabProps {
+  scheduleData: any[];
+}
+
+function Calendar({ scheduleData }: EmployeeTableTabProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
+
+  const dateInfo = scheduleData.map((item) => [item.startDate, item.endDate]);
+  console.log("가져온 날짜 데이터", dateInfo);
 
   // 이전 달로 이동하는 함수
   const prevMonth = () => {
@@ -97,9 +104,16 @@ function Calendar() {
                 return (
                   <DateCell
                     key={idx}
-                    className={isCurrentDay ? (isPast12PM ? "current-day-black" : "current-day") : "other-day"}
+                    className={
+                      isCurrentDay
+                        ? isPast12PM
+                          ? "current-day-black"
+                          : "current-day"
+                        : "other-day"
+                    }
                   >
                     {date}
+                    <div>정보뿌리기</div>
                   </DateCell>
                 );
               })}
@@ -168,5 +182,3 @@ const DateCell = styled.td`
 `;
 
 export default Calendar;
-
-
