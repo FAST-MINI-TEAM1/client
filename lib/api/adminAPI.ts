@@ -34,7 +34,9 @@ export const getCompletedOrders = () => {
 
 // 월별 사용 대장 - 당직 조회
 export const getMonthlyDuty = (year: number) => {
-  const res = adminClient.get(`/api/admin/order/list/monthly/duty?year=${year}`);
+  const res = adminClient.get(
+    `/api/admin/order/list/monthly/duty?year=${year}`,
+  );
   return res;
 };
 
@@ -42,6 +44,22 @@ export const getMonthlyDuty = (year: number) => {
 export const getMonthlyAnnual = (year: number) => {
   const res = adminClient.get(
     `/api/admin/order/list/monthly/annual?year=${year}`,
+  );
+  return res;
+};
+
+// 일별 사용 대장 - 당직 조회
+export const getDailyDuty = (year: number, month: number) => {
+  const res = adminClient.get(
+    `/api/admin/order/list/daily/duty?year=${year}&month=${month}`,
+  );
+  return res;
+};
+
+// 일별 사용 대장 - 연차 조회
+export const getDailyAnnual = (year: number, month: number) => {
+  const res = adminClient.get(
+    `/api/admin/order/list/daily/annual?year=${year}&month=${month}`,
   );
   return res;
 };
