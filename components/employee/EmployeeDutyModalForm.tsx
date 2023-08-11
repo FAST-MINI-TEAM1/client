@@ -36,6 +36,7 @@ function EmployeeDutyModalForm({
     const inputendAt = selectedDates[1];
     setStartAt(inputstartAt);
     setEndAt(inputendAt);
+    console.log(startAt, endAt);
   };
 
   useEffect(() => {

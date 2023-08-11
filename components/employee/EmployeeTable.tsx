@@ -30,10 +30,8 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
       const res = await employeeListApi(pageSize);
       const Data = res?.data;
       setDatas(Data.response.content);
-      console.log(Data.response.totalElements);
       if (Data.response.totalElements > 10) {
         setPageSize(Data.response.totalElements + 1);
-        console.log("fn", pageSize);
       }
       if (!Data.success) {
         console.log("서버로 부터 응답이 왔는데 에러");
