@@ -11,16 +11,6 @@ function Approval() {
   const [pendingOrders, setPendingOrders] = useState<IDataSourceItem[]>([]);
   const [completedOrders, setCompletedOrders] = useState<IDataSourceItem[]>([]);
 
-  // const pendingQuery = useQuery({
-  //   queryKey: ["pending"],
-  //   queryFn: getPendingOrders,
-  // });
-
-  // const completedQuery = useQuery({
-  //   queryKey: ["completed"],
-  //   queryFn: getCompletedOrders,
-  // });
-
   useEffect(() => {
     setMounted(true);
     getPendingList();
@@ -70,20 +60,20 @@ function Approval() {
       <>
         <AdminHeader />
         <Container>
-          <div className="details">
+          <Details>
             <DataTabel
               tableTitle={"결재 대기"}
               dataSource={pendingOrders}
               type={"admin"}
             />
-          </div>
-          <div className="details">
+          </Details>
+          <Details>
             <DataTabel
               tableTitle={"결재 완료"}
               dataSource={completedOrders}
               type={"admin"}
             />
-          </div>
+          </Details>
         </Container>
       </>
     )
@@ -96,20 +86,20 @@ const Container = styled.section`
   justify-content: center;
   align-items: center;
   padding: 50px 0 0;
+`;
 
-  .details {
-    margin-bottom: 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 700px;
-    padding: 20px 30px 30px;
-    box-sizing: border-box;
-    border-radius: 30px;
-    background: #fff;
-    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
-  }
+const Details = styled.div`
+  margin-bottom: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 950px;
+  padding: 20px 30px 30px;
+  box-sizing: border-box;
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
 `;
 
 export default Approval;

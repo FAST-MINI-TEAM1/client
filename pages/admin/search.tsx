@@ -187,7 +187,7 @@ const SearchForm = styled.form`
   display: grid;
   grid-template-columns: 100px auto;
   align-items: center;
-  width: 700px;
+  width: 950px;
   height: 50px;
   padding: 5px 20px;
   box-sizing: border-box;
@@ -206,7 +206,7 @@ const StyledInput = styled.input`
   outline: none;
   padding-bottom: 3px;
   font-size: 14px;
-  text-indent: 10px;
+  text-indent: 30px;
 `;
 
 const StyeldBtn = styled.button`
@@ -219,7 +219,7 @@ const StyeldBtn = styled.button`
 `;
 
 const BasicSection = styled.section`
-  width: 700px;
+  width: 950px;
   .container {
     padding: 20px 30px 30px;
     box-sizing: border-box;
@@ -247,7 +247,7 @@ const TableSection = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 700px;
+    width: 950px;
     padding: 20px 30px 30px;
     box-sizing: border-box;
     border-radius: 30px;
