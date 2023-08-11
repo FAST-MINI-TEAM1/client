@@ -1,184 +1,107 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import { styled } from "styled-components";
+import ReactCalendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import { IEmployeeMonthly } from "@lib/interface/EmployeeInterface";
+import { userscheduleApi } from "@lib/api/employeeAPI";
 
 interface EmployeeTableTabProps {
-  scheduleData: any[];
+  selectedTap: string;
+  toggle?: boolean;
 }
 
-function Calendar({ scheduleData }: EmployeeTableTabProps) {
-  const [currentDate, setCurrentDate] = useState(new Date());
+function Calendar({ selectedTap, toggle }: EmployeeTableTabProps) {
+  const moment = require("moment");
+  const [value, onChange] = useState(new Date());
+  // 월별 조회
+  const [scheduleData, setScheduleData] = useState<IEmployeeMonthly[]>([]);
 
-  const dateInfo = scheduleData.map((item) => [item.startDate, item.endDate]);
-  console.log("가져온 날짜 데이터", dateInfo);
+  // 월별 조회 api 호출
+  useEffect(() => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
 
-  // 이전 달로 이동하는 함수
-  const prevMonth = () => {
-    setCurrentDate((prevDate) => {
-      const prevMonthDate = new Date(prevDate);
-      prevMonthDate.setMonth(prevMonthDate.getMonth() - 1);
-      return prevMonthDate;
-    });
-  };
+    const fetchData = async () => {
+      try {
+        const res = await userscheduleApi({
+          year: currentYear,
+          month: currentMonth,
+        });
+        const data = res?.data.response;
+        if (res) {
+          setScheduleData(res.data.response);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
-  // 다음 달로 이동하는 함수
-  const nextMonth = () => {
-    setCurrentDate((prevDate) => {
-      const nextMonthDate = new Date(prevDate);
-      nextMonthDate.setMonth(nextMonthDate.getMonth() + 1);
-      return nextMonthDate;
-    });
-  };
-
-  const getFirstDay = (date: Date) => {
-    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    return firstDay.getDay();
-  };
-
-  const getLastDateOfMonth = (date: string | number | Date) => {
-    const nextMonth = new Date(date);
-    nextMonth.setMonth(nextMonth.getMonth() + 1);
-    nextMonth.setDate(0);
-    return nextMonth.getDate();
-  };
-
-  const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth() + 1;
-  const today = currentDate.getDate();
-
-  const weeks = [];
-  const firstDayIndex = getFirstDay(currentDate);
-  const lastDateOfMonth = getLastDateOfMonth(currentDate);
-
-  let week = [];
-  for (let i = 0; i < firstDayIndex; i++) {
-    week.push(null);
-  }
-
-  for (let date = 1; date <= lastDateOfMonth; date++) {
-    week.push(date);
-
-    if (week.length === 7) {
-      weeks.push(week);
-      week = [];
+  //DateRange 계산하는 로직
+  const getDateRange = (startDate: string, endDate: string) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const result = [];
+    while (start <= end) {
+      result.push(start.toISOString().split("T")[0]);
+      start.setDate(start.getDate() + 1);
     }
-  }
+    return result;
+  };
 
-  if (week.length > 0) {
-    while (week.length < 7) {
-      week.push(null);
-    }
-    weeks.push(week);
-  }
+  // 시작일, 종료일 가져오기
+  const markDate = scheduleData.map((row) =>
+    getDateRange(`${row.startDate}`, `${row.endDate}`),
+  );
+
+  // 달력에 mark 될 날짜 합쳐서 새로운 배열 생성
+  const dutyDate = [].concat(...markDate);
+
+  const startDates = scheduleData.map((row) => row.startDate);
+  const endDates = scheduleData.map((row) => row.endDate);
 
   return (
-    <CalendarContainer>
-      <CalendarMonth>
-        <ArrowButton onClick={prevMonth}>&lt;</ArrowButton>
-        <span>{currentYear}년 </span>
-        <span>{currentMonth}월</span>
-        <ArrowButton onClick={nextMonth}>&gt;</ArrowButton>
-      </CalendarMonth>
-      <CalendarTable>
-        <thead>
-          <tr>
-            <SundayHeader>일</SundayHeader>
-            <th>월</th>
-            <th>화</th>
-            <th>수</th>
-            <th>목</th>
-            <th>금</th>
-            <SaturdayHeader>토</SaturdayHeader>
-          </tr>
-        </thead>
-        <tbody>
-          {weeks.map((week, index) => (
-            <tr key={index}>
-              {week.map((date, idx) => {
-                if (date === null) {
-                  return <DateCell key={idx} />;
-                }
-
-                const isCurrentDay = date === today;
-                const isPast12PM = isCurrentDay && new Date().getHours() >= 12;
-
-                return (
-                  <DateCell
-                    key={idx}
-                    className={
-                      isCurrentDay
-                        ? isPast12PM
-                          ? "current-day-black"
-                          : "current-day"
-                        : "other-day"
-                    }
-                  >
-                    {date}
-                    <div>정보뿌리기</div>
-                  </DateCell>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </CalendarTable>
-    </CalendarContainer>
+    <>
+      <ReactCalendar
+        // onChange={onchange}
+        formatDay={(locale, date) => moment(date).format("DD")}
+        value={value}
+        allowPartialRange={true}
+        className="mx-auto w-full text-sm border-b"
+        tileContent={({ date }) => {
+          if (startDates.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+            return (
+              <>
+                <div className="flex justify-center items-center absoluteDiv">
+                  <div className="dot">⭐️</div>
+                </div>
+              </>
+            );
+          }
+          if (endDates.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+            return (
+              <>
+                <div className="flex justify-center items-center absoluteDiv">
+                  <div className="dot">❤️</div>
+                </div>
+              </>
+            );
+          }
+          if (dutyDate.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+            return (
+              <>
+                <div className="flex justify-center items-center absoluteDiv">
+                  <div className="dot">🧐</div>
+                </div>
+              </>
+            );
+          }
+        }}
+      />
+    </>
   );
 }
-
-const CalendarContainer = styled.div`
-  font-family: Arial, sans-serif;
-`;
-
-const ArrowButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 20px;
-  padding: 30px;
-  cursor: pointer;
-`;
-
-const SundayHeader = styled.th`
-  font-size: 20px;
-  color: red;
-`;
-
-const SaturdayHeader = styled.th`
-  font-size: 20px;
-  color: blue;
-`;
-
-const CalendarTable = styled.table`
-  border-collapse: collapse;
-  width: 750px;
-  margin: 0 auto;
-  font-size: 20px;
-`;
-
-const CalendarMonth = styled.div`
-  padding: 45px;
-  font-size: 30px;
-  text-align: center;
-  margin: 0 auto;
-`;
-
-const DateCell = styled.td`
-  cursor: pointer;
-  width: 70px;
-  height: 70px;
-  text-align: center;
-  vertical-align: middle;
-
-  &.current-day {
-    background-color: #ccc;
-  }
-
-  &.current-day-black {
-    color: black;
-  }
-
-  &.other-day {
-    color: #ccc;
-  }
-`;
 
 export default Calendar;

@@ -4,10 +4,19 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { ThemeProvider } from "styled-components";
+import React from "react";
 
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [hydrated, setHydrated] = React.useState(false);
+  React.useEffect(() => {
+    setHydrated(true);
+  }, []);
+  if (!hydrated) {
+    // Returns null on first render, so the client and server match
+    return null;
+  }
   return (
     <>
       <Head>
