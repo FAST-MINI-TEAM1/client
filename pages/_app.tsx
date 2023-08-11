@@ -4,9 +4,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { ThemeProvider } from "styled-components";
-import "@fullcalendar/common/main.css";
-import "@fullcalendar/daygrid/main.css";
-import "@fullcalendar/timegrid/main.css";
 
 const queryClient = new QueryClient();
 
