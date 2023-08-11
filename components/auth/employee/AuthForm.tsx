@@ -138,6 +138,9 @@ function AuthForm({ type }: IAuthFormProps) {
       {loading && <Loading />}
       <AuthFormBlock>
         <h3>{text}</h3>
+        <Link href="/">
+          <a>홈</a>
+        </Link>
         <form onSubmit={type === "login" ? onLogin : onRegister}>
           {type === "login" && (
             <>

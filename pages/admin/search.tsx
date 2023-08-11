@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Select } from "antd";
 import DataTabel from "@components/common/DataTabel";
 import styled from "styled-components";

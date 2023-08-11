@@ -77,7 +77,7 @@ function EmployeeTableTab({ scheduleData }: EmployeeTableTabProps) {
 const StyledTabs = styled(Tabs)`
   color: #090909;
   font-size: 16px;
-  text-shadow: 0px 3px 7px rgba(81, 81, 81, 0.25);
+  // text-shadow: 0px 3px 7px rgba(81, 81, 81, 0.25);
   h1 {
     color: black;
     font-size: 16px;
