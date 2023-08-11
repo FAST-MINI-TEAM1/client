@@ -3,38 +3,12 @@ import React, { useEffect, useState } from "react";
 import { Tabs } from "antd";
 import type { TabsProps } from "antd";
 import { styled } from "styled-components";
-import { userscheduleApi } from "@lib/api/employeeAPI";
 import EmployeeTable from "@components/employee/EmployeeTable";
 import Calendar from "@components/common/Calender";
 
 function EmployeeTableTab() {
   const [selectedTap, setSelectedTap] = useState("전체");
   const [toggle, setToggle] = useState(true);
-  // 월별 조회
-  const [scheduleData, setScheduleData] = useState([]);
-
-  // 월별 조회 api 호출
-  useEffect(() => {
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1;
-
-    const fetchData = async () => {
-      try {
-        const res = await userscheduleApi({
-          year: currentYear,
-          month: currentMonth,
-        });
-        if (res) {
-          setScheduleData(res.data.response);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const onChange = (key: string) => {
     setSelectedTap(key);
@@ -53,7 +27,7 @@ function EmployeeTableTab() {
       children: (
         <Layout>
           <CalendarContainer>
-            <Calendar scheduleData={scheduleData} />
+            <Calendar selectedTap={selectedTap} />
           </CalendarContainer>
           <EmployeeTable selectedTap={selectedTap} />
         </Layout>
@@ -65,7 +39,7 @@ function EmployeeTableTab() {
       children: (
         <Layout>
           <CalendarContainer>
-            <Calendar scheduleData={scheduleData} />
+            <Calendar selectedTap={selectedTap} toggle={toggle} />
           </CalendarContainer>
           <EmployeeTable selectedTap={selectedTap} toggle={toggle} />
         </Layout>
@@ -77,7 +51,7 @@ function EmployeeTableTab() {
       children: (
         <Layout>
           <CalendarContainer>
-            <Calendar scheduleData={scheduleData} />
+            <Calendar selectedTap={selectedTap} toggle={toggle} />
           </CalendarContainer>
           <EmployeeTable selectedTap={selectedTap} toggle={toggle} />
         </Layout>

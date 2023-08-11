@@ -10,7 +10,6 @@ import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
 interface selectedTapProps {
   selectedTap: string;
   toggle?: boolean;
-  setToggle?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
