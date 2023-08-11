@@ -1,18 +1,40 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs } from "antd";
 import type { TabsProps } from "antd";
-import EmployeeTable from "@components/employee/EmployeeTable";
 import { styled } from "styled-components";
+import { userscheduleApi } from "@lib/api/employeeAPI";
+import EmployeeTable from "@components/employee/EmployeeTable";
 import Calendar from "@components/common/Calender";
 
-interface EmployeeTableTabProps {
-  scheduleData: any[];
-}
-
-function EmployeeTableTab({ scheduleData }: EmployeeTableTabProps) {
+function EmployeeTableTab() {
   const [selectedTap, setSelectedTap] = useState("전체");
   const [toggle, setToggle] = useState(true);
+  // 월별 조회
+  const [scheduleData, setScheduleData] = useState([]);
+
+  // 월별 조회 api 호출
+  useEffect(() => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
+
+    const fetchData = async () => {
+      try {
+        const res = await userscheduleApi({
+          year: currentYear,
+          month: currentMonth,
+        });
+        if (res) {
+          setScheduleData(res.data.response);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const onChange = (key: string) => {
     setSelectedTap(key);
@@ -31,7 +53,7 @@ function EmployeeTableTab({ scheduleData }: EmployeeTableTabProps) {
       children: (
         <Layout>
           <CalendarContainer>
-            <Calendar />
+            <Calendar scheduleData={scheduleData} />
           </CalendarContainer>
           <EmployeeTable selectedTap={selectedTap} />
         </Layout>
@@ -43,7 +65,7 @@ function EmployeeTableTab({ scheduleData }: EmployeeTableTabProps) {
       children: (
         <Layout>
           <CalendarContainer>
-            <Calendar />
+            <Calendar scheduleData={scheduleData} />
           </CalendarContainer>
           <EmployeeTable selectedTap={selectedTap} toggle={toggle} />
         </Layout>
@@ -55,7 +77,7 @@ function EmployeeTableTab({ scheduleData }: EmployeeTableTabProps) {
       children: (
         <Layout>
           <CalendarContainer>
-            <Calendar />
+            <Calendar scheduleData={scheduleData} />
           </CalendarContainer>
           <EmployeeTable selectedTap={selectedTap} toggle={toggle} />
         </Layout>
