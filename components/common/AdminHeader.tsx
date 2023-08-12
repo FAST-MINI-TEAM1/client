@@ -93,12 +93,14 @@ const HeaderBlock = styled.header`
   justify-content: center;
   align-items: center;
   padding: 0 20px;
+  position: fixed;
+  z-index: 99999;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 `;
 
 const HeaderContent = styled.div`
   width: 1320px;
   height: inherit;
-  /* background: coral; */
   max-width: 1280px;
   display: flex;
   justify-content: space-between;
