@@ -3,7 +3,7 @@ import { Button, Space } from "antd";
 import { styled } from "styled-components";
 import SelectModal from "@components/employee/SelectModal";
 import { employeeListApi } from "@lib/api/employeeAPI";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IDataSourceItem } from "@lib/interface/Admin";
 import EmployeeHistoyModal from "@components/employee/EmployeeHistoyModal";
 
@@ -24,7 +24,7 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
     setDetails(data);
   };
 
-  const setlist = async () => {
+  const setlist = useCallback(async () => {
     try {
       const res = await employeeListApi(pageSize);
       const Data = res?.data;
@@ -39,11 +39,11 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
     } catch (error) {
       console.error("서버로 부터 응답 안옴", error);
     }
-  };
+  }, [pageSize]);
 
   useEffect(() => {
     setlist();
-  }, [listUpdate]);
+  }, [setlist, listUpdate]);
 
   return (
     <>

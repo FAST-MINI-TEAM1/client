@@ -8,12 +8,11 @@ function ApprovalModal({ open, setOpen, details }: IModalProps) {
   const handleClick = async (e: MouseEvent, id: number, status: string) => {
     e.preventDefault();
     try {
-      const res = await postUpdateOrder({ id, status });
-      console.log("결재처리 성공", res);
+      await postUpdateOrder({ id, status });
       setOpen(false);
       window.location.reload();
     } catch (error) {
-      console.log("결재 처리 실패", error);
+      alert("결재 처리 실패하였습니다!");
     }
   };
 

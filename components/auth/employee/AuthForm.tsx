@@ -270,21 +270,6 @@ const AuthFormBlock = styled.div`
   }
 `;
 
-// const StyledInput = styled.input`
-//   font-size: 1rem;
-//   border: none;
-//   border-bottom: 1px solid #666;
-//   padding-bottom: 0.5rem;
-//   outline: none;
-//   width: 100%;
-//   &:focus {
-//     border-bottom: 2px solid #000;
-//   }
-//   & + & {
-//     margin-top: 2rem;
-//   }
-// `;
-
 const InputWrapper = styled.div`
   display: flex;
   justify-content: space-between;
