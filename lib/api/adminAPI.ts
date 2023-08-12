@@ -29,22 +29,28 @@ export const postUpdateOrder = ({ id, status }: IRequestBody) => {
 };
 
 // 요청 관리 - 결재 대기 조회
-export const getPendingOrders = () => {
-  const res = adminClient.get(`/api/admin/order/list/status/wait`, {
-    headers: {
-      Authorization: accessToken,
+export const getPendingOrders = (page: number, size: number) => {
+  const res = adminClient.get(
+    `/api/admin/order/list/status/wait?page=${page}&size=${size}`,
+    {
+      headers: {
+        Authorization: accessToken,
+      },
     },
-  });
+  );
   return res;
 };
 
 // 요청관리 - 결재 완료 조회
-export const getCompletedOrders = () => {
-  const res = adminClient.get(`/api/admin/order/list/status/complete`, {
-    headers: {
-      Authorization: accessToken,
+export const getCompletedOrders = (page: number, size: number) => {
+  const res = adminClient.get(
+    `/api/admin/order/list/status/complete?page=${page}&size=${size}`,
+    {
+      headers: {
+        Authorization: accessToken,
+      },
     },
-  });
+  );
   return res;
 };
 
