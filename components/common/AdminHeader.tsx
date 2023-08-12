@@ -37,7 +37,8 @@ function AdminHeader() {
               <Link href="/admin/daily">
                 <a
                   className={
-                    router.pathname === "/admin/daily" || "/admin/monthly"
+                    router.pathname === "/admin/daily" ||
+                    router.pathname === "/admin/monthly"
                       ? "active"
                       : ""
                   }
