@@ -21,19 +21,17 @@ function Approval() {
     try {
       const { data } = await getPendingOrders();
       setPendingOrders(data.response.content);
-      console.log("pending data", data.response.content);
     } catch (error) {
-      console.log("대기 조회 실패", error);
+      alert("결재 대기 조회 오류 발생하였습니다!");
     }
   };
 
   const getCompletedList = async () => {
     try {
       const { data } = await getCompletedOrders();
-      console.log("completed data", data.response.content);
       setCompletedOrders(data.response.content);
     } catch (error) {
-      console.log("완료 조회 실패", error);
+      alert("결재 완료 조회 오류 발생하였습니다!");
     }
   };
 
@@ -41,7 +39,6 @@ function Approval() {
     const fetchData = async () => {
       const { data } = await getPendingOrders();
       setPendingOrders(data.response.content);
-      console.log("pending data", data.response.content);
     };
     fetchData();
   }, []);
@@ -49,7 +46,6 @@ function Approval() {
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await getCompletedOrders();
-      console.log("completed data", data.response.content);
       setCompletedOrders(data.response.content);
     };
     fetchData();

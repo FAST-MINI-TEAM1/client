@@ -8,7 +8,6 @@ import { IDataTableProps, IDataSourceItem } from "@lib/interface/Admin";
 
 function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
   const [open, setOpen] = useState(false);
-
   const [employeeOpen, setEmployeeOpen] = useState(false);
   const [details, setDetils] = useState<IDataSourceItem>();
   const [listUpdate, setListUpdate] = useState(false);
@@ -123,11 +122,6 @@ function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
         columns={columns}
         pagination={{ size: "small", position: ["bottomCenter"] }}
         scroll={{ y: 240 }}
-        onRow={(record, rowIndex) => {
-          return {
-            onClick: () => console.log(record, rowIndex),
-          };
-        }}
       />
       {type === "admin" ? (
         <ApprovalModal open={open} setOpen={setOpen} details={details} />
