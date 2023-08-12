@@ -34,13 +34,35 @@ function AdminHeader() {
               </Link>
             </li>
             <SheetSection>
-              <span>사용대장</span>
+              <Link href="/admin/daily">
+                <a
+                  className={
+                    router.pathname === "/admin/daily" || "/admin/monthly"
+                      ? "active"
+                      : ""
+                  }
+                >
+                  사용대장
+                </a>
+              </Link>
               <div className="subMenu">
                 <Link href="/admin/daily">
-                  <a>일별사용대장</a>
+                  <a
+                    className={
+                      router.pathname === "/admin/daily" ? "active" : ""
+                    }
+                  >
+                    일별사용대장
+                  </a>
                 </Link>
                 <Link href="/admin/monthly">
-                  <a>월별사용대장</a>
+                  <a
+                    className={
+                      router.pathname === "/admin/monthly" ? "active" : ""
+                    }
+                  >
+                    월별사용대장
+                  </a>
                 </Link>
               </div>
             </SheetSection>
