@@ -117,7 +117,13 @@ function SearchPage() {
                   console.log(selectedOption);
                 }}
               />
-              <StyledInput onChange={handleChangeInput} autoFocus />
+              <StyledInput
+                onChange={handleChangeInput}
+                placeholder={
+                  selectedOption === "1" ? "ex.홍길동" : "ex.20230009"
+                }
+                autoFocus
+              />
               <StyeldBtn className="searchBtn">Search</StyeldBtn>
             </SearchForm>
           </SearchBar>
