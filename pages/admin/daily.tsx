@@ -130,11 +130,11 @@ function Daily() {
           <Container>
             <StyeldCalendar
               calendarType="gregory"
-              formatDay={(_, date) => moment(date).format("D")}
+              formatDay={(_: any, date: any) => moment(date).format("D")}
               tileContent={
                 tabKey === "당직" ? dutyTileContent : annualTileContent
               }
-              onActiveStartDateChange={({ activeStartDate }) =>
+              onActiveStartDateChange={(activeStartDate: any) =>
                 handleChange(activeStartDate)
               }
             />
