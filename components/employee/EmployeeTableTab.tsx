@@ -116,6 +116,7 @@ const Layout = styled.div`
 const CalendarContainer = styled.div`
   width: 950px;
   height: 670px;
+  overflow: hidden;
   border-radius: 20px;
   background: #fff;
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.16);

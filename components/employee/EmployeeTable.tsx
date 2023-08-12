@@ -198,13 +198,13 @@ const DutyIcon = styled.div`
   width: 15px;
   height: 15px;
   border-radius: 50px;
-  background-color: ${(props) => props.theme.pointColor.blue};
+  background-color: ${(props) => props.theme.pointColor.yellow};
 `;
 const AnnualIcon = styled.div`
   width: 15px;
   height: 15px;
   border-radius: 50px;
-  background-color: ${(props) => props.theme.pointColor.yellow};
+  background-color: ${(props) => props.theme.pointColor.blue};
 `;
 const StanByIcon = styled.div`
   width: 15px;
