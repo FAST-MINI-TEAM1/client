@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from "react";
-import Calendar from "react-calendar";
-import { useQuery } from "@tanstack/react-query";
-import { getDailyDuty, getDailyAnnual } from "@lib/api/adminAPI";
-import "react-calendar/dist/Calendar.css";
-import { styled } from "styled-components";
-import moment from "moment";
-import AdminHeader from "@components/common/AdminHeader";
 import { Tabs } from "antd";
 import type { TabsProps } from "antd";
-
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import moment from "moment";
+import { getDailyDuty, getDailyAnnual } from "@lib/api/adminAPI";
+import { styled } from "styled-components";
+import AdminHeader from "@components/common/AdminHeader";
+interface IDailyResponse {
+  empName: string;
+  empNo: number;
+  orderType: string;
+  date: string;
+}
 function Daily() {
   const [mounted, setMounted] = useState(false);
   const [tabKey, setTabKey] = useState("");
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
-  const [dutyData, setDutyData] = useState([]);
-  const [annualData, setAnnualData] = useState([]);
+  const [dutyData, setDutyData] = useState<IDailyResponse[]>([]);
+  const [annualData, setAnnualData] = useState<IDailyResponse[]>([]);
 
   useEffect(() => {
     setMounted(true);
@@ -27,45 +31,43 @@ function Daily() {
         try {
           const { data } = await getDailyDuty(year, month);
           setDutyData(data.response);
-          console.log("당직성공", data.response);
         } catch (error) {
-          console.log("당직실패", error);
+          alert("당직 조회 오류 발생하였습니다!");
         }
       } else {
         try {
           const { data } = await getDailyAnnual(year, month);
           setAnnualData(data.response);
-          console.log("당직성공", data.response);
         } catch (error) {
-          console.log("당직실패", error);
+          alert("연차 조회 오류 발생하였습니다!");
         }
       }
     };
     getDailyData();
   }, [tabKey, year, month]);
 
-  const handleChange = (activeStartDate: any) => {
-    const activeYear = new Date(activeStartDate).getFullYear();
-    const activeMonth = new Date(activeStartDate).getMonth() + 1;
-    setYear(activeYear);
-    setMonth(activeMonth);
+  const handleChange = (activeStartDate: Date | null) => {
+    if (activeStartDate) {
+      const activeYear = new Date(activeStartDate).getFullYear();
+      const activeMonth = new Date(activeStartDate).getMonth() + 1;
+      setYear(activeYear);
+      setMonth(activeMonth);
+    }
   };
 
   function dutyTileContent({ date }: any) {
     if (
-      dutyData?.find(
-        (item: any) => item.date === moment(date).format("YYYY-MM-DD"),
-      )
+      dutyData?.find((item) => item.date === moment(date).format("YYYY-MM-DD"))
     ) {
       const filteredDate = moment(date).format("YYYY-MM-DD");
-      const employeeData = dutyData?.filter((item: any) => {
+      const employeeData = dutyData?.filter((item) => {
         return item.date === filteredDate;
       });
       return (
         <>
-          {employeeData?.map((item: any) => (
+          {employeeData?.map((item) => (
             <>
-              <DutyPerson>
+              <DutyPerson key={item.empNo}>
                 {item.empName} / {item.empNo}
               </DutyPerson>
             </>
@@ -78,18 +80,18 @@ function Daily() {
   function annualTileContent({ date }: any) {
     if (
       annualData?.find(
-        (item: any) => item.date === moment(date).format("YYYY-MM-DD"),
+        (item) => item.date === moment(date).format("YYYY-MM-DD"),
       )
     ) {
       const filteredDate = moment(date).format("YYYY-MM-DD");
-      const employeeData = annualData?.filter((item: any) => {
+      const employeeData = annualData?.filter((item) => {
         return item.date === filteredDate;
       });
       return (
         <>
-          {employeeData?.map((item: any) => (
+          {employeeData?.map((item) => (
             <>
-              <AnnualPerson>
+              <AnnualPerson key={item.empNo}>
                 {item.empName} / {item.empNo}
               </AnnualPerson>
             </>
@@ -132,7 +134,7 @@ function Daily() {
               tileContent={
                 tabKey === "당직" ? dutyTileContent : annualTileContent
               }
-              onActiveStartDateChange={({ action, activeStartDate }) =>
+              onActiveStartDateChange={({ activeStartDate }) =>
                 handleChange(activeStartDate)
               }
             />
