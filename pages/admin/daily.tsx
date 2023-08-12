@@ -7,12 +7,8 @@ import moment from "moment";
 import { getDailyDuty, getDailyAnnual } from "@lib/api/adminAPI";
 import { styled } from "styled-components";
 import AdminHeader from "@components/common/AdminHeader";
-interface IDailyResponse {
-  empName: string;
-  empNo: number;
-  orderType: string;
-  date: string;
-}
+import { IDailyResponse } from "@lib/interface/Admin";
+
 function Daily() {
   const [mounted, setMounted] = useState(false);
   const [tabKey, setTabKey] = useState("");
@@ -134,7 +130,7 @@ function Daily() {
               tileContent={
                 tabKey === "당직" ? dutyTileContent : annualTileContent
               }
-              onActiveStartDateChange={(activeStartDate: any) =>
+              onActiveStartDateChange={({ activeStartDate }: any) =>
                 handleChange(activeStartDate)
               }
             />
