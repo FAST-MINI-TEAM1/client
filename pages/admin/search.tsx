@@ -1,5 +1,5 @@
 import { Select } from "antd";
-import DataTabel from "@components/common/DataTabel";
+import DataTable from "@components/common/DataTable";
 import styled from "styled-components";
 import AdminHeader from "@components/common/AdminHeader";
 import { FormEvent, useCallback, useEffect, useState } from "react";
@@ -46,7 +46,7 @@ function SearchPage() {
           setVisible(true);
         }
       } catch (error) {
-        alert("검색 오류 발생하였습니다!");
+        alert("사원명 검색 실패하였습니다!");
       }
     },
     [searchWord],
@@ -73,7 +73,7 @@ function SearchPage() {
           setVisible(true);
         }
       } catch (error) {
-        alert("검색 오류 발생하였습니다!");
+        alert("사원번호 검색 실패하였습니다!");
       }
     },
     [empNumber],
@@ -150,12 +150,12 @@ function SearchPage() {
               <TableSection>
                 <h3>연차 / 당직</h3>
                 <div className="details">
-                  <DataTabel
+                  <DataTable
                     tableTitle="결재 대기"
                     dataSource={pendingOrder}
                     type={"admin"}
                   />
-                  <DataTabel
+                  <DataTable
                     tableTitle="결재 완료"
                     dataSource={completeOrder}
                     type={"admin"}
@@ -257,6 +257,7 @@ const TableSection = styled.section`
     border-radius: 30px;
     background: #fff;
     box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+    gap: 20px;
   }
 `;
 export default SearchPage;

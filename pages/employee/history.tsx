@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import DataTabel from "@components/common/DataTabel";
+import DataTabel from "@components/common/DataTable";
 import Header from "@components/common/Header";
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
