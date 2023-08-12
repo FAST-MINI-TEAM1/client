@@ -120,7 +120,7 @@ function DataTabel({ tableTitle, dataSource, type }: IDataTableProps) {
       <Table
         dataSource={dataSource}
         columns={columns}
-        pagination={{ size: "small", position: ["bottomCenter"] }}
+        pagination={false}
         scroll={{ y: 240 }}
       />
       {type === "admin" ? (
