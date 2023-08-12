@@ -10,11 +10,11 @@ interface EmployeeTableTabProps {
   toggle?: boolean;
 }
 
-function Calendar({ selectedTap, toggle }: EmployeeTableTabProps) {
+function Calendar({ selectedTap }: EmployeeTableTabProps) {
   const moment = require("moment");
   const [value, onChange] = useState(new Date());
   // 월별 조회
-  const [scheduleData, setScheduleData] = useState<IEmployeeMonthly[]>([]);
+  const [scheduleDatas, setScheduleDatas] = useState<IEmployeeMonthly[]>([]);
 
   // 월별 조회 api 호출
   useEffect(() => {
@@ -28,16 +28,36 @@ function Calendar({ selectedTap, toggle }: EmployeeTableTabProps) {
           year: currentYear,
           month: currentMonth,
         });
-        const data = res?.data.response;
-        if (res) {
-          setScheduleData(res.data.response);
+        const data: IEmployeeMonthly[] = res?.data.response;
+        if (selectedTap == "전체") {
+          const scheduleData = data;
+          setScheduleDatas(scheduleData);
+          return;
+        }
+        if (selectedTap == "연차") {
+          const scheduleData = data.filter((item) => {
+            if (selectedTap == "연차") {
+              return item.orderType == "연차";
+            }
+          });
+          setScheduleDatas(scheduleData);
+          return;
+        }
+        if (selectedTap == "당직") {
+          const scheduleData = data.filter((item) => {
+            if (selectedTap == "당직") {
+              return item.orderType == "당직";
+            }
+          });
+          setScheduleDatas(scheduleData);
+          return;
         }
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
-  }, []);
+  }, [selectedTap]);
 
   //DateRange 계산하는 로직
   const getDateRange = (startDate: string, endDate: string) => {
@@ -50,17 +70,13 @@ function Calendar({ selectedTap, toggle }: EmployeeTableTabProps) {
     }
     return result;
   };
-
-  // 시작일, 종료일 가져오기
-  const markDate = scheduleData.map((row) =>
+  // 달력에 일정 mark
+  const markDate = scheduleDatas.map((row) =>
     getDateRange(`${row.startDate}`, `${row.endDate}`),
   );
 
   // 달력에 mark 될 날짜 합쳐서 새로운 배열 생성
-  const dutyDate = [].concat(...markDate);
-
-  const startDates = scheduleData.map((row) => row.startDate);
-  const endDates = scheduleData.map((row) => row.endDate);
+  const allDate: string[] = ([] as string[]).concat(...markDate);
 
   return (
     <>
@@ -71,29 +87,17 @@ function Calendar({ selectedTap, toggle }: EmployeeTableTabProps) {
         allowPartialRange={true}
         className="mx-auto w-full text-sm border-b"
         tileContent={({ date }) => {
-          if (startDates.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+          if (allDate.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
             return (
               <>
                 <div className="flex justify-center items-center absoluteDiv">
-                  <div className="dot">⭐️</div>
-                </div>
-              </>
-            );
-          }
-          if (endDates.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
-            return (
-              <>
-                <div className="flex justify-center items-center absoluteDiv">
-                  <div className="dot">❤️</div>
-                </div>
-              </>
-            );
-          }
-          if (dutyDate.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
-            return (
-              <>
-                <div className="flex justify-center items-center absoluteDiv">
-                  <div className="dot">🧐</div>
+                  <div className="dot">
+                    {selectedTap == "전체"
+                      ? "🧐"
+                      : selectedTap == "연차"
+                      ? "❤️"
+                      : "⭐️"}
+                  </div>
                 </div>
               </>
             );
