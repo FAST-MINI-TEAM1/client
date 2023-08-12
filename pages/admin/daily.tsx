@@ -173,6 +173,7 @@ const DutyPerson = styled.div`
   padding: 5px 0;
   border-radius: 10px;
   color: #fff;
+  margin-bottom: 5px;
 `;
 
 const AnnualPerson = styled.div`
@@ -180,6 +181,7 @@ const AnnualPerson = styled.div`
   padding: 5px 0;
   border-radius: 10px;
   color: #fff;
+  margin-bottom: 2px;
 `;
 const StyeldCalendar = styled(Calendar)`
   &.react-calendar {
