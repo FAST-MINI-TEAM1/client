@@ -45,8 +45,8 @@ function SearchPage() {
           );
           setVisible(true);
         }
-      } catch (e) {
-        console.error(e, "실패");
+      } catch (error) {
+        alert("검색 오류 발생하였습니다!");
       }
     },
     [searchWord],
@@ -72,8 +72,8 @@ function SearchPage() {
           );
           setVisible(true);
         }
-      } catch (e) {
-        console.error(e, "실패");
+      } catch (error) {
+        alert("검색 오류 발생하였습니다!");
       }
     },
     [empNumber],
@@ -85,7 +85,6 @@ function SearchPage() {
       setSearchWord(value);
     } else {
       setEmpNumber(Number(value));
-      console.log(empNumber);
     }
   };
 
