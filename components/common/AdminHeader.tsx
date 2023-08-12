@@ -16,7 +16,7 @@ function AdminHeader() {
       <HeaderContent>
         <LogoContainer>
           <Link href="/admin">
-            <Image src={logo} alt="logo" width={189} height={65} />
+            <Logo src={logo} alt="logo" width={189} height={65} />
           </Link>
           <UserWelcome>
             <span>관리자</span>
@@ -112,6 +112,10 @@ const LogoContainer = styled.div`
   gap: 1rem;
 `;
 
+const Logo = styled(Image)`
+  cursor: pointer;
+`;
+
 const UserWelcome = styled.div`
   span {
     &:first-child {
@@ -148,6 +152,7 @@ const Nav = styled.nav`
     }
   }
 `;
+
 const SheetSection = styled.li`
   .subMenu {
     display: none;
