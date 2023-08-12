@@ -32,7 +32,8 @@ function MonthlyTable({ dataSource }: IMonthlyPros) {
       key: "jan",
       width: 70,
       align: "center",
-      render: (_, data) => <p>{data.month.jan}</p>,
+      render: (_, data) =>
+        data.month.jan === 0 ? "" : <p>{data.month.jan}</p>,
     },
     {
       title: "2월",
@@ -40,7 +41,8 @@ function MonthlyTable({ dataSource }: IMonthlyPros) {
       key: "feb",
       width: 70,
       align: "center",
-      render: (_, data) => <p>{data.month.feb}</p>,
+      render: (_, data) =>
+        data.month.feb === 0 ? "" : <p>{data.month.feb}</p>,
     },
     {
       title: "3월",
@@ -48,7 +50,8 @@ function MonthlyTable({ dataSource }: IMonthlyPros) {
       key: "mar",
       width: 70,
       align: "center",
-      render: (_, data) => <p>{data.month.mar}</p>,
+      render: (_, data) =>
+        data.month.mar === 0 ? "" : <p>{data.month.mar}</p>,
     },
     {
       title: "4월",
@@ -56,7 +59,8 @@ function MonthlyTable({ dataSource }: IMonthlyPros) {
       key: "apr",
       width: 70,
       align: "center",
-      render: (_, data) => <p>{data.month.apr}</p>,
+      render: (_, data) =>
+        data.month.apr === 0 ? "" : <p>{data.month.apr}</p>,
     },
     {
       title: "5월",
@@ -64,7 +68,8 @@ function MonthlyTable({ dataSource }: IMonthlyPros) {
       key: "may",
       width: 70,
       align: "center",
-      render: (_, data) => <p>{data.month.may}</p>,
+      render: (_, data) =>
+        data.month.may === 0 ? "" : <p>{data.month.may}</p>,
     },
     {
       title: "6월",
@@ -72,7 +77,8 @@ function MonthlyTable({ dataSource }: IMonthlyPros) {
       key: "jun",
       width: 70,
       align: "center",
-      render: (_, data) => <p>{data.month.jun}</p>,
+      render: (_, data) =>
+        data.month.jun === 0 ? "" : <p>{data.month.jun}</p>,
     },
     {
       title: "7월",
@@ -80,7 +86,8 @@ function MonthlyTable({ dataSource }: IMonthlyPros) {
       key: "jul",
       width: 70,
       align: "center",
-      render: (_, data) => <p>{data.month.jul}</p>,
+      render: (_, data) =>
+        data.month.jul === 0 ? "" : <p>{data.month.jul}</p>,
     },
     {
       title: "8월",
@@ -88,15 +95,17 @@ function MonthlyTable({ dataSource }: IMonthlyPros) {
       key: "aug",
       width: 70,
       align: "center",
-      render: (_, data) => <p>{data.month.aug}</p>,
+      render: (_, data) =>
+        data.month.aug === 0 ? "" : <p>{data.month.aug}</p>,
     },
     {
       title: "9월",
       dataIndex: "sept",
-      key: "sep",
+      key: "sept",
       width: 70,
       align: "center",
-      render: (_, data) => <p>{data.month.sept}</p>,
+      render: (_, data) =>
+        data.month.sept === 0 ? "" : <p>{data.month.sept}</p>,
     },
     {
       title: "10월",
@@ -104,7 +113,8 @@ function MonthlyTable({ dataSource }: IMonthlyPros) {
       key: "oct",
       width: 70,
       align: "center",
-      render: (_, data) => <p>{data.month.oct}</p>,
+      render: (_, data) =>
+        data.month.oct === 0 ? "" : <p>{data.month.oct}</p>,
     },
     {
       title: "11월",
@@ -112,7 +122,8 @@ function MonthlyTable({ dataSource }: IMonthlyPros) {
       key: "nov",
       width: 70,
       align: "center",
-      render: (_, data) => <p>{data.month.nov}</p>,
+      render: (_, data) =>
+        data.month.nov === 0 ? "" : <p>{data.month.nov}</p>,
     },
     {
       title: "12월",
@@ -120,7 +131,8 @@ function MonthlyTable({ dataSource }: IMonthlyPros) {
       key: "dec",
       width: 70,
       align: "center",
-      render: (_, data) => <p>{data.month.dec}</p>,
+      render: (_, data) =>
+        data.month.dec === 0 ? "" : <p>{data.month.dec}</p>,
     },
     {
       title: "합계",
@@ -139,6 +151,7 @@ function MonthlyTable({ dataSource }: IMonthlyPros) {
         size="large"
         columns={columnsData}
         dataSource={dataSource}
+        pagination={false}
         bordered
       />
     </>
