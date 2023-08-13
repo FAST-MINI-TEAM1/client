@@ -10,16 +10,11 @@ import AdminHeader from "@components/common/AdminHeader";
 import { IDailyResponse } from "@lib/interface/Admin";
 
 function Daily() {
-  const [mounted, setMounted] = useState(false);
   const [tabKey, setTabKey] = useState("");
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [dutyData, setDutyData] = useState<IDailyResponse[]>([]);
   const [annualData, setAnnualData] = useState<IDailyResponse[]>([]);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const getDailyData = async () => {
@@ -112,32 +107,29 @@ function Daily() {
   ];
 
   return (
-    mounted && (
-      <>
-        <AdminHeader />
-        <DateSection>
-          <StyledTabs
-            defaultActiveKey="1"
-            items={items}
-            tabBarGutter={30}
-            onTabClick={(key: any) => handleClick(key)}
+    <>
+      <AdminHeader />
+      <DateSection>
+        <StyledTabs
+          defaultActiveKey="1"
+          items={items}
+          tabBarGutter={30}
+          onTabClick={(key: any) => handleClick(key)}
+        />
+        <Container>
+          <StyeldCalendar
+            calendarType="gregory"
+            formatDay={(_: any, date: any) => moment(date).format("D")}
+            tileContent={
+              tabKey === "당직" ? dutyTileContent : annualTileContent
+            }
+            onActiveStartDateChange={({ activeStartDate }: any) =>
+              handleChange(activeStartDate)
+            }
           />
-
-          <Container>
-            <StyeldCalendar
-              calendarType="gregory"
-              formatDay={(_: any, date: any) => moment(date).format("D")}
-              tileContent={
-                tabKey === "당직" ? dutyTileContent : annualTileContent
-              }
-              onActiveStartDateChange={({ activeStartDate }: any) =>
-                handleChange(activeStartDate)
-              }
-            />
-          </Container>
-        </DateSection>
-      </>
-    )
+        </Container>
+      </DateSection>
+    </>
   );
 }
 const DateSection = styled.section`

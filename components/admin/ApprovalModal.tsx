@@ -5,8 +5,8 @@ import { postUpdateOrder } from "@lib/api/adminAPI";
 import { IModalProps } from "@lib/interface/Admin";
 
 function ApprovalModal({ open, setOpen, details }: IModalProps) {
-  const handleClick = async (e: MouseEvent, id: number, status: string) => {
-    e.preventDefault();
+  const handleClick = async (event: MouseEvent, id: number, status: string) => {
+    event.preventDefault();
     try {
       await postUpdateOrder({ id, status });
       setOpen(false);

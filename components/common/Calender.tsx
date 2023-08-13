@@ -117,11 +117,11 @@ function Calendar({ selectedTap }: EmployeeTableTabProps) {
         onActiveStartDateChange={({ activeStartDate }: any) =>
           handleChange(activeStartDate)
         }
-        formatDay={(locale, date) => moment(date).format("DD")}
+        formatDay={(locale: any, date: any) => moment(date).format("DD")}
         value={value}
         allowPartialRange={true}
         className="mx-auto w-full text-sm border-b"
-        tileContent={({ date }) => {
+        tileContent={(date: any) => {
           if (stanByDate.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
             return (
               <>

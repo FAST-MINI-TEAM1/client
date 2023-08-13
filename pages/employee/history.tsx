@@ -7,7 +7,6 @@ import { employeeListApi } from "@lib/api/employeeAPI";
 import { IDataSourceItem } from "@lib/interface/Admin";
 
 function History() {
-  const [mounted, setMounted] = useState(false);
   const [datas, setDatas] = useState<IDataSourceItem[]>([]);
   const [pageSize, setPageSize] = useState(10);
 
@@ -30,36 +29,33 @@ function History() {
 
   useEffect(() => {
     setlist();
-    setMounted(true);
   }, []);
 
   return (
-    mounted && (
-      <>
-        <Header />
-        <Container>
-          <div className="details">
-            <DataTabel
-              tableTitle={"결재 대기 내역"}
-              type={"employee"}
-              dataSource={datas.filter((data) => {
-                return data.status == "대기";
-              })}
-            />
-          </div>
+    <>
+      <Header />
+      <Container>
+        <div className="details">
+          <DataTabel
+            tableTitle={"결재 대기 내역"}
+            type={"employee"}
+            dataSource={datas.filter((data) => {
+              return data.status == "대기";
+            })}
+          />
+        </div>
 
-          <div className="details">
-            <DataTabel
-              tableTitle={"결재 완료 내역"}
-              type={"employee"}
-              dataSource={datas.filter((data) => {
-                return data.status != "대기";
-              })}
-            />
-          </div>
-        </Container>
-      </>
-    )
+        <div className="details">
+          <DataTabel
+            tableTitle={"결재 완료 내역"}
+            type={"employee"}
+            dataSource={datas.filter((data) => {
+              return data.status != "대기";
+            })}
+          />
+        </div>
+      </Container>
+    </>
   );
 }
 

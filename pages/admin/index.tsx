@@ -7,16 +7,12 @@ import { IDataSourceItem } from "@lib/interface/Admin";
 import { Pagination } from "antd";
 
 function Approval() {
-  const [mounted, setMounted] = useState(false);
   const [pendingOrders, setPendingOrders] = useState<IDataSourceItem[]>([]);
   const [completedOrders, setCompletedOrders] = useState<IDataSourceItem[]>([]);
   const [pendingPage, setPendingPage] = useState(0);
   const [completePage, setCompletePage] = useState(0);
   const [totalPending, setTotalPending] = useState(1);
   const [totalComplete, setTotalComplete] = useState(1);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const getPendingList = async () => {
@@ -52,41 +48,39 @@ function Approval() {
     setCompletePage(page - 1);
   };
   return (
-    mounted && (
-      <>
-        <AdminHeader />
-        <Container>
-          <Details>
-            <DataTabel
-              tableTitle={"결재 대기"}
-              dataSource={pendingOrders}
-              type={"admin"}
-            />
-            <Pagination
-              defaultCurrent={1}
-              pageSize={10}
-              simple={true}
-              total={totalPending}
-              onChange={(page: number) => handlePendingChange(page)}
-            />
-          </Details>
-          <Details>
-            <DataTabel
-              tableTitle={"결재 완료"}
-              dataSource={completedOrders}
-              type={"admin"}
-            />
-            <Pagination
-              defaultCurrent={1}
-              pageSize={10}
-              simple={true}
-              total={totalComplete}
-              onChange={(page: number) => handleCompleteChange(page)}
-            />
-          </Details>
-        </Container>
-      </>
-    )
+    <>
+      <AdminHeader />
+      <Container>
+        <Details>
+          <DataTabel
+            tableTitle={"결재 대기"}
+            dataSource={pendingOrders}
+            type={"admin"}
+          />
+          <Pagination
+            defaultCurrent={1}
+            pageSize={10}
+            simple={true}
+            total={totalPending}
+            onChange={(page: number) => handlePendingChange(page)}
+          />
+        </Details>
+        <Details>
+          <DataTabel
+            tableTitle={"결재 완료"}
+            dataSource={completedOrders}
+            type={"admin"}
+          />
+          <Pagination
+            defaultCurrent={1}
+            pageSize={10}
+            simple={true}
+            total={totalComplete}
+            onChange={(page: number) => handleCompleteChange(page)}
+          />
+        </Details>
+      </Container>
+    </>
   );
 }
 

@@ -1,12 +1,10 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-const BASE_URL = "http://3.34.110.127";
-
-// const BASE_URL = "https://alsl1wpqkf1.shop";
+const BASE_URL = process.env.NODE_ENV;
 
 export const accessToken =
   typeof window !== "undefined" && localStorage.getItem("Token");
-console.log(accessToken);
+
 const axiosConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
   headers: {

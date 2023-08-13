@@ -4,13 +4,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { ThemeProvider } from "styled-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [hydrated, setHydrated] = React.useState(false);
-  React.useEffect(() => {
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
     setHydrated(true);
   }, []);
   if (!hydrated) {
