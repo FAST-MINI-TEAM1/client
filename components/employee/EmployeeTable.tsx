@@ -74,10 +74,12 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
                       >
                         {data.status === "대기" ? (
                           <StanByIcon />
-                        ) : data.orderType === "당직" ? (
-                          <DutyIcon />
-                        ) : (
+                        ) : data.status === "반려" ? (
+                          <RejectIcon />
+                        ) : data.orderType === "연차" ? (
                           <AnnualIcon />
+                        ) : (
+                          <DutyIcon />
                         )}
                         <DutyInfo>{data.startDate}</DutyInfo>
                         <DutyInfo>
@@ -118,12 +120,14 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
                       >
                         {data.status === "대기" ? (
                           <StanByIcon />
-                        ) : data.orderType === "당직" ? (
-                          <DutyIcon />
-                        ) : (
+                        ) : data.status === "반려" ? (
+                          <RejectIcon />
+                        ) : data.orderType === "연차" ? (
                           <AnnualIcon />
+                        ) : (
+                          <DutyIcon />
                         )}
-                        <DutyInfo>{data.startDate}</DutyInfo>
+                        <DutyInfo className="state">{data.startDate}</DutyInfo>
                         {data.status == "대기"
                           ? `승인 ${data.status}`
                           : `${data.status} 완료`}
@@ -198,19 +202,25 @@ const DutyIcon = styled.div`
   width: 15px;
   height: 15px;
   border-radius: 50px;
-  background-color: ${(props) => props.theme.pointColor.blue};
+  background-color: ${(props) => props.theme.pointColor.yellow};
 `;
 const AnnualIcon = styled.div`
   width: 15px;
   height: 15px;
   border-radius: 50px;
-  background-color: ${(props) => props.theme.pointColor.yellow};
+  background-color: ${(props) => props.theme.pointColor.blue};
 `;
 const StanByIcon = styled.div`
   width: 15px;
   height: 15px;
   border-radius: 50px;
   background-color: ${(props) => props.theme.pointColor.gray};
+`;
+const RejectIcon = styled.div`
+  width: 15px;
+  height: 15px;
+  border-radius: 50px;
+  background-color: ${(props) => props.theme.pointColor.red};
 `;
 const DutyInfo = styled.div`
   color: rgba(12, 12, 12, 1);
