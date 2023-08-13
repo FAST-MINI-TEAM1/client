@@ -243,7 +243,7 @@ const StyeldCalendar = styled(ReactCalendar)`
       color: ${(props) => props.theme.pointColor.green};
       background-color: ${(props) => props.theme.pointColor.rightGray};
     }
-    $:enabled:focus {
+    &:enabled:focus {
       color: ${(props) => props.theme.pointColor.green};
       background-color: ${(props) => props.theme.pointColor.rightGray};
     }
