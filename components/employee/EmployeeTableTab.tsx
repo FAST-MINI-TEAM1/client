@@ -73,7 +73,6 @@ function EmployeeTableTab() {
 const StyledTabs = styled(Tabs)`
   color: #090909;
   font-size: 16px;
-  // text-shadow: 0px 3px 7px rgba(81, 81, 81, 0.25);
   h1 {
     color: black;
     font-size: 16px;
@@ -111,6 +110,7 @@ const Layout = styled.div`
   flex-direction: row;
   position: relative;
   justify-content: space-between;
+  text-shadow: 0px 3px 4px rgba(81, 81, 81, 0.25);
 `;
 
 const CalendarContainer = styled.div`
