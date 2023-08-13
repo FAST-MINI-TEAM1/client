@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import ReactCalendar from "react-calendar";
 import { IEmployeeMonthly } from "@lib/interface/EmployeeInterface";
 import { userscheduleApi } from "@lib/api/employeeAPI";
+import { OnArgs, TileArgs } from "react-calendar/dist/cjs/shared/types";
 
 interface EmployeeTableTabProps {
   selectedTap: string;
@@ -114,14 +115,16 @@ function Calendar({ selectedTap }: EmployeeTableTabProps) {
   return (
     <>
       <StyeldCalendar
-        onActiveStartDateChange={({ activeStartDate }: any) =>
+        onActiveStartDateChange={({ activeStartDate }: OnArgs) =>
           handleChange(activeStartDate)
         }
-        formatDay={(locale: any, date: any) => moment(date).format("DD")}
+        formatDay={(__locale: string | undefined, date: Date) =>
+          moment(date).format("DD")
+        }
         value={value}
         allowPartialRange={true}
         className="mx-auto w-full text-sm border-b"
-        tileContent={(date: any) => {
+        tileContent={({ date }: TileArgs) => {
           if (stanByDate.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
             return (
               <>
