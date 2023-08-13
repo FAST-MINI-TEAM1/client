@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import ReactCalendar from "react-calendar";
-// import "react-calendar/dist/Calendar.css";
 import { IEmployeeMonthly } from "@lib/interface/EmployeeInterface";
 import { userscheduleApi } from "@lib/api/employeeAPI";
 
@@ -12,11 +11,10 @@ interface EmployeeTableTabProps {
 
 function Calendar({ selectedTap }: EmployeeTableTabProps) {
   const moment = require("moment");
-  const [value, onChange] = useState(new Date());
+  const [value] = useState(new Date());
   // 월별 조회
   const [scheduleDatas, setScheduleDatas] = useState<IEmployeeMonthly[]>([]);
 
-  const [activeStartDate, setActiveStartDate] = useState(new Date());
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
 
@@ -60,6 +58,16 @@ function Calendar({ selectedTap }: EmployeeTableTabProps) {
     fetchData();
   }, [selectedTap, month, year]);
 
+  // month,year 가져오기
+  const handleChange = (activeStartDate: Date | null) => {
+    if (activeStartDate) {
+      const activeYear = new Date(activeStartDate).getFullYear();
+      const activeMonth = new Date(activeStartDate).getMonth() + 1;
+      setYear(activeYear);
+      setMonth(activeMonth);
+    }
+  };
+
   //DateRange 계산하는 로직
   const getDateRange = (startDate: string, endDate: string) => {
     const start = new Date(startDate);
@@ -73,27 +81,39 @@ function Calendar({ selectedTap }: EmployeeTableTabProps) {
   };
 
   // 달력에 일정 mark
-  const markDate = scheduleDatas.map((row) =>
-    getDateRange(`${row.startDate}`, `${row.endDate}`),
-  );
+  //대기 상태
+  const markStanbyDate = scheduleDatas
+    .filter((item) => {
+      if (item.status == "대기") {
+        return item.status == "대기";
+      }
+    })
+    .map((item) => getDateRange(`${item.startDate}`, `${item.endDate}`));
+  //승인 상태
+  const markAprovedDate = scheduleDatas
+    .filter((item) => {
+      if (item.status == "승인") {
+        return item.status == "승인";
+      }
+    })
+    .map((item) => getDateRange(`${item.startDate}`, `${item.endDate}`));
+  //반려 상태
+  const markRejectedDate = scheduleDatas
+    .filter((item) => {
+      if (item.status == "반려") {
+        return item.status == "반려";
+      }
+    })
+    .map((item) => getDateRange(`${item.startDate}`, `${item.endDate}`));
 
-  // 달력에 mark 될 날짜 합쳐서 새로운 배열 생성
-  const allDate: string[] = ([] as string[]).concat(...markDate);
+  // 달력에 mark 될 날짜 합쳐서 새로운 배열 생성 (대기/승인/반려)
+  const stanByDate: string[] = ([] as string[]).concat(...markStanbyDate);
+  const aprovedDate: string[] = ([] as string[]).concat(...markAprovedDate);
+  const rejectedDate: string[] = ([] as string[]).concat(...markRejectedDate);
 
-  // month 가져오기
-  const handleChange = (activeStartDate: Date | null) => {
-    if (activeStartDate) {
-      const activeYear = new Date(activeStartDate).getFullYear();
-      const activeMonth = new Date(activeStartDate).getMonth() + 1;
-      setYear(activeYear);
-      setMonth(activeMonth);
-    }
-  };
-  console.log("Current month!:", month);
   return (
     <>
       <StyeldCalendar
-        // onChange={onchange}
         onActiveStartDateChange={({ activeStartDate }: any) =>
           handleChange(activeStartDate)
         }
@@ -102,7 +122,20 @@ function Calendar({ selectedTap }: EmployeeTableTabProps) {
         allowPartialRange={true}
         className="mx-auto w-full text-sm border-b"
         tileContent={({ date }) => {
-          if (allDate.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+          if (stanByDate.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+            return (
+              <>
+                <div className="flex justify-center items-center absoluteDiv">
+                  <div className="dot">
+                    <StanByIcon />
+                  </div>
+                </div>
+              </>
+            );
+          }
+          if (
+            aprovedDate.find((x) => x === moment(date).format("YYYY-MM-DD"))
+          ) {
             return (
               <>
                 <div className="flex justify-center items-center absoluteDiv">
@@ -114,6 +147,19 @@ function Calendar({ selectedTap }: EmployeeTableTabProps) {
                     ) : (
                       <DutyIcon />
                     )}
+                  </div>
+                </div>
+              </>
+            );
+          }
+          if (
+            rejectedDate.find((x) => x === moment(date).format("YYYY-MM-DD"))
+          ) {
+            return (
+              <>
+                <div className="flex justify-center items-center absoluteDiv">
+                  <div className="dot">
+                    <RejectIcon />
                   </div>
                 </div>
               </>
@@ -157,10 +203,15 @@ const StyeldCalendar = styled(ReactCalendar)`
 
   .react-calendar__month-view__weekdays {
     text-align: center;
-    font-weight: 400;
-    font-size: 1em;
+    font-weight: 600;
+    font-size: 16px;
+    color: #707070;
     &__weekday {
       padding: 1em;
+    }
+    abbr {
+      text-shadow: 0px 3px 4px rgba(81, 81, 81, 0.25);
+      text-decoration: none;
     }
   }
 
@@ -187,6 +238,7 @@ const StyeldCalendar = styled(ReactCalendar)`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    text-shadow: 0px 3px 4px rgba(81, 81, 81, 0.25);
     &:enabled:hover {
       color: ${(props) => props.theme.pointColor.green};
       background-color: ${(props) => props.theme.pointColor.rightGray};
@@ -227,6 +279,20 @@ const AllIcon = styled.div`
   border-radius: 50px;
   margin: 34px auto;
   background-color: ${(props) => props.theme.pointColor.green};
+`;
+const RejectIcon = styled.div`
+  width: 12px;
+  height: 12px;
+  border-radius: 50px;
+  margin: 34px auto;
+  background-color: ${(props) => props.theme.pointColor.red};
+`;
+const StanByIcon = styled.div`
+  width: 12px;
+  height: 12px;
+  border-radius: 50px;
+  margin: 34px auto;
+  background-color: ${(props) => props.theme.pointColor.gray};
 `;
 
 export default Calendar;
