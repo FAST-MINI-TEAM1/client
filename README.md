@@ -1031,3 +1031,47 @@ interface ResponseValue {
   "error": null
 }
 ```
+
+### 개인 신청내역 월별조회
+
+- 시원 전용 API 입니다.
+
+```curl
+curl http://3.34.110.127/api/user/main?year={year}&month={month}
+  \ -X 'GET'
+  \ -H 'Authorization: accessToken'
+```
+
+요청 데이터 타입 및 예시:
+
+- 없음
+
+응답 데이터 타입 및 예시:
+
+```ts
+interface ResponseValue {
+  id: number;
+  orderType: string;
+  startDate: string;
+  endDate: string;
+  status: string;
+  reason: string;
+  category: string;
+  etc: string;
+}
+```
+
+```json
+[
+  {
+    "id" : 21,
+    "orderType"  : “당직”,
+    "startDate"  :  “2023-11-20”,
+    "endDate"  :  “2023-11-20”,
+    "status"  : “승인”,
+    "reason" : “이유”,
+    "category"  : “경조사”,
+    "etc" : “특이사항입니다.”
+  }
+]
+```
