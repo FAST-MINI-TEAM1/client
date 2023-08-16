@@ -5,13 +5,14 @@ interface ILogin {
   email: string;
   password: string;
 }
-export const login = ({ email, password }: ILogin) => {
-  try {
-    const result = userClient.post("/api/login", { email, password });
-    return result;
-  } catch (e) {
-    console.error(e);
-  }
+export const login = async ({ email, password }: ILogin) => {
+  await userClient
+    .post("/api/login", { email, password }, { withCredentials: true })
+    .then((res) => {
+      console.log(res.data.response);
+      localStorage.setItem("Token", res.data.response.accessToken);
+      localStorage.setItem("empName", res.data.response.empName);
+    }).catch(e => console.error(e, '로그인 실패'));
 };
 
 // 회원가입(POST)
