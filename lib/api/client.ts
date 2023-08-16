@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-const BASE_URL = process.env.NODE_ENV;
+const BASE_URL = "http://3.34.110.127";
 
 export const accessToken =
   typeof window !== "undefined" && localStorage.getItem("Token");
