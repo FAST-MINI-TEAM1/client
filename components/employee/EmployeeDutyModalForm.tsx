@@ -79,8 +79,8 @@ function EmployeeDutyModalForm({
         category: null,
         etc: inputEtc,
       });
-      const Data = res?.data;
-      if (!Data.success) {
+      const orderData = res?.data;
+      if (!orderData.success) {
         console.error("요청 실패");
         return;
       }
@@ -103,8 +103,8 @@ function EmployeeDutyModalForm({
         category: inputCategory,
         etc: inputEtc,
       });
-      const Data = res?.data;
-      if (!Data.success) {
+      const orderData = res?.data;
+      if (!orderData.success) {
         console.error("요청 실패");
         return;
       }
