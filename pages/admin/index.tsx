@@ -21,10 +21,14 @@ function Approval() {
         setPendingOrders(data.response.content);
         setTotalPending(data.response.totalElements);
       } catch (error) {
+        
         alert("결재 대기 조회 오류 발생하였습니다!");
       }
     };
     getPendingList();
+    return () => {
+      getPendingList();
+    };
   }, [pendingPage]);
 
   useEffect(() => {

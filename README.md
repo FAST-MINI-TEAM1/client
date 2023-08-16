@@ -1,5 +1,8 @@
 # WORK FAIRY(근태 요정)
 
+<a href="https://workfairy.netlify.app">배포 페이지</a>
+<a href="https://github.com/FAST-MINI-TEAM1/client-team1">github</a>
+
 # 👩‍🚀 프론트엔드 개발팀
 
 <table>
