@@ -112,7 +112,7 @@
 **월별 사용대장**
 <img width="1312" src="https://github.com/FAST-MINI-TEAM1/client-team1/assets/77140851/b00451bb-fefe-4e02-ab0a-c57c24c68bf3" alt="관리자월별">
 **사원 조회 페이지**
-<img src='https://github.com/FAST-MINI-TEAM1/client-team1/assets/128155681/5306036e-00ce-4743-b64d-4fc80d7bbd1f' width=1678 alt='관리자조회'/>
+<img width="1312" src="https://github.com/FAST-MINI-TEAM1/client-team1/assets/128155681/aed196c9-03b1-474f-b079-69fb1005c793" alt='관리자조회'/>
 
 <br />
 <br />
