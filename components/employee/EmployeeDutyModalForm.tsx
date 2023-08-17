@@ -84,6 +84,7 @@ function EmployeeDutyModalForm({
       setInputCategory("");
       setInputReason("");
       setInputEtc("");
+      window.location.reload();
     }
   };
 
@@ -113,6 +114,7 @@ function EmployeeDutyModalForm({
       setInputCategory("");
       setInputReason("");
       setInputEtc("");
+      window.location.reload();
     }
   };
 

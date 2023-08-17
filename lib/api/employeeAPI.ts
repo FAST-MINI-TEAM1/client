@@ -1,6 +1,6 @@
-import { AxiosResponse } from "axios";
 import { userClient } from "./client";
 import { IEmployeeOrder } from "@lib/interface/EmployeeInterface";
+import { AxiosResponse } from "axios";
 
 // 연차,당직 등록(POST)
 export const employeeOrderApi = ({
