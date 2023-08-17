@@ -58,6 +58,16 @@ function EmployeeDutyModalForm({
     setIsModalOpen(true);
   };
 
+  const resetHandler = () => {
+    setListUpdate((prev: boolean) => !prev);
+    setIsModalOpen(false);
+    setStartAt("");
+    setEndAt("");
+    setInputCategory("");
+    setInputReason("");
+    setInputEtc("");
+  };
+
   // 당직 등록 API
   const dutyOrder = async () => {
     try {
@@ -69,22 +79,16 @@ function EmployeeDutyModalForm({
         category: null,
         etc: inputEtc,
       });
-      const Data = res?.data;
-      if (!Data.success) {
-        console.error("서버로 부터 응답, 에러 발생");
+      const orderData = res?.data;
+      if (!orderData.success) {
+        console.error("요청 실패");
         return;
       }
     } catch (error) {
-      console.error("서버로 부터 응답 없음", error);
+      console.error("서버로 데이터 등록 실패", error);
+      alert("등록 실패 : 날짜 미기입");
     } finally {
-      setListUpdate((prev: boolean) => !prev);
-      setIsModalOpen(false);
-      setStartAt("");
-      setEndAt("");
-      setInputCategory("");
-      setInputReason("");
-      setInputEtc("");
-      window.location.reload();
+      resetHandler();
     }
   };
 
@@ -99,22 +103,16 @@ function EmployeeDutyModalForm({
         category: inputCategory,
         etc: inputEtc,
       });
-      const Data = res?.data;
-      if (!Data.success) {
-        console.error("서버로 부터 응답, 에러 발생");
+      const orderData = res?.data;
+      if (!orderData.success) {
+        console.error("요청 실패");
         return;
       }
     } catch (error) {
-      console.error("서버로 부터 응답 없음", error);
+      console.error("서버로 데이터 등록 실패", error);
+      alert("등록 실패 : 날짜 미기입");
     } finally {
-      setListUpdate((prev: boolean) => !prev);
-      setIsModalOpen(false);
-      setStartAt("");
-      setEndAt("");
-      setInputCategory("");
-      setInputReason("");
-      setInputEtc("");
-      window.location.reload();
+      resetHandler();
     }
   };
 
@@ -173,6 +171,10 @@ function EmployeeDutyModalForm({
                 {
                   value: "생리휴가",
                   label: "생리휴가",
+                },
+                {
+                  value: "기타",
+                  label: "기타",
                 },
               ]}
             />

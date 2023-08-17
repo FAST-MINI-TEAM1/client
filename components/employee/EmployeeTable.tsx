@@ -48,13 +48,7 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
   return (
     <>
       <EmployeeDutyTable>
-        {selectedTap == "전체" ? (
-          <h1>전체 결재 현황</h1>
-        ) : selectedTap == "연차" ? (
-          <h1>연차 결재 현황</h1>
-        ) : (
-          <h1>당직 결재 현황</h1>
-        )}
+        <h1>{selectedTap} 결재 현황</h1>
         {selectedTap == "전체" ? (
           <ItemContainer>
             <ul>

@@ -123,7 +123,6 @@ function Calendar({ selectedTap }: EmployeeTableTabProps) {
         }
         value={value}
         allowPartialRange={true}
-        className="mx-auto w-full text-sm border-b"
         tileContent={({ date }: TileArgs) => {
           if (stanByDate.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
             return (
