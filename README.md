@@ -1,6 +1,6 @@
 # WORK FAIRY(근태 요정)
 
-<a href="https://workfairy.netlify.app">배포 페이지</a>
+<a href="https://workfairy.netlify.app">배포 페이지</a> <br />
 <a href="https://github.com/FAST-MINI-TEAM1/client-team1">github</a>
 
 # 👩‍🚀 프론트엔드 개발팀
@@ -78,39 +78,39 @@
 ### 로그인 페이지
 
 **사용자별 로그인**
-<img src='https://github.com/FAST-MINI-TEAM1/client-team1/assets/128155681/f3cc3cb0-905b-4444-af7d-50583a8fbde5' alt='로그인메인' />
+<img width="1573" src="https://github.com/FAST-MINI-TEAM1/client-team1/assets/77140851/d55fe58d-49d3-46a3-b171-374450b240d8" alt="로그인 메인">
 **회원가입**
-<img src='https://github.com/FAST-MINI-TEAM1/client-team1/assets/128155681/82d1bea6-0e83-4671-980d-d95be0ab8c1d' alt='사원회원가입'>
+<img width="1607" src="https://github.com/FAST-MINI-TEAM1/client-team1/assets/77140851/5a210972-11c3-43ae-af26-49853d9f7ec9" alt="사원회원가입">
 **사원용 로그인**
-<img src='https://github.com/FAST-MINI-TEAM1/client-team1/assets/128155681/3974590e-4f42-4aaf-b876-75d2f19e39c5' alt='사원로그인' />
+<img width="1577" src="https://github.com/FAST-MINI-TEAM1/client-team1/assets/77140851/12d09602-ed48-4be8-a565-be074f7bbbf3" alt="사원 로그인 페이지">
 **관리자용 로그인**
-<img src='https://github.com/FAST-MINI-TEAM1/client-team1/assets/128155681/97e4d8f6-6fd9-4114-8059-daea8571b2b8' alt='관리자로그인' />
+<img width="1611" src="https://github.com/FAST-MINI-TEAM1/client-team1/assets/77140851/65ec410c-aed5-420f-961e-753c401feb0a" alt="관리자 로그인">
 
 <hr />
 
 ### 사원 페이지
 
 **메인페이지**
-<img src='https://github.com/FAST-MINI-TEAM1/client-team1/assets/128155681/e62ffa69-d149-40ab-806a-7e85a15f9ff4' width=1678 alt='사원용메인' />
+<img width="1441" src="https://github.com/FAST-MINI-TEAM1/client-team1/assets/77140851/7738a8ae-c270-4f29-ae07-965839cf2a0f" alt="사원 메인">
 **연차/당직 등록**
-<img src='https://github.com/FAST-MINI-TEAM1/client-team1/assets/128155681/f44f9ef5-115a-41fb-8057-9e5f5e4c6c49' width=1678 alt='사원용모달' />
+<img width="1494" src="https://github.com/FAST-MINI-TEAM1/client-team1/assets/77140851/91075e6b-5516-404b-8ba3-123ea3f0dffb" alt="연차등록">
 **결재 내역 페이지**
-<img src='https://github.com/FAST-MINI-TEAM1/client-team1/assets/128155681/cc35543d-f8e9-4637-8b79-9822b65d08fa' width=1678 alt='사원결재내역' />
+<img width="1363" src="https://github.com/FAST-MINI-TEAM1/client-team1/assets/77140851/586c6576-e403-4fdd-866a-60dabf11ff06" alt="사원결재내역">
 **결재 상세 내역**
-<img src='https://github.com/FAST-MINI-TEAM1/client-team1/assets/128155681/d9c59432-da5e-4b92-aef6-b74675e0aa45' width=1678 alt='사원내역모달'>
+<img width="1363" src="https://github.com/FAST-MINI-TEAM1/client-team1/assets/77140851/35bbac1e-58be-4476-8635-987ed89e17b9" alt="사원 결재 상세">
 
 <hr />
 
 ### 관리자 페이지
 
 **요청 관리 페이지**
-<img src='https://github.com/FAST-MINI-TEAM1/client-team1/assets/128155681/f5fc8376-8f64-437d-8b47-e6a5326617e9' width=1678 alt='관리자메인'/>
+<img width="1347" src="https://github.com/FAST-MINI-TEAM1/client-team1/assets/77140851/486c03d9-5988-4fc7-9def-4cd49474678e" alt="관리자메인">
 **결재 처리 창**
-<img src='https://github.com/FAST-MINI-TEAM1/client-team1/assets/128155681/b1c4d936-2ce0-471e-890e-f0e703586975' width=1678 alt='관리자모달'/>
+<img width="1346" src="https://github.com/FAST-MINI-TEAM1/client-team1/assets/77140851/66688dba-177d-4bc4-83e2-909127ec2024" alt="관리자모달">
 **일별 사용대장**
-<img src='https://github.com/FAST-MINI-TEAM1/client-team1/assets/128155681/04740eae-d35b-446f-9b58-bfc445a1a971' width=1678 alt='관리자일별'/>
+<img width="1305" src="https://github.com/FAST-MINI-TEAM1/client-team1/assets/77140851/757ede42-260e-49ca-8879-532559329659" alt="관리자일별" >
 **월별 사용대장**
-<img src='https://github.com/FAST-MINI-TEAM1/client-team1/assets/128155681/bbc5296e-6e4f-437e-9f70-cb1e8ed5d589' width=1678 alt='관리자월별'/>
+<img width="1312" src="https://github.com/FAST-MINI-TEAM1/client-team1/assets/77140851/b00451bb-fefe-4e02-ab0a-c57c24c68bf3" alt="관리자월별">
 **사원 조회 페이지**
 <img src='https://github.com/FAST-MINI-TEAM1/client-team1/assets/128155681/5306036e-00ce-4743-b64d-4fc80d7bbd1f' width=1678 alt='관리자조회'/>
 
