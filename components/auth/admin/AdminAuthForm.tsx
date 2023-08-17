@@ -19,15 +19,16 @@ function AdminAuthForm() {
     }
   }, []);
 
-  const onLogin = async (event: FormEvent) => {
-    event.preventDefault();
-    await login({ email, password })?.then((res) => {
-      localStorage.setItem("Token", res.data.response.accessToken);
+  const onLogin = useCallback(
+    (event: FormEvent) => {
+      event.preventDefault();
+      login({ email, password });
       router.push({
         pathname: "/admin",
       });
-    });
-  };
+    },
+    [email, password, router],
+  );
 
   // Render
   return (
