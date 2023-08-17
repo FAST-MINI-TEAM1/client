@@ -47,7 +47,6 @@ function Monthly() {
     <>
       <AdminHeader />
       <MonthlySection>
-        <h2>월별 사용 대장</h2>
         <Container>
           <StyledTabs
             defaultActiveKey="1"
@@ -82,6 +81,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 50px 0 0;
+  margin-bottom: 30px;
 `;
 
 const StyledTabs = styled(Tabs)`

@@ -1,4 +1,5 @@
-import DataTabel from "@components/common/DataTable";
+/* eslint-disable react-hooks/exhaustive-deps */
+import DataTable from "@components/common/DataTable";
 import Header from "@components/common/Header";
 import { useCallback, useEffect, useState } from "react";
 import { styled } from "styled-components";
@@ -35,7 +36,7 @@ function History() {
       <Header />
       <Container>
         <div className="details">
-          <DataTabel
+          <DataTable
             tableTitle={"결재 대기 내역"}
             type={"employee"}
             dataSource={datas.filter((data) => {
@@ -45,7 +46,7 @@ function History() {
         </div>
 
         <div className="details">
-          <DataTabel
+          <DataTable
             tableTitle={"결재 완료 내역"}
             type={"employee"}
             dataSource={datas.filter((data) => {
