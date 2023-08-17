@@ -16,29 +16,24 @@ function Approval() {
 
   useEffect(() => {
     const getPendingList = async () => {
-      try {
-        const { data } = await getPendingOrders(pendingPage, 10);
-        setPendingOrders(data.response.content);
-        setTotalPending(data.response.totalElements);
-      } catch (error) {
-        alert("결재 대기 조회 오류 발생하였습니다!");
-      }
+      await getPendingOrders(pendingPage, 10)
+        .then((res) => {
+          setPendingOrders(res.data.response.content);
+          setTotalPending(res.data.response.totalElements);
+        })
+        .catch(() => alert("결재 목록 실패"));
     };
     getPendingList();
-    return () => {
-      getPendingList();
-    };
   }, [pendingPage]);
 
   useEffect(() => {
     const getCompletedList = async () => {
-      try {
-        const { data } = await getCompletedOrders(completePage, 10);
-        setCompletedOrders(data.response.content);
-        setTotalComplete(data.response.totalElements);
-      } catch (error) {
-        alert("결재 완료 조회 오류 발생하였습니다!");
-      }
+      await getCompletedOrders(completePage, 10)
+        .then((res) => {
+          setCompletedOrders(res.data.response.content);
+          setTotalComplete(res.data.response.totalElements);
+        })
+        .catch(() => alert("결재 목록 실패"));
     };
     getCompletedList();
   }, [completePage]);
