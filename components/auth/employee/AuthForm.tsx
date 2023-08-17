@@ -90,19 +90,10 @@ function AuthForm({ type }: IAuthFormProps) {
   );
 
   const onLogin = useCallback(
-    async (event: FormEvent) => {
-      try {
-        event.preventDefault();
-        await login({ email, password })?.then((res) => {
-          localStorage.setItem("Token", res.data.response.accessToken);
-          localStorage.setItem("empName", res.data.response.empName);
-          router.push({
-            pathname: "/employee",
-          });
-        });
-      } catch (e) {
-        console.error(e, "로그인 오류!");
-      }
+    (event: FormEvent) => {
+      event.preventDefault();
+      login({ email, password });
+      router.push("/employee");
     },
     [email, password, router],
   );

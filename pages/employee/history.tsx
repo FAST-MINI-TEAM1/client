@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import DataTabel from "@components/common/DataTable";
 import Header from "@components/common/Header";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { employeeListApi } from "@lib/api/employeeAPI";
 import { IDataSourceItem } from "@lib/interface/Admin";
@@ -10,7 +9,7 @@ function History() {
   const [datas, setDatas] = useState<IDataSourceItem[]>([]);
   const [pageSize, setPageSize] = useState(10);
 
-  const setlist = async () => {
+  const setList = useCallback(async () => {
     try {
       const res = await employeeListApi(pageSize);
       const Data = res?.data;
@@ -25,11 +24,11 @@ function History() {
     } catch (error) {
       console.error("서버 응답 없음", error);
     }
-  };
+  }, [pageSize]);
 
   useEffect(() => {
-    setlist();
-  }, []);
+    setList();
+  }, [setList]);
 
   return (
     <>

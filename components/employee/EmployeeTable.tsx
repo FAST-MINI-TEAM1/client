@@ -24,7 +24,7 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
     setDetails(data);
   };
 
-  const setlist = useCallback(async () => {
+  const setList = useCallback(async () => {
     try {
       const res = await employeeListApi(pageSize);
       const Data = res?.data;
@@ -42,8 +42,8 @@ function EmployeeTable({ selectedTap, toggle }: selectedTapProps) {
   }, [pageSize]);
 
   useEffect(() => {
-    setlist();
-  }, [setlist, listUpdate]);
+    setList();
+  }, [setList, listUpdate]);
 
   return (
     <>
