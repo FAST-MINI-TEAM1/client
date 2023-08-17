@@ -8,7 +8,7 @@ export const accessToken =
 const axiosConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
   headers: {
-    "content-type": "application/json",
+    "content-type": "application/json; charset=UTF-8",
   },
 };
 
@@ -24,7 +24,8 @@ const tokenConfig: AxiosRequestConfig = {
 const adminConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
   headers: {
-    "content-type": "application/json",
+    "content-type": "application/json; charset=UTF-8",
+    Accept: "application/json",
     Authorization: accessToken,
   },
 };

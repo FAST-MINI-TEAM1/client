@@ -5,13 +5,15 @@ interface IAdminLogin {
   email: string;
   password: string;
 }
-export const adminLogin = ({ email, password }: IAdminLogin) => {
-  try {
-    const result = adminClient.post("/api/login", { email, password });
-    return result;
-  } catch (e) {
-    console.error(e);
-  }
+export const adminLogin = async ({ email, password }: IAdminLogin) => {
+  await adminClient
+    .post("/api/login", { email, password }, { withCredentials: true })
+    .then((res) => {
+      console.log(res.data.response);
+      localStorage.setItem("Token", res.data.response.accessToken);
+      localStorage.setItem("empName", res.data.response.empName);
+    })
+    .catch((e) => console.error(e, "로그인 실패"));
 };
 
 // 요청 관리 - 결재 처리
