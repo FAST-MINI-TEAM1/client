@@ -1,7 +1,13 @@
 # WORK FAIRY(근태 요정)
 
-<a href="https://workfairy.netlify.app">배포 페이지</a> <br />
-<a href="https://github.com/FAST-MINI-TEAM1/client-team1">github</a>
+<br />
+
+## 프로젝트 소개
+> **주제** : 연차•당직 관리 프로그램<br />
+> **개발 기간** : 2023. 07. 24 ~ 2023. 08. 11<br />
+> **배포 주소** : [DEMO](https://workfairy.netlify.app)
+
+<br />
 
 # 👩‍🚀 프론트엔드 개발팀
 
